@@ -1,4 +1,4 @@
-# WTMP Starter
+# WTMP Starter 2023 q3
 
 Simple boilerplate for [Webpack](https://webpack.js.org/guides/getting-started) powered web development exercises.
 

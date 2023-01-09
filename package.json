@@ -1,5 +1,5 @@
 {
-  "name": "wtmp-starter",
+  "name": "wtmp-examples-2023",
   "version": "1.0.7",
   "description": "Simple boilerplate for webpack powered projects",
   "private": true,
@@ -9,7 +9,7 @@
     "build": "webpack --config webpack.prod.js"
   },
   "keywords": [],
-  "author": "mattpe",
+  "author": "velimah",
   "license": "ISC",
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
