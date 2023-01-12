@@ -3,7 +3,6 @@
 const minGuessValue = 1;
 const maxGuessValue = 100;
 const maxGuesses = 10;
-
 const randomNumber = Math.floor(Math.random() * maxGuessValue) + minGuessValue;
 
 const guesses = document.querySelector('.guesses');
@@ -15,25 +14,27 @@ const guessCounter = document.querySelector('.guess-count');
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
 
-let guessCount = 1;
+let guessCount = 0;
 let resetButton;
+
+let startTime;
 let intervalID;
 
 guessField.focus();
 
 const setGameOver = () => {
+  stop();
+  guessCounter.textContent = 'Total guesses: ' + guessCount;
   guessField.disabled = true;
   guessSubmit.disabled = true;
   resetButton = document.createElement('button');
   resetButton.textContent = 'Start new game';
   document.body.append(resetButton);
   resetButton.addEventListener('click', resetGame);
-
-  stop();
 };
 
 const resetGame = () => {
-  guessCount = 1;
+  guessCount = 0;
 
   const resetParas = document.querySelectorAll('.resultParas p');
   for (const resetPara of resetParas) {
@@ -51,10 +52,11 @@ const resetGame = () => {
 
 };
 
-let startTime;
-let endTime;
+
 
 const checkGuess = () => {
+  guessCount++;
+  console.log(guessCount);
   const userGuess = Number(guessField.value);
   if (guessCount === 1) {
     guesses.textContent = 'Previous guesses: ';
@@ -62,20 +64,17 @@ const checkGuess = () => {
     start();
   }
   guesses.textContent += `${userGuess} `;
-  if (guessCount === 2) {
-  }
 
   if (userGuess === randomNumber) {
     lastResult.textContent = 'Congratulations! You got it right!';
     lastResult.style.backgroundColor = 'green';
     lowOrHi.textContent = '';
-    endTime = Date.now();
     setGameOver();
   } else if (guessCount === maxGuesses) {
     lastResult.textContent = '!!!GAME OVER!!!';
     lowOrHi.textContent = '';
-    endTime = Date.now();
     setGameOver();
+
   } else {
     lastResult.textContent = 'Wrong!';
     lastResult.style.backgroundColor = 'red';
@@ -85,7 +84,6 @@ const checkGuess = () => {
       lowOrHi.textContent = 'Last guess was too high!';
     }
   }
-  guessCount++;
   guessField.value = '';
   guessField.focus();
 };
@@ -94,17 +92,19 @@ guessSubmit.onclick = () => {
   checkGuess();
 };
 
-const clock = () => {
-  const currentTime = Date.now();
-  const totalTime = (currentTime - startTime) / 1000;
-  const totalTimeDecimal = totalTime.toFixed(1);
-  time.textContent = 'Time elapsed: ' + totalTimeDecimal + ' seconds.';
-};
-
 const start = () => {
   intervalID = setInterval(clock, 10);
 };
 
 const stop = () => {
   clearInterval(intervalID);
+};
+
+const clock = () => {
+  const currentTime = Date.now();
+  const totalTime = (currentTime - startTime) / 1000;
+  const totalTimeDecimal = totalTime.toFixed(1);
+  console.log(guessCount);
+  time.textContent = 'Time elapsed: ' + totalTimeDecimal + ' seconds.';
+  guessCounter.textContent = 'Total guesses: ' + guessCount;
 };
