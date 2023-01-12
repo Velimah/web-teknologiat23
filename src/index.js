@@ -30,10 +30,6 @@ const setGameOver = () => {
   resetButton.addEventListener('click', resetGame);
 
   stop();
-  const totalTime = (endTime - startTime) / 1000;
-  const totalTimeDecimal = totalTime.toFixed(1);
-  time.textContent = 'Total time guessing: ' + totalTimeDecimal + ' seconds.';
-  guessCounter.textContent = 'Total guesses: ' + guessCount;
 };
 
 const resetGame = () => {
