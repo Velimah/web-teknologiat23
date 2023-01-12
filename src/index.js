@@ -52,8 +52,6 @@ const resetGame = () => {
 
 };
 
-
-
 const checkGuess = () => {
   guessCount++;
   console.log(guessCount);
