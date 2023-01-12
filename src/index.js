@@ -48,7 +48,7 @@ const resetGame = () => {
   guessField.value = '';
   guessField.focus();
 
-  lastResult.style.backgroundColor = 'white';
+  lastResult.style.backgroundColor = '#dcdcdc';
 
 };
 
@@ -101,7 +101,7 @@ const stop = () => {
 const clock = () => {
   const currentTime = Date.now();
   const totalTime = (currentTime - startTime) / 1000;
-  const totalTimeDecimal = totalTime.toFixed(1);
+  const totalTimeDecimal = totalTime.toFixed(2);
   console.log(guessCount);
   time.textContent = 'Time elapsed: ' + totalTimeDecimal + ' seconds.';
   guessCounter.textContent = 'Total guesses: ' + guessCount;
