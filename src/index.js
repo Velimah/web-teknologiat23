@@ -30,7 +30,7 @@ const setGameOver = () => {
   resetButton.addEventListener('click', resetGame);
 
   stop();
-  const totalTime = (endTime - startTime)/1000;
+  const totalTime = (endTime - startTime) / 1000;
   const totalTimeDecimal = totalTime.toFixed(1);
   time.textContent = 'Total time guessing: ' + totalTimeDecimal + ' seconds.';
   guessCounter.textContent = 'Total guesses: ' + guessCount;
@@ -57,6 +57,7 @@ const resetGame = () => {
 
 let startTime;
 let endTime;
+
 const checkGuess = () => {
   const userGuess = Number(guessField.value);
   if (guessCount === 1) {
@@ -65,7 +66,7 @@ const checkGuess = () => {
     start();
   }
   guesses.textContent += `${userGuess} `;
-  if (guessCount === 2 ){
+  if (guessCount === 2) {
   }
 
   if (userGuess === randomNumber) {
@@ -99,12 +100,12 @@ guessSubmit.onclick = () => {
 
 const clock = () => {
   const currentTime = Date.now();
-  const totalTime = (currentTime - startTime)/1000;
+  const totalTime = (currentTime - startTime) / 1000;
   const totalTimeDecimal = totalTime.toFixed(1);
   time.textContent = 'Time elapsed: ' + totalTimeDecimal + ' seconds.';
 };
 
-const start = () =>{
+const start = () => {
   intervalID = setInterval(clock, 10);
 };
 

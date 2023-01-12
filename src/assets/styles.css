@@ -18,11 +18,13 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 30px -5px;
 }
+
 .form input[type="number"] {
   width: 100px;
   height: 25px;
   margin: 10px;
 }
+
 .form input[type="submit"] {
   padding: 5px;
   width: 100px;
@@ -31,9 +33,11 @@ body {
   border-radius: 5px;
   color: white;
 }
+
 .form input[type="submit"]:hover {
   background-color: rgb(114, 0, 161);
 }
+
 button {
   margin: 10px;
   width: 150px;
@@ -42,9 +46,11 @@ button {
   border-radius: 5px;
   color: white;
 }
+
 button:hover {
   background-color: rgb(114, 0, 161);
 }
+
 .lastResult {
   color: white;
   padding: 3px;
