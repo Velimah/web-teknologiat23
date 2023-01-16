@@ -54,7 +54,7 @@ const checkGuess = () => {
   timer();
 
   iterations.textContent = `Iterations: ${iterationCount}.`;
-  console.log(`Iterations: ${iterationCount}.`);
+  console.log(`Iterations: ${iterationCount}`);
 
   const leastGuesses = guessCountArray.reduce((a, b) => Math.min(a, b));
   console.log(`Min quesses: ${leastGuesses}`);
@@ -79,5 +79,5 @@ const timer = () => {
   const totalTime = (currentTime - startTime) / 1000;
   const totalTimeDecimal = totalTime.toFixed(4);
   time.textContent = `Time elapsed: ${totalTimeDecimal} seconds.`;
-  console.log(`Time elapsed: ${totalTimeDecimal} seconds.`);
+  console.log(`Time elapsed: ${totalTimeDecimal} seconds`);
 };
