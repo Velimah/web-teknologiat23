@@ -9,21 +9,20 @@
 <div class="container">
   <h1>Number guessing game</h1>
 
-  <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if
-    your guess was too high or too low.</p>
+  <p>We have selected a random number between 1 and 100. The program will try to solve it with the least number of guesses.</p>
 
   <div class="form">
-    <label for="guessField">Enter a guess: </label>
-    <input type="number" min="1" max="100" required id="guessField" class="guessField">
-    <input type="submit" value="Submit guess" class="guessSubmit">
+    <label for="iterationField">Enter number of iterations: </label>
+    <input type="number" min="1" max="100000" required id="iterationField" class="iterationField">
+    <input type="submit" value="Start" class="iterationSubmit">
   </div>
 
   <div class="resultParas">
-    <p class="guesses"></p>
-    <p class="lastResult"></p>
-    <p class="lowOrHi"></p>
+    <p class="iterations"></p>
     <p class="time"></p>
-    <p class="guess-count"></p>
+    <p class="min-count"></p>
+    <p class="max-count"></p>
+    <p class="avg-count"></p>
   </div>
 </div>
 </body>
