@@ -1,38 +1,38 @@
 'use strict';
 
 import LunchMenu from './assets/example.json';
-// Test
+
 console.log('lunch menu object', LunchMenu);
 
-const coursesFi = Object.values(LunchMenu.courses).map(course => course.title_fi);
-const coursesEn = Object.values(LunchMenu.courses).map(course => course.title_en);
+const coursesFi = Object.values(LunchMenu.courses).
+  map(course => course.title_fi);
+const coursesEn = Object.values(LunchMenu.courses).
+  map(course => course.title_en);
 
-const textBox = document.getElementById("menu");
-const randomCourseBox = document.getElementById("random-course");
-const languageButton = document.getElementById("language-button");
-const sortButton = document.getElementById("sort-button");
-const randomButton = document.getElementById("random-button");
+const textBox = document.getElementById('menu');
+const randomCourseBox = document.getElementById('random-course');
+const languageButton = document.getElementById('language-button');
+const sortButton = document.getElementById('sort-button');
+const randomButton = document.getElementById('random-button');
+
 let fi = true;
 let asc = true;
 
 const showMenu = () => {
-
   textBox.innerHTML = '';
   if (fi === true) {
     for (const course of coursesFi) {
-      let courseText = document.createElement('p');
+      let courseText = document.createElement('li');
       courseText.innerHTML = course;
       textBox.appendChild(courseText);
     }
-
   } else {
     for (const course of coursesEn) {
-      let courseText = document.createElement('p');
+      let courseText = document.createElement('li');
       courseText.innerHTML = course;
       textBox.appendChild(courseText);
     }
   }
-
 };
 
 languageButton.onclick = () => {
@@ -41,7 +41,7 @@ languageButton.onclick = () => {
 };
 
 const sortCourses = (menu, order) => {
-  if (order === "asc") {
+  if (order === 'asc') {
     menu.sort();
   } else {
     menu.reverse();
@@ -50,25 +50,25 @@ const sortCourses = (menu, order) => {
 
 sortButton.onclick = () => {
   if (fi === true && asc === true) {
-    sortCourses(coursesFi, "asc");
+    sortCourses(coursesFi, 'asc');
   } else if (fi === true && asc === false) {
-    sortCourses(coursesFi, "desc");
+    sortCourses(coursesFi, 'desc');
   } else if (fi === false && asc === true) {
-    sortCourses(coursesEn, "asc");
+    sortCourses(coursesEn, 'asc');
   } else {
-    sortCourses(coursesEn, "desc");
+    sortCourses(coursesEn, 'desc');
   }
-
   asc = asc !== true;
   showMenu();
-
 };
 
 const RandomCourse = () => {
   if (fi === true) {
-    randomCourseBox.innerHTML = coursesFi[Math.floor(Math.random() * coursesFi.length)];
+    randomCourseBox.innerHTML = coursesFi[Math.floor(
+      Math.random() * coursesFi.length)];
   } else {
-    randomCourseBox.innerHTML = coursesEn[Math.floor(Math.random() * coursesEn.length)];
+    randomCourseBox.innerHTML = coursesEn[Math.floor(
+      Math.random() * coursesEn.length)];
   }
 };
 
@@ -77,3 +77,4 @@ randomButton.onclick = () => {
 };
 
 showMenu();
+
