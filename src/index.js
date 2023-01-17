@@ -76,18 +76,18 @@ const checkGuess = () => {
     counts[number] = (counts[number] || 0) + 1;
     return counts;
   }, []);
-
+  console.log('frequencyArray', frequency);
   frequency.shift();
 
-  let lowest = Math.min(...frequency);
-  let lowestCount = frequency.indexOf(lowest);
-  console.log(`Least frequent correct answer: ${lowestCount}, count: ${lowest} `);
-  leastCorrect.textContent = `Least frequent correct answer: ${lowestCount}, count: ${lowest}`;
+  let lowestCount = Math.min(...frequency);
+  let lowestNumber = frequency.indexOf(lowestCount) + 1;
+  console.log(`Least frequent correct answer: ${lowestNumber}, count: ${lowestCount} `);
+  leastCorrect.textContent = `Least frequent correct answer: ${lowestNumber}, count: ${lowestCount}`;
 
-  let highest = Math.max(...frequency);
-  let highestCount = frequency.indexOf(highest);
-  console.log(`Most frequent correct answer: ${highestCount}, count: ${highest}`);
-  mostCorrect.textContent = `Most frequent correct answer: ${highestCount}, count: ${highest}`;
+  let highestCount = Math.max(...frequency);
+  let highestNumber = frequency.indexOf(highestCount) + 1;
+  console.log(`Most frequent correct answer: ${highestNumber}, count: ${highestCount}`);
+  mostCorrect.textContent = `Most frequent correct answer: ${highestNumber}, count: ${highestCount}`;
 };
 
 iterationSubmit.onclick = () => {
