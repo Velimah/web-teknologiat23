@@ -20,7 +20,7 @@ const sortByPrice = (array) => {
     array.sort((a, b) => {
     return a.price - b.price;
   });
-  console.log(array);
+  console.log('Sorted by price', array);
 };
 sortByPrice(array);
 */
@@ -44,5 +44,5 @@ console.log('Prices increased by 15%', multiplied);
 const sum = array.reduce((acc, curr) => {
   acc.price += curr.price;
   return acc;
-}, {price: 0});
+});
 console.log('Total cost of menu', sum.price);
