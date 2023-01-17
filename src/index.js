@@ -15,15 +15,15 @@ let validator = (string) => {
 };
 
 const sortedByPrice = array.sort((a, b) => a.price - b.price);
-console.log(sortedByPrice);
+console.log('Sorted by price', sortedByPrice);
 
 const filtered = array.filter(item => item.price <= 5);
-console.log(filtered);
+console.log('Costing max 5e', filtered);
 
 const multiplied = array.map(number => parseFloat((number.price * 1.15).toFixed(2)));
-console.log(multiplied);
+console.log('Prices increased by 15%', multiplied);
 
 const sum = array.reduce((a, b) => ({price: a.price + b.price}));
-console.log(sum);
+console.log('Total cost of menu', sum);
 
 
