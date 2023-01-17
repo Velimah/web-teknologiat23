@@ -15,6 +15,16 @@ let validator = (string) => {
   return regexp.test(string);
 };
 
+/*
+const sortByPrice = (array) => {
+    array.sort((a, b) => {
+    return a.price - b.price;
+  });
+  console.log(array);
+};
+sortByPrice(array);
+*/
+
 const sortedByPrice = array.sort((a, b) => {
   return a.price - b.price;
 });
