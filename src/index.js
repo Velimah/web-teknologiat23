@@ -19,18 +19,18 @@ const checkGuess = () => {
 
   startTime = Date.now();
   let userGuess;
-  let totalArray = [];
-  let guessCountArray = [];
+  const totalArray = [];
+  const guessCountArray = [];
+  const correctAnswerArray = [];
   const iterationCount = Number(iterationField.value);
-  let correctAnswerArray = [];
 
   for (let i = 0; i < iterationCount; i++) {
     console.log('loop number:', i + 1);
 
     let minGuessValue = 1;
     let maxGuessValue = 100;
-    let guessesArray = [];
-    let randomNumber = Math.floor(Math.random() * maxGuessValue) + minGuessValue;
+    const guessesArray = [];
+    const randomNumber = Math.floor(Math.random() * maxGuessValue) + minGuessValue;
 
     while (true) {
       userGuess = Math.floor((minGuessValue + maxGuessValue) / 2);
@@ -72,20 +72,20 @@ const checkGuess = () => {
   console.log('All guess-counts', guessCountArray);
   console.log('Correct numbers', correctAnswerArray);
 
-  let frequency = correctAnswerArray.reduce((counts, number) => {
+  const frequency = correctAnswerArray.reduce((counts, number) => {
     counts[number] = (counts[number] || 0) + 1;
     return counts;
   }, []);
   console.log('frequencyArray', frequency);
   frequency.shift();
 
-  let lowestCount = Math.min(...frequency);
-  let lowestNumber = frequency.indexOf(lowestCount) + 1;
+  const lowestCount = Math.min(...frequency);
+  const lowestNumber = frequency.indexOf(lowestCount) + 1;
   console.log(`Least frequent correct answer: ${lowestNumber}, count: ${lowestCount} `);
   leastCorrect.textContent = `Least frequent correct answer: ${lowestNumber}, count: ${lowestCount}`;
 
-  let highestCount = Math.max(...frequency);
-  let highestNumber = frequency.indexOf(highestCount) + 1;
+  const highestCount = Math.max(...frequency);
+  const highestNumber = frequency.indexOf(highestCount) + 1;
   console.log(`Most frequent correct answer: ${highestNumber}, count: ${highestCount}`);
   mostCorrect.textContent = `Most frequent correct answer: ${highestNumber}, count: ${highestCount}`;
 };
