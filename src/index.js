@@ -15,28 +15,6 @@ let validator = (string) => {
   return regexp.test(string);
 };
 
-for (const MenusForDays of LunchMenu.MenusForDays) {
-  for (const SetMenus of MenusForDays.SetMenus) {
-
-    let someContain = SetMenus.Components.some(element => element.includes("Veg") && validator(element) === true);
-    if (someContain) {
-      console.log('Menus containing vegan items:', SetMenus.Components);
-    }
-
-    let everyContain = SetMenus.Components.every(element => element.includes("Veg") && validator(element) === true);
-    if (everyContain) {
-      console.log('Menus containing only vegan items:', SetMenus.Components);
-    }
-
-    for (const component of SetMenus.Components) {
-
-      if (validator(component) === true && component.includes("Veg")) {
-        console.log('Vegan food items:', component);
-      }
-    }
-  }
-}
-
 /*
 const sortByPrice = (array) => {
     array.sort((a, b) => {
@@ -46,7 +24,6 @@ const sortByPrice = (array) => {
 };
 sortByPrice(array);
 */
-
 
 const filtered = array.filter(item => {
   return item.price <= 5;
@@ -67,8 +44,38 @@ const multiplied = array.map(item => {
 });
 console.log('Prices increased by 15%:', multiplied);
 
-
 const sortedByPrice = array.sort((a, b) => {
   return a.price - b.price;
 });
 console.log('Sorted by price:', sortedByPrice);
+
+// Menus containing vegan items
+for (const MenusForDays of LunchMenu.MenusForDays) {
+  for (const SetMenus of MenusForDays.SetMenus) {
+    let someContain = SetMenus.Components.some(element => element.includes("Veg") && validator(element) === true);
+    if (someContain) {
+      console.log('Menus containing vegan items:', SetMenus.Components);
+    }
+  }
+}
+
+// Menus containing only vegan items
+for (const MenusForDays of LunchMenu.MenusForDays) {
+  for (const SetMenus of MenusForDays.SetMenus) {
+    let everyContain = SetMenus.Components.every(element => element.includes("Veg") && validator(element) === true);
+    if (everyContain) {
+      console.log('Menus containing only vegan items:', SetMenus.Components);
+    }
+  }
+}
+
+// All vegan food items
+for (const MenusForDays of LunchMenu.MenusForDays) {
+  for (const SetMenus of MenusForDays.SetMenus) {
+    for (const component of SetMenus.Components) {
+      if (validator(component) === true && component.includes("Veg")) {
+        console.log('Vegan food items:', component);
+      }
+    }
+  }
+}
