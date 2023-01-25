@@ -6,11 +6,11 @@ import {showFazerMenu} from "./modules/FazerData/fazer-data";
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
 const restaurantFazer = document.getElementById('restaurant-fazer');
 const languageButton = document.getElementById('language-button');
-const glutenButton = document.getElementById('vegan-button');
+const glutenButton = document.getElementById('gluten-button');
 
 let sodexo = true;
 let finnish = true;
-let veg = false;
+let gluten = false;
 
 //let ascending = true;
 
@@ -19,11 +19,11 @@ let validator = (string) => {
   return regexp.test(string);
 };
 
-showMenu(finnish);
+showMenu(finnish, gluten);
 
 restaurantSodexo.onclick = () => {
-    sodexo = true;
-    showMenus();
+  sodexo = true;
+  showMenus();
 };
 restaurantFazer.onclick = () => {
   sodexo = false;
@@ -33,34 +33,34 @@ restaurantFazer.onclick = () => {
 languageButton.onclick = () => {
   if (finnish === true) {
     finnish = false;
-    languageButton.innerHTML='English';
-    glutenButton.innerHTML='Gluten free';
+    languageButton.innerHTML = 'English';
+    glutenButton.innerHTML = 'Gluten free';
     showMenus();
   } else {
     finnish = true;
-    languageButton.innerHTML='Suomi';
-    glutenButton.innerHTML='Gluteiiniton';
+    languageButton.innerHTML = 'Suomi';
+    glutenButton.innerHTML = 'Gluteiiniton';
     showMenus();
   }
 };
 
 glutenButton.onclick = () => {
-  if (veg === true) {
-    veg = false;
-    glutenButton.style.backgroundColor='#95db92';
+  if (gluten === true) {
+    gluten = false;
+    glutenButton.style.backgroundColor = '#95db92';
     showMenus();
   } else {
-    veg = true;
-    glutenButton.style.backgroundColor='#1AE312FF';
+    gluten = true;
+    glutenButton.style.backgroundColor = '#1AE312FF';
     showMenus();
   }
 };
 
 const showMenus = () => {
   if (sodexo === true) {
-    showMenu(finnish, veg);
+    showMenu(finnish, gluten);
   } else {
-    showFazerMenu(finnish, veg);
+    showFazerMenu(finnish, gluten);
   }
 };
 
