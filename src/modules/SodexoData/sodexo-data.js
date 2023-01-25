@@ -5,7 +5,6 @@ import {validator} from "../../index";
 
 const sodexoTextBox = document.getElementById('container');
 const randomCourseBox = document.getElementById('random-course');
-//const sodexoSortButton = document.getElementById('sort-button');
 
 const showMenu = (finnish, gluten) => {
   sodexoTextBox.innerHTML = '';

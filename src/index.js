@@ -13,8 +13,6 @@ let sodexo = true;
 let finnish = true;
 let gluten = false;
 
-//let ascending = true;
-
 let validator = (string) => {
   const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöå0-9-/,()*\s]{3,100}$/;
   return regexp.test(string);
@@ -40,7 +38,7 @@ languageButton.onclick = () => {
   } else {
     finnish = true;
     languageButton.innerHTML = 'Suomi';
-    glutenButton.innerHTML = 'Gluteiiniton';
+    glutenButton.innerHTML = 'Gluteeniton';
     showMenus();
   }
 };
@@ -68,8 +66,12 @@ randomButton.onclick = () => {
 const showMenus = () => {
   if (sodexo === true) {
     showMenu(finnish, gluten);
+    restaurantSodexo.style.backgroundColor = '#1AE312FF';
+    restaurantFazer.style.backgroundColor = '#95db92';
   } else {
     showFazerMenu(finnish, gluten);
+    restaurantSodexo.style.backgroundColor = '#95db92';
+    restaurantFazer.style.backgroundColor = '#1AE312FF';
   }
 };
 
