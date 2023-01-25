@@ -4,9 +4,8 @@ import SodexoMenu from './assets/sodexo-week-data.json';
 import {validator} from "../../index";
 
 const sodexoTextBox = document.getElementById('container');
-//const randomCourseBox = document.getElementById('random-course');
+const randomCourseBox = document.getElementById('random-course');
 //const sodexoSortButton = document.getElementById('sort-button');
-//const sodexoRandomButton = document.getElementById('random-button');
 
 const showMenu = (finnish, gluten) => {
   sodexoTextBox.innerHTML = '';
@@ -67,44 +66,18 @@ const showMenu = (finnish, gluten) => {
   }
 };
 
-
-/*
-const sortCourses = (menu, order) => {
-  if (order === 'asc') {
-    menu.sort();
-  } else {
-    menu.reverse();
-  }
-};
-
 const randomCourse = (finnish) => {
-  if (finnish === true) {
-    randomCourseBox.innerHTML = coursesFi[Math.floor(
-      Math.random() * coursesFi.length)];
-  } else {
-    randomCourseBox.innerHTML = coursesEn[Math.floor(
-      Math.random() * coursesEn.length)];
-  }
+
+  const courses = SodexoMenu.mealdates.map(day => {
+
+    if (finnish === true) {
+      return Object.values(day.courses).map(course => course.title_fi);
+    } else {
+      return Object.values(day.courses).map(course => course.title_en);
+    }
+  }).flat();
+  randomCourseBox.innerHTML = courses[Math.floor(Math.random() * courses.length)];
 };
 
-sodexoSortButton.onclick = (ascending) => {
-  if (finnish === true && ascending === true) {
-    sortCourses(coursesFi, 'asc');
-  } else if (finnish === true && ascending === false) {
-    sortCourses(coursesFi, 'desc');
-  } else if (finnish === false && ascending === true) {
-    sortCourses(coursesEn, 'asc');
-  } else {
-    sortCourses(coursesEn, 'desc');
-  }
-  ascending = ascending !== true;
-  showMenu();
-};
-
-sodexoRandomButton.onclick = () => {
-  randomCourse();
-};
-*/
-
-export {showMenu};
+export {showMenu, randomCourse};
 

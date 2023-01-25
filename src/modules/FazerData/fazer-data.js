@@ -5,7 +5,7 @@ import FazerMenuEn from './assets/fazer-week-example-en.json';
 import {validator} from "../../index";
 
 const fazerTextBox = document.getElementById('container');
-
+const randomCourseBox = document.getElementById('random-course');
 const showFazerMenu = (finnish, gluten) => {
   fazerTextBox.innerHTML = '';
 
@@ -62,5 +62,18 @@ const showFazerMenu = (finnish, gluten) => {
   }
 };
 
-export {showFazerMenu};
+const randomCourseFazer = (finnish) => {
+
+  let menu;
+  if (finnish === true) {
+    menu = FazerMenuFi.MenusForDays;
+  } else {
+    menu = FazerMenuEn.MenusForDays;
+  }
+
+  let components = menu.map(day => day.SetMenus.map(menu => menu.Components)).flat().flat();
+  randomCourseBox.innerHTML = components[Math.floor(Math.random() * components.length)];
+};
+
+export {showFazerMenu, randomCourseFazer};
 

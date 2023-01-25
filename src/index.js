@@ -1,12 +1,13 @@
 'use strict';
 
-import {showMenu} from './modules/SodexoData/sodexo-data';
-import {showFazerMenu} from "./modules/FazerData/fazer-data";
+import {showMenu, randomCourse} from './modules/SodexoData/sodexo-data';
+import {showFazerMenu, randomCourseFazer} from "./modules/FazerData/fazer-data";
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
 const restaurantFazer = document.getElementById('restaurant-fazer');
 const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
+const randomButton = document.getElementById('random-button');
 
 let sodexo = true;
 let finnish = true;
@@ -53,6 +54,14 @@ glutenButton.onclick = () => {
     gluten = true;
     glutenButton.style.backgroundColor = '#1AE312FF';
     showMenus();
+  }
+};
+
+randomButton.onclick = () => {
+  if (sodexo === true) {
+    randomCourse(finnish);
+  } else {
+    randomCourseFazer(finnish);
   }
 };
 
