@@ -56,11 +56,11 @@ languageButton.onclick = () => {
 glutenButton.onclick = () => {
   if (gluten === true) {
     gluten = false;
-    glutenButton.style.backgroundColor = '#95db92';
+    glutenButton.style.backgroundColor = 'var(--supp-color-lgreen)';
     showMenus();
   } else {
     gluten = true;
-    glutenButton.style.backgroundColor = '#1AE312FF';
+    glutenButton.style.backgroundColor = 'var(--main-color-green)';
     showMenus();
   }
 };
@@ -76,13 +76,14 @@ randomButton.onclick = () => {
 const showMenus = () => {
   if (sodexo === true) {
     showMenu(finnish, gluten);
-    restaurantSodexo.style.backgroundColor = '#1AE312FF';
-    restaurantFazer.style.backgroundColor = '#95db92';
+    restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
+    restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
     showFazerMenu(finnish, gluten);
-    restaurantSodexo.style.backgroundColor = '#95db92';
-    restaurantFazer.style.backgroundColor = '#1AE312FF';
+    restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
+    restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
   }
 };
+
 
 export {validator};

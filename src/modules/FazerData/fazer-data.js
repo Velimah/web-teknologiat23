@@ -4,10 +4,10 @@ import FazerMenuFi from './assets/fazer-week-example.json';
 import FazerMenuEn from './assets/fazer-week-example-en.json';
 import {validator} from "../../index";
 
-const fazerTextBox = document.getElementById('container');
+const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 const showFazerMenu = (finnish, gluten) => {
-  fazerTextBox.innerHTML = '';
+  restaurantBox.innerHTML = '';
 
   let menu;
   if (finnish === true) {
@@ -17,45 +17,48 @@ const showFazerMenu = (finnish, gluten) => {
   }
 
   for (const MenusForDays of menu) {
-    const fazerCell = document.createElement('div');
-    fazerCell.setAttribute('class', 'item');
-    fazerTextBox.appendChild(fazerCell);
+    const restaurantCard = document.createElement('div');
+    restaurantCard.setAttribute('class', 'restaurant-card');
+    restaurantBox.appendChild(restaurantCard);
 
-    const fazerDate = document.createElement('div');
-    fazerDate.setAttribute('class', 'date');
-    fazerDate.innerHTML = MenusForDays.Date.substring(0, 10);
-    fazerCell.appendChild(fazerDate);
+    const date = document.createElement('div');
+    date.setAttribute('class', 'date');
+    date.innerHTML = MenusForDays.Date.substring(0, 10);
+    restaurantCard.appendChild(date);
 
     let i = 1;
     for (const SetMenus of MenusForDays.SetMenus) {
-      const fazerCourseNumber = document.createElement('div');
-      fazerCourseNumber.setAttribute('class', 'course-number');
+      const courseNumber = document.createElement('div');
+      courseNumber.setAttribute('class', 'course-number');
 
       if (finnish === true) {
-        fazerCourseNumber.innerHTML = `Annos ${i}`;
+        courseNumber.innerHTML = `Annos ${i}`;
       } else {
-        fazerCourseNumber.innerHTML = `Dish ${i}`;
+        courseNumber.innerHTML = `Dish ${i}`;
       }
-      fazerCell.appendChild(fazerCourseNumber);
+      restaurantCard.appendChild(courseNumber);
 
       for (const component of SetMenus.Components) {
         if (gluten === true) {
           if (validator(component) === true && component.includes(', G' || 'G,')) {
-            const fazerCourseName = document.createElement('div');
-            fazerCourseName.innerHTML = component;
-            fazerCourseNumber.appendChild(fazerCourseName);
+            const courseName = document.createElement('div');
+            courseName.setAttribute('class', 'course-name');
+            courseName.innerHTML = component;
+            courseNumber.appendChild(courseName);
           }
         } else {
           if (validator(component) === true) {
-            const fazerCourseName = document.createElement('div');
-            fazerCourseName.innerHTML = component;
-            fazerCourseNumber.appendChild(fazerCourseName);
+            const courseName = document.createElement('div');
+            courseName.setAttribute('class', 'course-name');
+            courseName.innerHTML = component;
+            courseNumber.appendChild(courseName);
           }
         }
       }
-      const fazerPrice = document.createElement('div');
-      fazerPrice.innerHTML = `${SetMenus.Price}`;
-      fazerCell.appendChild(fazerPrice);
+      const price = document.createElement('div');
+      price.setAttribute('class', 'course-price');
+      price.innerHTML = `${SetMenus.Price}`;
+      restaurantCard.appendChild(price);
 
       i++;
     }

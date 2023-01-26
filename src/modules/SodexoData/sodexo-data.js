@@ -3,35 +3,35 @@
 import SodexoMenu from './assets/sodexo-week-data.json';
 import {validator} from "../../index";
 
-const sodexoTextBox = document.getElementById('container');
+const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
 const showMenu = (finnish, gluten) => {
-  sodexoTextBox.innerHTML = '';
+  restaurantBox.innerHTML = '';
 
   for (const mealdates of SodexoMenu.mealdates) {
-    const sodexoCell = document.createElement('div');
-    sodexoCell.setAttribute('class', 'item');
-    sodexoTextBox.appendChild(sodexoCell);
+    const restaurantCard = document.createElement('div');
+    restaurantCard.setAttribute('class', 'restaurant-card');
+    restaurantBox.appendChild(restaurantCard);
 
-    const sodexoDate = document.createElement('div');
-    sodexoDate.setAttribute('class', 'date');
-    sodexoDate.innerHTML = mealdates.date;
-    sodexoCell.appendChild(sodexoDate);
+    const date = document.createElement('div');
+    date.setAttribute('class', 'date');
+    date.innerHTML = mealdates.date;
+    restaurantCard.appendChild(date);
 
     let i = 1;
     for (const index in mealdates.courses) {
       const course = mealdates.courses[index];
 
-      const sodexoCourseNumber = document.createElement('div');
-      sodexoCourseNumber.setAttribute('class', 'course-number');
+      const courseNumber = document.createElement('div');
+      courseNumber.setAttribute('class', 'course-number');
 
       if (finnish === true) {
-        sodexoCourseNumber.innerHTML = `Annos ${i}`;
+        courseNumber.innerHTML = `Annos ${i}`;
       } else {
-        sodexoCourseNumber.innerHTML = `Dish ${i}`;
+        courseNumber.innerHTML = `Dish ${i}`;
       }
-      sodexoCell.appendChild(sodexoCourseNumber);
+      restaurantCard.appendChild(courseNumber);
 
       let menu;
       if (finnish === true) {
@@ -40,25 +40,28 @@ const showMenu = (finnish, gluten) => {
         menu = course.title_en;
       }
 
-      sodexoCell.appendChild(sodexoCourseNumber);
+      restaurantCard.appendChild(courseNumber);
 
       if (gluten === true) {
 
         if (validator(menu) === true && course.properties.includes('G')) {
-          const sodexoCourseName = document.createElement('div');
-          sodexoCourseName.innerHTML = `${menu} (${course.properties})`;
-          sodexoCourseNumber.appendChild(sodexoCourseName);
+          const courseName = document.createElement('div');
+          courseName.setAttribute('class', 'course-name');
+          courseName.innerHTML = `${menu} (${course.properties})`;
+          courseNumber.appendChild(courseName);
         }
       } else {
         if (validator(menu) === true) {
-          const sodexoCourseName = document.createElement('div');
-          sodexoCourseName.innerHTML = `${menu} (${course.properties})`;
-          sodexoCourseNumber.appendChild(sodexoCourseName);
+          const courseName = document.createElement('div');
+          courseName.setAttribute('class', 'course-name');
+          courseName.innerHTML = `${menu} (${course.properties})`;
+          courseNumber.appendChild(courseName);
         }
       }
-      const sodexoPrice = document.createElement('div');
-      sodexoPrice.innerHTML = `${course.price}`;
-      sodexoCell.appendChild(sodexoPrice);
+      const price = document.createElement('div');
+      price.setAttribute('class', 'course-price');
+      price.innerHTML = `${course.price}`;
+      restaurantCard.appendChild(price);
 
       i++;
     }
