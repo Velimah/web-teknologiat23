@@ -15,8 +15,6 @@ const showFazerMenu = (finnish, glutenFree) => {
     menu = fazerDataEn.MenusForDays;
   }
 
-  console.log(menu);
-
   for (const MenusForDays of menu) {
     const restaurantCard = document.createElement('div');
     restaurantCard.setAttribute('class', 'restaurant-card');
@@ -56,11 +54,12 @@ const showFazerMenu = (finnish, glutenFree) => {
           }
         }
       }
-      const price = document.createElement('div');
-      price.setAttribute('class', 'course-price');
-      price.innerHTML = `${SetMenus.Price}`;
-      restaurantCard.appendChild(price);
-
+      if (SetMenus.Price !== null) {
+        const price = document.createElement('div');
+        price.setAttribute('class', 'course-price');
+        price.innerHTML = `${SetMenus.Price}`;
+        restaurantCard.appendChild(price);
+      }
       i++;
     }
   }

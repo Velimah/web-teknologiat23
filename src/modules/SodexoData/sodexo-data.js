@@ -8,8 +8,6 @@ const randomCourseBox = document.getElementById('random-course');
 const showMenu = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
-  console.log(sodexoData);
-
   for (const mealdates of sodexoData.mealdates) {
     const restaurantCard = document.createElement('div');
     restaurantCard.setAttribute('class', 'restaurant-card');
