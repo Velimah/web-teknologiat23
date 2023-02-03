@@ -13,6 +13,7 @@ let sodexo = true;
 let finnish = true;
 let gluten = false;
 
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').then(registration => {
@@ -22,6 +23,7 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+*/
 
 let validator = (string) => {
   const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöå0-9-/,()*\s]{3,100}$/;
