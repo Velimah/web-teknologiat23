@@ -11,7 +11,6 @@ module.exports = {
     app: './src/index.js',
   },
   plugins: [
-    /*
     new WebpackPwaManifest({
       name: 'Lunch Progressive Web App',
       short_name: 'LunchPWA',
@@ -32,7 +31,6 @@ module.exports = {
       clientsClaim: true,
       skipWaiting: true,
     }),
-     */
     new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [
