@@ -2,7 +2,7 @@
 
 import {showMenu, randomCourse} from './modules/SodexoData/sodexo-data';
 import {showFazerMenu, randomCourseFazer} from "./modules/FazerData/fazer-data";
-import {doFetch, getWeekdayIndex} from './modules/network';
+import {doFetch} from './modules/network';
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
 const restaurantFazer = document.getElementById('restaurant-fazer');
@@ -15,7 +15,7 @@ let fazerDataFi;
 let fazerDataEn;
 let sodexo = true;
 let finnish = true;
-let gluten = false;
+let glutenFree = false;
 
 /*
 if ('serviceWorker' in navigator) {
@@ -58,12 +58,12 @@ languageButton.onclick = () => {
 };
 
 glutenButton.onclick = () => {
-  if (gluten === true) {
-    gluten = false;
+  if (glutenFree === true) {
+    glutenFree = false;
     glutenButton.style.backgroundColor = 'var(--supp-color-lgreen)';
     showMenus();
   } else {
-    gluten = true;
+    glutenFree = true;
     glutenButton.style.backgroundColor = 'var(--main-color-green)';
     showMenus();
   }
@@ -79,11 +79,11 @@ randomButton.onclick = () => {
 
 const showMenus = () => {
   if (sodexo === true) {
-    showMenu(finnish, gluten);
+    showMenu(finnish, glutenFree);
     restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
     restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
-    showFazerMenu(finnish, gluten);
+    showFazerMenu(finnish, glutenFree);
     restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
     restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
   }
@@ -97,7 +97,7 @@ const showMenus = () => {
       'https://www.sodexo.fi/ruokalistat/output/weekly_json/152'
     );
     console.log('myrtsin menu', sodexoData);
-    showMenu(finnish, gluten);
+    showMenu(finnish, glutenFree);
   } catch (error) {
     // tehdään jotain jos virhe doFethiltä
     console.log('menu ei saatavilla');

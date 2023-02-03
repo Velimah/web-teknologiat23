@@ -5,7 +5,7 @@ import {validator, fazerDataFi, fazerDataEn} from "../../index";
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showFazerMenu = (finnish, gluten) => {
+const showFazerMenu = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
   let menu;
@@ -40,7 +40,7 @@ const showFazerMenu = (finnish, gluten) => {
       restaurantCard.appendChild(courseNumber);
 
       for (const component of SetMenus.Components) {
-        if (gluten === true) {
+        if (glutenFree === true) {
           if (validator(component) === true && component.includes(', G' || 'G,')) {
             const courseName = document.createElement('div');
             courseName.setAttribute('class', 'course-name');

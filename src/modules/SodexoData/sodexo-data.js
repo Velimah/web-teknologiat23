@@ -5,7 +5,7 @@ import {validator, sodexoData} from "../../index";
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showMenu = (finnish, gluten) => {
+const showMenu = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
   console.log(sodexoData);
@@ -43,27 +43,39 @@ const showMenu = (finnish, gluten) => {
 
       restaurantCard.appendChild(courseNumber);
 
-      if (gluten === true) {
+      // a cluster.f pyramid because some of dish objects dont have dietcodes name at all instead of value being empty
+      if (glutenFree === true) {
+        if (course.dietcodes !== undefined) {
+          if (validator(menu) === true && course.dietcodes.includes('G')) {
+            const courseName = document.createElement('div');
+            courseName.setAttribute('class', 'course-name');
+            courseName.innerHTML = `${menu} (${course.dietcodes})`;
+            courseNumber.appendChild(courseName);
 
-        if (validator(menu) === true && course.dietcodes.includes('G')) {
-          const courseName = document.createElement('div');
-          courseName.setAttribute('class', 'course-name');
-          courseName.innerHTML = `${menu} (${course.dietcodes})`;
-          courseNumber.appendChild(courseName);
+            const price = document.createElement('div');
+            price.setAttribute('class', 'course-price');
+            price.innerHTML = `${course.price}`;
+            courseNumber.appendChild(price);
+          } else {
+            courseNumber.innerHTML = "";
+          }
+        } else {
+          courseNumber.innerHTML = "";
         }
+
       } else {
         if (validator(menu) === true) {
           const courseName = document.createElement('div');
           courseName.setAttribute('class', 'course-name');
           courseName.innerHTML = `${menu} (${course.dietcodes})`;
           courseNumber.appendChild(courseName);
+
+          const price = document.createElement('div');
+          price.setAttribute('class', 'course-price');
+          price.innerHTML = `${course.price}`;
+          courseNumber.appendChild(price);
         }
       }
-      const price = document.createElement('div');
-      price.setAttribute('class', 'course-price');
-      price.innerHTML = `${course.price}`;
-      restaurantCard.appendChild(price);
-
       i++;
     }
   }
