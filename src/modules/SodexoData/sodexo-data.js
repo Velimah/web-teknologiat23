@@ -1,7 +1,6 @@
 'use strict';
 
-import SodexoMenu from './assets/sodexo-week-data.json';
-import {validator} from "../../index";
+import {validator, sodexoData} from "../../index";
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
@@ -9,7 +8,9 @@ const randomCourseBox = document.getElementById('random-course');
 const showMenu = (finnish, gluten) => {
   restaurantBox.innerHTML = '';
 
-  for (const mealdates of SodexoMenu.mealdates) {
+  console.log(sodexoData);
+
+  for (const mealdates of sodexoData.mealdates) {
     const restaurantCard = document.createElement('div');
     restaurantCard.setAttribute('class', 'restaurant-card');
     restaurantBox.appendChild(restaurantCard);
@@ -44,17 +45,17 @@ const showMenu = (finnish, gluten) => {
 
       if (gluten === true) {
 
-        if (validator(menu) === true && course.properties.includes('G')) {
+        if (validator(menu) === true && course.dietcodes.includes('G')) {
           const courseName = document.createElement('div');
           courseName.setAttribute('class', 'course-name');
-          courseName.innerHTML = `${menu} (${course.properties})`;
+          courseName.innerHTML = `${menu} (${course.dietcodes})`;
           courseNumber.appendChild(courseName);
         }
       } else {
         if (validator(menu) === true) {
           const courseName = document.createElement('div');
           courseName.setAttribute('class', 'course-name');
-          courseName.innerHTML = `${menu} (${course.properties})`;
+          courseName.innerHTML = `${menu} (${course.dietcodes})`;
           courseNumber.appendChild(courseName);
         }
       }
@@ -70,7 +71,7 @@ const showMenu = (finnish, gluten) => {
 
 const randomCourse = (finnish) => {
 
-  const courses = SodexoMenu.mealdates.map(day => {
+  const courses = sodexoData.mealdates.map(day => {
 
     if (finnish === true) {
       return Object.values(day.courses).map(course => course.title_fi);

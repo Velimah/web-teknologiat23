@@ -1,20 +1,21 @@
 'use strict';
 
-import FazerMenuFi from './assets/fazer-week-example.json';
-import FazerMenuEn from './assets/fazer-week-example-en.json';
-import {validator} from "../../index";
+import {validator, fazerDataFi, fazerDataEn} from "../../index";
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
+
 const showFazerMenu = (finnish, gluten) => {
   restaurantBox.innerHTML = '';
 
   let menu;
   if (finnish === true) {
-    menu = FazerMenuFi.MenusForDays;
+    menu = fazerDataFi.MenusForDays;
   } else {
-    menu = FazerMenuEn.MenusForDays;
+    menu = fazerDataEn.MenusForDays;
   }
+
+  console.log(menu);
 
   for (const MenusForDays of menu) {
     const restaurantCard = document.createElement('div');
@@ -69,9 +70,9 @@ const randomCourseFazer = (finnish) => {
 
   let menu;
   if (finnish === true) {
-    menu = FazerMenuFi.MenusForDays;
+    menu = fazerDataFi.MenusForDays;
   } else {
-    menu = FazerMenuEn.MenusForDays;
+    menu = fazerDataEn.MenusForDays;
   }
 
   let components = menu.map(day => day.SetMenus.map(menu => menu.Components)).flat().flat();

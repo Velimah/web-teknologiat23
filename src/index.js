@@ -2,6 +2,7 @@
 
 import {showMenu, randomCourse} from './modules/SodexoData/sodexo-data';
 import {showFazerMenu, randomCourseFazer} from "./modules/FazerData/fazer-data";
+import {doFetch, getWeekdayIndex} from './modules/network';
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
 const restaurantFazer = document.getElementById('restaurant-fazer');
@@ -9,6 +10,9 @@ const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
 
+let sodexoData;
+let fazerDataFi;
+let fazerDataEn;
 let sodexo = true;
 let finnish = true;
 let gluten = false;
@@ -29,8 +33,6 @@ let validator = (string) => {
   const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöå0-9-/,()*\s]{3,100}$/;
   return regexp.test(string);
 };
-
-showMenu(finnish, gluten);
 
 restaurantSodexo.onclick = () => {
   sodexo = true;
@@ -88,4 +90,40 @@ const showMenus = () => {
 };
 
 
-export {validator};
+(async () => {
+  // get sodexo data example (iife)
+  try {
+    sodexoData = await doFetch(
+      'https://www.sodexo.fi/ruokalistat/output/weekly_json/152'
+    );
+    console.log('myrtsin menu', sodexoData);
+    showMenu(finnish, gluten);
+  } catch (error) {
+    // tehdään jotain jos virhe doFethiltä
+    console.log('menu ei saatavilla');
+  }
+  // get foodco menu
+  try {
+      fazerDataFi = await doFetch(
+        'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi',
+        true
+      );
+
+    console.log('karaportin menu', fazerDataFi);
+  } catch (error) {
+    // do something
+  }
+
+  try {
+    fazerDataEn = await doFetch(
+      'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en',
+      true
+    );
+
+    console.log('karaportin menu', fazerDataEn);
+  } catch (error) {
+    // do something
+  }
+})();
+
+export {validator, sodexoData, fazerDataFi, fazerDataEn};
