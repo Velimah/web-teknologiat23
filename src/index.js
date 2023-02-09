@@ -15,7 +15,7 @@ const darkModeButton = document.getElementById('darkmode-button');
 const input = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
 
-//boleans for choosing restaurant, language, gluten-free meals and dark mode
+//booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
 let glutenFree = false;
 let finnish = JSON.parse(localStorage.getItem('settings')).finnish;
@@ -26,8 +26,10 @@ const settings = {};
 
 // chooses theme based on localstorage settings
 if (darkMode === true) {
+  darkModeButton.innerHTML='Light mode';
   darkTheme();
 } else {
+  darkModeButton.innerHTML='Dark mode';
   lightTheme();
 }
 
@@ -40,6 +42,7 @@ if (finnish === true) {
   glutenButton.innerHTML = 'Gluten-free';
 }
 
+// pwa
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').then(registration => {
@@ -50,6 +53,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// validator for dish names
 let validator = (string) => {
   const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöåêü0-9-/,()*\s]{3,100}$/;
   return regexp.test(string);
@@ -57,12 +61,12 @@ let validator = (string) => {
 
 restaurantSodexo.onclick = () => {
   sodexo = true;
-  showMenus();
+  showMenu();
 };
 
 restaurantFazer.onclick = () => {
   sodexo = false;
-  showMenus();
+  showMenu();
 };
 
 // changes language and saves boolean into local storage
@@ -78,16 +82,18 @@ languageButton.onclick = () => {
   }
   localStorage.setItem('settings', JSON.stringify(settings));
   finnish = JSON.parse(localStorage.getItem('settings')).finnish;
-  showMenus();
+  showMenu();
 };
 
 // changes dark mode and saves boolean into local storage
 darkModeButton.onclick = () => {
   if (darkMode === true) {
     settings.darkmode = false;
+    darkModeButton.innerHTML='Dark mode';
     lightTheme();
   } else {
     settings.darkmode = true;
+    darkModeButton.innerHTML='Light mode';
     darkTheme();
   }
   localStorage.setItem('settings', JSON.stringify(settings));
@@ -98,11 +104,11 @@ glutenButton.onclick = () => {
   if (glutenFree === true) {
     glutenFree = false;
     glutenButton.style.backgroundColor = 'var(--supp-color-lgreen)';
-    showMenus();
+    showMenu();
   } else {
     glutenFree = true;
     glutenButton.style.backgroundColor = 'var(--main-color-green)';
-    showMenus();
+    showMenu();
   }
 };
 
@@ -114,7 +120,7 @@ randomButton.onclick = () => {
   }
 };
 
-const showMenus = () => {
+const showMenu = () => {
   if (sodexo === true) {
     showMenuSodexo(finnish, glutenFree);
     restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
