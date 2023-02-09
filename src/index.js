@@ -7,13 +7,13 @@ import {darkTheme, lightTheme} from "./modules/dark-mode";
 import {search} from "./modules/search";
 import {mouseParallax} from "./modules/mouse-parallax";
 
-const restaurantSodexo = document.getElementById('restaurant-sodexo');
-const restaurantFazer = document.getElementById('restaurant-fazer');
+const sodexoButton = document.getElementById('restaurant-sodexo');
+const fazerButton = document.getElementById('restaurant-fazer');
 const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
 const darkModeButton = document.getElementById('darkmode-button');
-const input = document.getElementById("search-input");
+const searchInput = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
 
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
@@ -38,12 +38,12 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-restaurantSodexo.onclick = () => {
+sodexoButton.onclick = () => {
   sodexo = true;
   showMenu();
 };
 
-restaurantFazer.onclick = () => {
+fazerButton.onclick = () => {
   sodexo = false;
   showMenu();
 };
@@ -98,7 +98,7 @@ randomButton.onclick = () => {
 };
 
 // search, takes value from input and searches course names for a match
-input.addEventListener("keypress", (event) => {
+searchInput.addEventListener("keypress", (event) => {
   search(finnish, event);
 });
 
@@ -151,12 +151,12 @@ const loadMenus = async () => {
 const showMenu = () => {
   if (sodexo === true) {
     showMenuSodexo(finnish, glutenFree);
-    restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
-    restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
+    sodexoButton.style.backgroundColor = 'var(--main-color-green)';
+    fazerButton.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
     showMenuFazer(finnish, glutenFree);
-    restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
-    restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
+    sodexoButton.style.backgroundColor = 'var(--supp-color-lgreen)';
+    fazerButton.style.backgroundColor = 'var(--main-color-green)';
   }
 };
 
