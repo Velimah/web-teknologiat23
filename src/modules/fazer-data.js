@@ -16,7 +16,6 @@ const showMenuFazer = (finnish, glutenFree) => {
     menu = fazerDataEn.MenusForDays;
   }
 
-
   for (const MenusForDays of menu) {
 
     //gets the weekdate number

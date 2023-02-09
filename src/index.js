@@ -22,7 +22,7 @@ let glutenFree = false;
 let finnish;
 let darkMode;
 
-//variables for .json data from fetch
+//variables for .json data from fetches
 let sodexoData;
 let fazerDataFi;
 let fazerDataEn;
