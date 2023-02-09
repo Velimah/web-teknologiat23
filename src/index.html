@@ -1,13 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="Site content" content="Lunch menu site">
-  <link rel="stylesheet" href="../lounarisivu2/main.css">
+  <meta name="description" content="Listaus sodexon ja foodcandon lounasravintoloista ja niiden ruokalistat.">
   <title><%= htmlWebpackPlugin.options.title %></title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/css/wide.css">
+  <link rel="stylesheet" media="screen and (max-width: 980px)" href="assets/css/medium.css">
+  <link rel="stylesheet" media="screen and (max-width: 870px)" href="assets/css/small.css">
+  <link rel="stylesheet" media="screen and (max-width: 735px)" href="assets/css/mobile.css">
+  <!--<link rel="stylesheet" href="assets/styles.css">-->
 </head>
 <body>
 <!--div.solu.solu$*5{$}-->
@@ -15,18 +18,37 @@
 <header class="header">
 
   <nav class="nav">
+
+    <div id="nav-button">
+      <div id="nav-box">
+      <div class="nav-item2">
+        <a class="nav-link" href="index.html">Etusivu</a>
+      </div>
+      <div class="nav-item2">
+        <a class="nav-link" href="tehtava5.html">Ruokalistat</a>
+      </div>
+      <div class="nav-item2">
+        <a class="nav-link" href="tehtava6.html">Ravintolat</a>
+      </div>
+      <div class="nav-item2">
+        <a class="nav-link" href="tehtava7.html">Yhteystiedot</a>
+      </div>
+      </div>
+    </div>
+
     <div class="nav-item">
       <a class="nav-link" href="index.html">Etusivu</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="index.html">Ruokalistat</a>
+      <a class="nav-link" href="tehtava5.html">Ruokalistat</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="index.html">Ravintolat</a>
+      <a class="nav-link" href="tehtava6.html">Ravintolat</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="index.html">Yhteystiedot</a>
+      <a class="nav-link" href="tehtava7.html">Yhteystiedot</a>
     </div>
+
   </nav>
 
   <div class="search">
@@ -70,17 +92,16 @@
             font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text>
       <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold"
             font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text></svg>
-    <label for="search-input"></label>
-    <input id="search-input" required minlength="1" type="text" name="message_body" placeholder="Etsi ruokaa (enter)">
+    <input id="search-input" required minlength="1" type="text" aria-label="Search" name="message_body" placeholder="Etsi ravintolaa">
   </div>
 
   <div class="header-picture-area">
     <div class="picture-text">
-      <div id="logo">Lounari</div>
-      <div id="slogan">Missä tänään syötäisiin.</div>
+      <h1 id="logo">Lounari</h1>
+      <h2 id="slogan">Missä tänään syötäisiin.</h2>
     </div>
-    <div>
-      <img id="header-picture" width="700px" height="300px" src="./assets/black-frying-pan-with-spaghetti-sauce-near-brown-wooden-691114.avif" alt="Picture of frying pan">
+    <div id="header-picture-container">
+      <img id="header-picture" width="700px" height="300px" src="assets/Images/tomaatteja-yrtteja-ja-musta-paistinpannu-puisella-poydalla-jossa-spagettia.avif" alt="picture of a restaurant dish">
     </div>
   </div>
 
@@ -106,10 +127,20 @@
   </div>
 </div>
 
+<main class="main">
 
-<main class="main"></main>
 
-<div id="container"></div>
+  <div class="restaurant-card" id="add-restaurant">
+    <svg id="add-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
+         viewBox="0 0 128 160" style="enable-background:new 0 0 128 128;" xml:space="preserve"><g><path d="M64,1L64,1C29.2,1,1,29.2,1,64s28.2,63,63,63h0c34.8,0,63-28.2,63-63S98.8,1,64,1z M94,69H69v25H59V69H34V59h25V34h10v25   h25V69z"/></g>
+      <text x="0" y="143" fill="#000000" font-size="5px" font-weight="bold"
+            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text>
+      <text x="0" y="148" fill="#000000" font-size="5px" font-weight="bold"
+            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text></svg>
+    <div id="add-text">Lisää ravintola</div>
+  </div>
+
+</main>
 <footer></footer>
 </body>
 </html>

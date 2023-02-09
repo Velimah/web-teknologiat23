@@ -10,6 +10,7 @@ const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
 const input = document.getElementById("search-input");
+const background = document.querySelector('.header-picture-area');
 
 //boleans for choosing restaurant, language and gluten-free meals
 let sodexo = true;
@@ -165,6 +166,22 @@ input.addEventListener("keypress", (event) => {
       alert(`Found ${i} dishes.`);
     }
   }
+});
+
+background.addEventListener('mousemove', (evt) => {
+
+  let mouseX = evt.clientX;
+  let mouseY = evt.clientY;
+
+  let cx = window.innerWidth / 2;
+  let cy = window.innerHeight / 2;
+
+  let fromCenterX = cx - mouseX;
+  let fromCenterY = cy - mouseY;
+
+  const layerOne = document.querySelector('.picture-text');
+  layerOne.style.transform = 'translateX(' + fromCenterX / 200 + '%) translateY(' + fromCenterY / 200 + '%)';
+
 });
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};

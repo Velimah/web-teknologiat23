@@ -19,7 +19,7 @@ module.exports = {
       crossorigin: 'use-credentials',
       icons: [
         {
-          src: path.resolve('src/assets/icon.png'),
+          src: path.resolve('src/assets/Images/icon.png'),
           sizes: [96, 128, 192, 256, 384, 512]
         },
       ]
@@ -41,7 +41,7 @@ module.exports = {
       },
     ]}),
     new HtmlWebpackPlugin({
-      title: 'WTMP Starter',
+      title: 'Sodexon ja FoodAndCon lounasravintolat',
       meta: {
         viewport: 'width=device-width, initial-scale=1.0'
       },
