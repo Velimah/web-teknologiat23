@@ -4,6 +4,7 @@ import {showMenuSodexo, randomCourse} from './modules/sodexo-data';
 import {showMenuFazer, randomCourseFazer} from "./modules/fazer-data";
 import {doFetch} from './modules/network';
 import {darkTheme, lightTheme} from "./modules/dark-mode";
+import {search} from "./modules/search";
 import {mouseParallax} from "./modules/mouse-parallax";
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
@@ -18,8 +19,8 @@ const background = document.querySelector('.header-picture-area');
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
 let glutenFree = false;
-let finnish = true;
-let darkMode = false;
+let finnish;
+let darkMode;
 
 const saveSettings = () => {
   const settings = {};
@@ -160,7 +161,6 @@ let fazerDataFi;
 let fazerDataEn;
 
 // fetches the menus from sodexo and foodco
-
 const loadMenus = async () => {
   // fetches sodexo menu
   try {
@@ -199,36 +199,7 @@ const loadMenus = async () => {
 
 // search, takes value from input and searches course names for a match
 input.addEventListener("keypress", (event) => {
-
-  //check for enter press to start search
-  if (event.key === "Enter") {
-    event.preventDefault();
-
-    const inputValue = document.getElementById("search-input").value;
-    const elements = document.querySelectorAll('.course-name');
-
-    //index for number of results
-    let i = 0;
-
-    // loops all the course-name elements
-    for (let elem of elements) {
-
-      //changes the course name appearance if it matches the search string
-      if (elem.textContent.includes(inputValue)) {
-        elem.style.backgroundColor = 'var(--main-color-red)';
-        elem.style.color = '#FFFFFF';
-        elem.style.borderRadius = '5px';
-        elem.style.padding = '5px';
-        i++;
-      }
-    }
-    //checks for language for correct alert
-    if (finnish === true) {
-      alert(`Löytyi ${i} annosta.`);
-    } else {
-      alert(`Found ${i} dishes.`);
-    }
-  }
+  search(finnish, event);
 });
 
 //parallax mouse effect
