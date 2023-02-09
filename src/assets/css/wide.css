@@ -309,24 +309,27 @@ footer {
 }
 
 #nav-button {
+  background-color: white;
   background-image: url("../Images/navigaatio-ikoni.png");
   background-size: cover;
-  margin-top: 10px;
-  margin-left: 10px;
+  position: relative;
+  top: 10px;
+  left: 10px;
   width: 40px;
   height: 40px;
   display: none;
+  border-radius: 5px;
 }
 
 #nav-box {
-  background-color: white;
+  background-color: var(--main-color-white);
   position: absolute;
   z-index: 1;
   height: fit-content;
   min-width: 200px;
   width: fit-content;
   left: 0;
-  top: 50px;
+  top: 40px;
   display: none;
   flex-direction: column;
   padding: 10px;

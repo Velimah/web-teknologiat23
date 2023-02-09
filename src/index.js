@@ -209,7 +209,7 @@ background.addEventListener('mousemove', (evt) => {
 
 const init = () => {
   loadSettings();
-  loadMenus().then(() => showMenuSodexo(finnish, glutenFree));
+  loadMenus().then(() => showMenu());
 };
 init();
 
