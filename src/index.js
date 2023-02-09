@@ -1,9 +1,9 @@
 'use strict';
 
-import {showMenu, randomCourse} from './modules/sodexo-data';
-import {showFazerMenu, randomCourseFazer} from "./modules/fazer-data";
+import {showMenuSodexo, randomCourse} from './modules/sodexo-data';
+import {showMenuFazer, randomCourseFazer} from "./modules/fazer-data";
 import {doFetch} from './modules/network';
-import {dark, light} from "./modules/dark-mode";
+import {darkTheme, lightTheme} from "./modules/dark-mode";
 import {mouseParallax} from "./modules/mouse-parallax";
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
@@ -11,14 +11,14 @@ const restaurantFazer = document.getElementById('restaurant-fazer');
 const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
-const darkmodeButton = document.getElementById('darkmode-button');
+const darkModeButton = document.getElementById('darkmode-button');
 const input = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
 
-//boleans for choosing restaurant, language, gluten-free meals and darkmode
+//boleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
-let finnish = true;
 let glutenFree = false;
+let finnish = JSON.parse(localStorage.getItem('settings')).finnish;
 let darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
 
 //localstorage settings
@@ -26,9 +26,18 @@ const settings = {};
 
 // chooses theme based on localstorage settings
 if (darkMode === true) {
-  dark();
+  darkTheme();
 } else {
-  light();
+  lightTheme();
+}
+
+// chooses button texts based on localstorage settings
+if (finnish === true) {
+  languageButton.innerHTML = 'Suomi';
+  glutenButton.innerHTML = 'Gluteeniton';
+} else {
+  languageButton.innerHTML = 'English';
+  glutenButton.innerHTML = 'Gluten-free';
 }
 
 if ('serviceWorker' in navigator) {
@@ -56,18 +65,33 @@ restaurantFazer.onclick = () => {
   showMenus();
 };
 
+// changes language and saves boolean into local storage
 languageButton.onclick = () => {
   if (finnish === true) {
-    finnish = false;
+    settings.finnish = false;
     languageButton.innerHTML = 'English';
     glutenButton.innerHTML = 'Gluten-free';
-    showMenus();
   } else {
-    finnish = true;
+    settings.finnish = true;
     languageButton.innerHTML = 'Suomi';
     glutenButton.innerHTML = 'Gluteeniton';
-    showMenus();
   }
+  localStorage.setItem('settings', JSON.stringify(settings));
+  finnish = JSON.parse(localStorage.getItem('settings')).finnish;
+  showMenus();
+};
+
+// changes dark mode and saves boolean into local storage
+darkModeButton.onclick = () => {
+  if (darkMode === true) {
+    settings.darkmode = false;
+    lightTheme();
+  } else {
+    settings.darkmode = true;
+    darkTheme();
+  }
+  localStorage.setItem('settings', JSON.stringify(settings));
+  darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
 };
 
 glutenButton.onclick = () => {
@@ -92,11 +116,11 @@ randomButton.onclick = () => {
 
 const showMenus = () => {
   if (sodexo === true) {
-    showMenu(finnish, glutenFree);
+    showMenuSodexo(finnish, glutenFree);
     restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
     restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
-    showFazerMenu(finnish, glutenFree);
+    showMenuFazer(finnish, glutenFree);
     restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
     restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
   }
@@ -106,7 +130,6 @@ const showMenus = () => {
 let sodexoData;
 let fazerDataFi;
 let fazerDataEn;
-
 
 // fetches the menus from sodexo and foodco
 (async () => {
@@ -118,7 +141,7 @@ let fazerDataEn;
       false
     );
     console.log('sodexo menu', sodexoData);
-    showMenu(finnish, glutenFree);
+    showMenuSodexo(finnish, glutenFree);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
@@ -182,19 +205,6 @@ input.addEventListener("keypress", (event) => {
   }
 });
 
-// changes darkmode and saves it into local storage
-darkmodeButton.onclick = () => {
-  if (darkMode === true) {
-    settings.darkmode = false;
-    light();
-  } else {
-    settings.darkmode = true;
-    dark();
-  }
-  console.log(settings);
-  localStorage.setItem('settings', JSON.stringify(settings));
-  darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
-};
 
 //parallax mouse effect
 background.addEventListener('mousemove', (evt) => {

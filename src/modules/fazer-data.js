@@ -5,7 +5,7 @@ import {validator, fazerDataFi, fazerDataEn} from "../index";
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showFazerMenu = (finnish, glutenFree) => {
+const showMenuFazer = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
   //chooses the correct language for menu
@@ -107,5 +107,5 @@ const randomCourseFazer = (finnish) => {
   randomCourseBox.innerHTML = components[Math.floor(Math.random() * components.length)];
 };
 
-export {showFazerMenu, randomCourseFazer};
+export {showMenuFazer, randomCourseFazer};
 

@@ -5,7 +5,7 @@ import {validator, sodexoData} from "../index";
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showMenu = (finnish, glutenFree) => {
+const showMenuSodexo = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
   for (const mealdates of sodexoData.mealdates) {
@@ -111,5 +111,5 @@ const randomCourse = (finnish) => {
   randomCourseBox.innerHTML = courses[Math.floor(Math.random() * courses.length)];
 };
 
-export {showMenu, randomCourse};
+export {showMenuSodexo, randomCourse};
 
