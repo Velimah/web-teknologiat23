@@ -168,6 +168,8 @@ input.addEventListener("keypress", (event) => {
   }
 });
 
+
+//parallax mouse effect
 background.addEventListener('mousemove', (evt) => {
 
   let mouseX = evt.clientX;
