@@ -18,30 +18,53 @@ const background = document.querySelector('.header-picture-area');
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
 let glutenFree = false;
-let finnish = JSON.parse(localStorage.getItem('settings')).finnish;
-let darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
+let finnish = true;
+let darkMode = false;
 
-//localstorage settings
-const settings = {};
+const saveSettings = () => {
+  const settings = {};
+  settings.finnish = finnish;
+  settings.darkmode = darkMode;
+  localStorage.setItem('settings', JSON.stringify(settings));
+};
 
-// chooses button texts based on localstorage settings
-if (finnish === true) {
-  languageButton.innerHTML = 'Suomi';
-  glutenButton.innerHTML = 'Gluteeniton';
-} else {
-  languageButton.innerHTML = 'English';
-  glutenButton.innerHTML = 'Gluten-free';
-}
+const loadSettings = () => {
 
-// chooses theme based on localstorage settings
-if (darkMode === true) {
-  darkModeButton.innerHTML = 'Dark mode';
-  darkTheme();
-} else {
-  darkModeButton.innerHTML = 'Light mode';
-  lightTheme();
-}
+  let parsedData;
 
+  //checks if the localstorage is empty to avoid null error.
+  try {
+    parsedData = JSON.parse(localStorage.getItem('settings')).finnish;
+  } catch (e) {
+    parsedData = true;   //set default value if localStorage parsing failed
+  }
+  finnish = parsedData;
+
+  try {
+    parsedData = JSON.parse(localStorage.getItem('settings')).darkmode;
+  } catch (e) {
+    parsedData = false;   //set default value if localStorage parsing failed
+  }
+  darkMode = parsedData;
+
+  // chooses button texts based on localstorage settings
+  if (finnish === true) {
+    languageButton.innerHTML = 'Suomi';
+    glutenButton.innerHTML = 'Gluteeniton';
+  } else {
+    languageButton.innerHTML = 'English';
+    glutenButton.innerHTML = 'Gluten-free';
+  }
+
+  // chooses theme based on localstorage settings
+  if (darkMode === true) {
+    darkModeButton.innerHTML = 'Dark mode';
+    darkTheme();
+  } else {
+    darkModeButton.innerHTML = 'Light mode';
+    lightTheme();
+  }
+};
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -73,32 +96,30 @@ restaurantFazer.onclick = () => {
 // changes language and saves boolean into local storage
 languageButton.onclick = () => {
   if (finnish === true) {
-    settings.finnish = false;
     languageButton.innerHTML = 'English';
     glutenButton.innerHTML = 'Gluten-free';
+    finnish = false;
   } else {
-    settings.finnish = true;
     languageButton.innerHTML = 'Suomi';
     glutenButton.innerHTML = 'Gluteeniton';
+    finnish = true;
   }
-  localStorage.setItem('settings', JSON.stringify(settings));
-  finnish = JSON.parse(localStorage.getItem('settings')).finnish;
+  saveSettings();
   showMenu();
 };
 
 // changes dark mode and saves boolean into local storage
 darkModeButton.onclick = () => {
   if (darkMode === true) {
-    settings.darkmode = false;
     darkModeButton.innerHTML = 'Light mode';
     lightTheme();
+    darkMode = false;
   } else {
-    settings.darkmode = true;
     darkModeButton.innerHTML = 'Dark mode';
     darkTheme();
+    darkMode = true;
   }
-  localStorage.setItem('settings', JSON.stringify(settings));
-  darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
+  saveSettings();
 };
 
 glutenButton.onclick = () => {
@@ -139,8 +160,8 @@ let fazerDataFi;
 let fazerDataEn;
 
 // fetches the menus from sodexo and foodco
-(async () => {
 
+const loadMenus = async () => {
   // fetches sodexo menu
   try {
     sodexoData = await doFetch(
@@ -148,7 +169,6 @@ let fazerDataEn;
       false
     );
     console.log('sodexo menu', sodexoData);
-    showMenuSodexo(finnish, glutenFree);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
@@ -175,8 +195,7 @@ let fazerDataEn;
   } catch (error) {
     console.log('menu ei saatavilla');
   }
-})();
-
+};
 
 // search, takes value from input and searches course names for a match
 input.addEventListener("keypress", (event) => {
@@ -216,5 +235,12 @@ input.addEventListener("keypress", (event) => {
 background.addEventListener('mousemove', (evt) => {
   mouseParallax(evt);
 });
+
+const init = () => {
+  loadSettings();
+  loadMenus().then(() => showMenuSodexo(finnish, glutenFree));
+};
+init();
+
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
