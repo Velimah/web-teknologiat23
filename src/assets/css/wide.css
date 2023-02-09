@@ -23,6 +23,7 @@
 }
 
 :root {
+  --main-color-white: #FFFFFF;
   --main-color-green: #43E04F;
   --main-color-red: #940E3F;
   --main-color-blue: #9BADBF;
@@ -41,11 +42,17 @@
   font-size: 1rem;
 }
 
+html {
+  padding-top: 10px;
+  background-color: var(--main-color-white);
+}
+
 body {
   max-width: 1100px;
   margin: auto;
   min-height: 100vh;
   font-family: Lato-Regular, sans-serif;
+  color: var(--main-color-black);
 }
 
 .header {
@@ -112,6 +119,8 @@ nav {
   flex-basis: 80%;
   padding: 5px 5px 5px 35px;
   border-color: var(--main-color-red);
+  background-color: var(--main-color-white);
+  color: var(--main-color-black);
 }
 
 #search-icon {
@@ -135,12 +144,14 @@ nav {
 #logo {
   font-family: RobotoSlab-ExtraBold, sans-serif;
   font-size: 4rem;
+  color: var(--main-color-black);
 }
 
 #slogan {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.5rem;
   text-align: center;
+  color: var(--main-color-black);
 }
 
 .picture-text {
@@ -168,6 +179,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--main-color-black);
 }
 
 .header-text h2 {
@@ -176,6 +188,7 @@ nav {
   line-height: 1.4;
   max-width: 90%;
   text-align: center;
+  color: var(--main-color-black);
 }
 
 .main {
@@ -200,6 +213,7 @@ nav {
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
+  color: var(--main-color-black);
 }
 
 .restaurant-image {
@@ -225,10 +239,12 @@ nav {
   justify-content: space-between;
   align-items: center;
   min-width: 150px;
+  color: var(--main-color-black);
 }
 
 .restaurant-name > * {
   font-size: 1.4rem;
+  color: var(--main-color-black);
 }
 
 .location-pin {
@@ -245,16 +261,19 @@ nav {
   font-family: Lato-Regular, sans-serif;
   font-size: 13px;
   margin-top: 7px;
+  color: var(--main-color-black);
 }
 
 .course-name {
   font-family: Lato-Regular, sans-serif;
   font-size: 13px;
+  color: var(--main-color-black);
 }
 
 .course-price {
   font-family: Lato-Regular, sans-serif;
   font-size: 13px;
+  color: var(--main-color-black);
 }
 
 #add-restaurant {
@@ -363,6 +382,7 @@ button {
   height: 50px;
   border-radius: 5px;
   background-color: var(--supp-color-lgreen);
+  color: var(--main-color-black);
   box-shadow: 2px 2px 10px -5px black;
 }
 

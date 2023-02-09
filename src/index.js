@@ -3,19 +3,33 @@
 import {showMenu, randomCourse} from './modules/SodexoData/sodexo-data';
 import {showFazerMenu, randomCourseFazer} from "./modules/FazerData/fazer-data";
 import {doFetch} from './modules/network';
+import {dark, light} from "./modules/dark-mode";
+import {mouseParallax} from "./modules/mouse-parallax";
 
 const restaurantSodexo = document.getElementById('restaurant-sodexo');
 const restaurantFazer = document.getElementById('restaurant-fazer');
 const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
+const darkmodeButton = document.getElementById('darkmode-button');
 const input = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
 
-//boleans for choosing restaurant, language and gluten-free meals
+//boleans for choosing restaurant, language, gluten-free meals and darkmode
 let sodexo = true;
 let finnish = true;
 let glutenFree = false;
+let darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
+
+//localstorage settings
+const settings = {};
+
+// chooses theme based on localstorage settings
+if (darkMode === true) {
+  dark();
+} else {
+  light();
+}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -168,22 +182,23 @@ input.addEventListener("keypress", (event) => {
   }
 });
 
+// changes darkmode and saves it into local storage
+darkmodeButton.onclick = () => {
+  if (darkMode === true) {
+    settings.darkmode = false;
+    light();
+  } else {
+    settings.darkmode = true;
+    dark();
+  }
+  console.log(settings);
+  localStorage.setItem('settings', JSON.stringify(settings));
+  darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
+};
 
 //parallax mouse effect
 background.addEventListener('mousemove', (evt) => {
-
-  let mouseX = evt.clientX;
-  let mouseY = evt.clientY;
-
-  let cx = window.innerWidth / 2;
-  let cy = window.innerHeight / 2;
-
-  let fromCenterX = cx - mouseX;
-  let fromCenterY = cy - mouseY;
-
-  const layerOne = document.querySelector('.picture-text');
-  layerOne.style.transform = 'translateX(' + fromCenterX / 200 + '%) translateY(' + fromCenterY / 200 + '%)';
-
+  mouseParallax(evt);
 });
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
