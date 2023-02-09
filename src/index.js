@@ -189,7 +189,7 @@ input.addEventListener("keypress", (event) => {
 
       //changes the course name appearance if it matches the search string
       if (elem.textContent.includes(inputValue)) {
-        elem.style.backgroundColor = '#E0437C';
+        elem.style.backgroundColor = 'var(--main-color-red)';
         elem.style.color = '#FFFFFF';
         elem.style.borderRadius = '5px';
         elem.style.padding = '5px';

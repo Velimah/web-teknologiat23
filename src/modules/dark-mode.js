@@ -2,9 +2,9 @@ const darkTheme = () => {
   document.documentElement.style.setProperty('--main-color-white', '#000000');
   document.documentElement.style.setProperty('--main-color-black', '#FFFFFF');
   document.documentElement.style.setProperty('--main-color-green', '#940E3F');
-  document.documentElement.style.setProperty('--supp-color-lgreen', '#D03970');
+  document.documentElement.style.setProperty('--supp-color-lgreen', '#B43362');
   document.documentElement.style.setProperty('--main-color-blue', '#343A40');
-  document.documentElement.style.setProperty('--main-color-red', '#D03970');
+  document.documentElement.style.setProperty('--main-color-red', '#b43362');
 };
 const lightTheme = () => {
   document.documentElement.style.setProperty('--main-color-white', '#FFFFFF');
