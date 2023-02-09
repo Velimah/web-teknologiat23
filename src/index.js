@@ -131,7 +131,6 @@ const loadMenus = async () => {
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi',
       true
     );
-
     console.log('foodco menu finnish', fazerDataFi);
   } catch (error) {
     console.log('menu ei saatavilla');
@@ -143,7 +142,6 @@ const loadMenus = async () => {
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en',
       true
     );
-
     console.log('foodco menu english', fazerDataEn);
   } catch (error) {
     console.log('menu ei saatavilla');
@@ -170,7 +168,6 @@ const saveSettings = () => {
 };
 
 const loadSettings = () => {
-
   let parsedData;
 
   //checks if the localstorage is empty to avoid null error.
