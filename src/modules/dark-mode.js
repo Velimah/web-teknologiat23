@@ -15,4 +15,4 @@ const lightTheme = () => {
   document.documentElement.style.setProperty('--main-color-red', '#E0437C');
 };
 
-export {darkTheme,lightTheme};
+export {darkTheme, lightTheme};

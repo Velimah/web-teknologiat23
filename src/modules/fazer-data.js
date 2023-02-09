@@ -108,4 +108,3 @@ const randomCourseFazer = (finnish) => {
 };
 
 export {showMenuFazer, randomCourseFazer};
-

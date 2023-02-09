@@ -112,4 +112,3 @@ const randomCourse = (finnish) => {
 };
 
 export {showMenuSodexo, randomCourse};
-

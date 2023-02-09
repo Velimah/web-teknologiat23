@@ -24,15 +24,6 @@ let darkMode = JSON.parse(localStorage.getItem('settings')).darkmode;
 //localstorage settings
 const settings = {};
 
-// chooses theme based on localstorage settings
-if (darkMode === true) {
-  darkModeButton.innerHTML='Light mode';
-  darkTheme();
-} else {
-  darkModeButton.innerHTML='Dark mode';
-  lightTheme();
-}
-
 // chooses button texts based on localstorage settings
 if (finnish === true) {
   languageButton.innerHTML = 'Suomi';
@@ -41,6 +32,16 @@ if (finnish === true) {
   languageButton.innerHTML = 'English';
   glutenButton.innerHTML = 'Gluten-free';
 }
+
+// chooses theme based on localstorage settings
+if (darkMode === true) {
+  darkModeButton.innerHTML = 'Dark mode';
+  darkTheme();
+} else {
+  darkModeButton.innerHTML = 'Light mode';
+  lightTheme();
+}
+
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -89,11 +90,11 @@ languageButton.onclick = () => {
 darkModeButton.onclick = () => {
   if (darkMode === true) {
     settings.darkmode = false;
-    darkModeButton.innerHTML='Dark mode';
+    darkModeButton.innerHTML = 'Light mode';
     lightTheme();
   } else {
     settings.darkmode = true;
-    darkModeButton.innerHTML='Light mode';
+    darkModeButton.innerHTML = 'Dark mode';
     darkTheme();
   }
   localStorage.setItem('settings', JSON.stringify(settings));
@@ -210,7 +211,6 @@ input.addEventListener("keypress", (event) => {
     }
   }
 });
-
 
 //parallax mouse effect
 background.addEventListener('mousemove', (evt) => {
