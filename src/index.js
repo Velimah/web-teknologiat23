@@ -187,4 +187,3 @@ background.addEventListener('mousemove', (evt) => {
 });
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
-
