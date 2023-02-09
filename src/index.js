@@ -22,50 +22,10 @@ let glutenFree = false;
 let finnish;
 let darkMode;
 
-const saveSettings = () => {
-  const settings = {};
-  settings.finnish = finnish;
-  settings.darkmode = darkMode;
-  localStorage.setItem('settings', JSON.stringify(settings));
-};
-
-const loadSettings = () => {
-
-  let parsedData;
-
-  //checks if the localstorage is empty to avoid null error.
-  try {
-    parsedData = JSON.parse(localStorage.getItem('settings')).finnish;
-  } catch (e) {
-    parsedData = true;   //set default value if localStorage parsing failed
-  }
-  finnish = parsedData;
-
-  try {
-    parsedData = JSON.parse(localStorage.getItem('settings')).darkmode;
-  } catch (e) {
-    parsedData = false;   //set default value if localStorage parsing failed
-  }
-  darkMode = parsedData;
-
-  // chooses button texts based on localstorage settings
-  if (finnish === true) {
-    languageButton.innerHTML = 'Suomi';
-    glutenButton.innerHTML = 'Gluteeniton';
-  } else {
-    languageButton.innerHTML = 'English';
-    glutenButton.innerHTML = 'Gluten-free';
-  }
-
-  // chooses theme based on localstorage settings
-  if (darkMode === true) {
-    darkModeButton.innerHTML = 'Dark mode';
-    darkTheme();
-  } else {
-    darkModeButton.innerHTML = 'Light mode';
-    lightTheme();
-  }
-};
+//variables for .json data from fetch
+let sodexoData;
+let fazerDataFi;
+let fazerDataEn;
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -77,12 +37,6 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-
-// validator for dish names
-let validator = (string) => {
-  const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöåêü0-9-/,()*\s]{3,100}$/;
-  return regexp.test(string);
-};
 
 restaurantSodexo.onclick = () => {
   sodexo = true;
@@ -143,22 +97,21 @@ randomButton.onclick = () => {
   }
 };
 
-const showMenu = () => {
-  if (sodexo === true) {
-    showMenuSodexo(finnish, glutenFree);
-    restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
-    restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
-  } else {
-    showMenuFazer(finnish, glutenFree);
-    restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
-    restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
-  }
-};
+// search, takes value from input and searches course names for a match
+input.addEventListener("keypress", (event) => {
+  search(finnish, event);
+});
 
-//initializes the variables for .json data from fetch
-let sodexoData;
-let fazerDataFi;
-let fazerDataEn;
+//parallax mouse effect
+background.addEventListener('mousemove', (evt) => {
+  mouseParallax(evt);
+});
+
+// validator for dish names
+let validator = (string) => {
+  const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöåêü0-9-/,()*\s]{3,100}$/;
+  return regexp.test(string);
+};
 
 // fetches the menus from sodexo and foodco
 const loadMenus = async () => {
@@ -197,21 +150,67 @@ const loadMenus = async () => {
   }
 };
 
-// search, takes value from input and searches course names for a match
-input.addEventListener("keypress", (event) => {
-  search(finnish, event);
-});
+const showMenu = () => {
+  if (sodexo === true) {
+    showMenuSodexo(finnish, glutenFree);
+    restaurantSodexo.style.backgroundColor = 'var(--main-color-green)';
+    restaurantFazer.style.backgroundColor = 'var(--supp-color-lgreen)';
+  } else {
+    showMenuFazer(finnish, glutenFree);
+    restaurantSodexo.style.backgroundColor = 'var(--supp-color-lgreen)';
+    restaurantFazer.style.backgroundColor = 'var(--main-color-green)';
+  }
+};
 
-//parallax mouse effect
-background.addEventListener('mousemove', (evt) => {
-  mouseParallax(evt);
-});
+const saveSettings = () => {
+  const settings = {};
+  settings.finnish = finnish;
+  settings.darkmode = darkMode;
+  localStorage.setItem('settings', JSON.stringify(settings));
+};
+
+const loadSettings = () => {
+
+  let parsedData;
+
+  //checks if the localstorage is empty to avoid null error.
+  try {
+    parsedData = JSON.parse(localStorage.getItem('settings')).finnish;
+  } catch (e) {
+    parsedData = true;   //set default value if localStorage parsing failed
+  }
+  finnish = parsedData;
+
+  try {
+    parsedData = JSON.parse(localStorage.getItem('settings')).darkmode;
+  } catch (e) {
+    parsedData = false;   //set default value if localStorage parsing failed
+  }
+  darkMode = parsedData;
+
+  // chooses button texts based on localstorage settings
+  if (finnish === true) {
+    languageButton.innerHTML = 'Suomi';
+    glutenButton.innerHTML = 'Gluteeniton';
+  } else {
+    languageButton.innerHTML = 'English';
+    glutenButton.innerHTML = 'Gluten-free';
+  }
+
+  // chooses theme based on localstorage settings
+  if (darkMode === true) {
+    darkModeButton.innerHTML = 'Dark mode';
+    darkTheme();
+  } else {
+    darkModeButton.innerHTML = 'Light mode';
+    lightTheme();
+  }
+};
 
 const init = () => {
   loadSettings();
   loadMenus().then(() => showMenu());
 };
 init();
-
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
