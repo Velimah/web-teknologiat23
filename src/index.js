@@ -1,7 +1,7 @@
 'use strict';
 
-import {showMenu, randomCourse} from './modules/SodexoData/sodexo-data';
-import {showFazerMenu, randomCourseFazer} from "./modules/FazerData/fazer-data";
+import {showMenu, randomCourse} from './modules/sodexo-data';
+import {showFazerMenu, randomCourseFazer} from "./modules/fazer-data";
 import {doFetch} from './modules/network';
 import {dark, light} from "./modules/dark-mode";
 import {mouseParallax} from "./modules/mouse-parallax";

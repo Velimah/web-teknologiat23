@@ -1,6 +1,6 @@
 'use strict';
 
-import {validator, sodexoData} from "../../index";
+import {validator, sodexoData} from "../index";
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');

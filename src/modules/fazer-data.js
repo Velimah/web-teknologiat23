@@ -1,6 +1,6 @@
 'use strict';
 
-import {validator, fazerDataFi, fazerDataEn} from "../../index";
+import {validator, fazerDataFi, fazerDataEn} from "../index";
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
