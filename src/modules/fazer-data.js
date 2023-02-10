@@ -63,11 +63,14 @@ const showMenuFazer = (finnish, glutenFree) => {
       const date = document.createElement('div');
       date.setAttribute('class', 'date');
 
-      date.innerHTML = `${day.toLocaleDateString(`${locales}`,
+      const dateString = day.toLocaleDateString(`${locales}`,
         {
           day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
         }
-      )}`;
+      );
+      //makes the first letter a capital letter
+      const dateStringCapital = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+      date.innerHTML = `${dateStringCapital}`;
       restaurantCard.appendChild(date);
 
       const priceDescription = document.createElement('div');
