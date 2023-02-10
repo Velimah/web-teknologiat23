@@ -148,6 +148,7 @@ const loadMenus = async () => {
   }
 };
 
+//chooses the correct menu and changes the pressed buttons color
 const showMenu = () => {
   if (sodexo === true) {
     showMenuSodexo(finnish, glutenFree);
@@ -168,16 +169,15 @@ const saveSettings = () => {
 };
 
 const loadSettings = () => {
-  let parsedData;
 
   //checks if the localstorage is empty to avoid null error.
+  let parsedData;
   try {
     parsedData = JSON.parse(localStorage.getItem('settings')).finnish;
   } catch (e) {
     parsedData = true;   //set default value if localStorage parsing failed
   }
   finnish = parsedData;
-
   try {
     parsedData = JSON.parse(localStorage.getItem('settings')).darkmode;
   } catch (e) {
