@@ -73,6 +73,7 @@ const showMenuFazer = (finnish, glutenFree) => {
       date.innerHTML = `${dateStringCapital}`;
       restaurantCard.appendChild(date);
 
+      // chooses the correct pricing info based on language
       const priceDescription = document.createElement('div');
       priceDescription.setAttribute('class', 'price-description');
       if (finnish === true) {

@@ -48,6 +48,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
       date.innerHTML = dateString.charAt(0).toUpperCase() + dateString.slice(1);
       restaurantCard.appendChild(date);
 
+      // chooses the correct pricing info based on language
       const priceDescription = document.createElement('div');
       priceDescription.setAttribute('class', 'price-description');
       if (finnish === true) {
