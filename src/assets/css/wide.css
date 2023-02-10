@@ -26,7 +26,7 @@
   --main-color-white: #FFFFFF;
   --main-color-green: #43E04F;
   --main-color-red: #940E3F;
-  --main-color-blue: #9BADBF;
+  --main-color-blue: #cdd8e3;
   --main-color-black: #000000;
   --main-color-grey: #343A40;
   --supp-color-dgreen: #1D9426;
@@ -91,7 +91,7 @@ nav {
   text-decoration: none;
   transition: color, background-color .2s ease-in-out;
   border-radius: 10px;
-  color: var(--main-color-red);
+  color: var(--main-color-black);
 }
 
 .nav-link:hover {

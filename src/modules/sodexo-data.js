@@ -58,20 +58,13 @@ const showMenuSodexo = (finnish, glutenFree) => {
       }
       restaurantCard.appendChild(priceDescription);
 
-      //index for dish numbers
-      let i = 1;
       for (const index in mealdates.courses) {
         const course = mealdates.courses[index];
 
+        // gets the food category
         const courseNumber = document.createElement('div');
         courseNumber.setAttribute('class', 'course-number');
-
-        //chooses the correct naming for dish depending on language
-        if (finnish === true) {
-          courseNumber.innerHTML = `Annos ${i}`;
-        } else {
-          courseNumber.innerHTML = `Dish ${i}`;
-        }
+        courseNumber.innerHTML = `${course.category.toUpperCase()}`;
         restaurantCard.appendChild(courseNumber);
 
         //chooses the correct dish name depending on language
@@ -127,7 +120,6 @@ const showMenuSodexo = (finnish, glutenFree) => {
           }
         }
         // increases the dish number index
-        i++;
       }
     }
     // increases the menu day index
