@@ -8,16 +8,32 @@ const randomCourseBox = document.getElementById('random-course');
 const showMenuFazer = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
-  //chooses the correct language for menu
+  //chooses the correct language for menu and time
   let menu;
+  let locales;
   if (finnish === true) {
+    locales = 'fi';
     menu = fazerDataFi.MenusForDays;
   } else {
+    locales = 'en';
     menu = fazerDataEn.MenusForDays;
   }
 
   //gets the current weekdate number
   const dayNumber = new Date().getDay();
+
+  // gets the current days prices from finnish version of food&co .json and saves them into array
+  let priceArray = [];
+  for (const MenusForDays of fazerDataFi.MenusForDays) {
+    const day = new Date(`${MenusForDays.Date}`);
+    const menuDayNumber = day.getDay();
+    //compares current day number to menu day number and then loops prices.
+    if (menuDayNumber === dayNumber) {
+      for (const SetMenus of MenusForDays.SetMenus) {
+        priceArray.push(SetMenus.Price);
+      }
+    }
+  }
 
   for (const MenusForDays of menu) {
 
@@ -46,12 +62,22 @@ const showMenuFazer = (finnish, glutenFree) => {
       // appends date of the daily menu and shortens it to appropriate format
       const date = document.createElement('div');
       date.setAttribute('class', 'date');
-      date.innerHTML = `${day.toLocaleDateString('fi',
+
+      date.innerHTML = `${day.toLocaleDateString(`${locales}`,
         {
           day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
         }
       )}`;
       restaurantCard.appendChild(date);
+
+      const priceDescription = document.createElement('div');
+      priceDescription.setAttribute('class', 'price-description');
+      if (finnish === true) {
+        priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
+      } else {
+        priceDescription.innerHTML = `Prices: Students / Staff / Other`;
+      }
+      restaurantCard.appendChild(priceDescription);
 
       //index for dish numbers
       let i = 1;
@@ -91,13 +117,12 @@ const showMenuFazer = (finnish, glutenFree) => {
           }
         }
 
-        // checks if the menu has a price and then appends it
-        if (SetMenus.Price !== null) {
-          const price = document.createElement('div');
-          price.setAttribute('class', 'course-price');
-          price.innerHTML = `${SetMenus.Price}`;
-          restaurantCard.appendChild(price);
-        }
+        // gets the price from price array saved from the finnish .json
+        const price = document.createElement('div');
+        price.setAttribute('class', 'course-price');
+        // splits the price string and adds spaces and euro sign
+        price.innerHTML = `${priceArray[i - 1].substring(0, 4)} € / ${priceArray[i - 1].substring(5, 9)} € / ${priceArray[i - 1].substring(10, 14)} €`;
+        restaurantCard.appendChild(price);
         // increases the dish number index
         i++;
       }

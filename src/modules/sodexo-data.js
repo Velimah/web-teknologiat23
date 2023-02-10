@@ -30,14 +30,30 @@ const showMenuSodexo = (finnish, glutenFree) => {
     title.innerHTML= sodexoData.meta.ref_title;
     restaurantCard.appendChild(title);
 
+      let locales;
+      if (finnish === true) {
+        locales = 'fi';
+      } else {
+        locales = 'en';
+      }
+
     const date = document.createElement('div');
     date.setAttribute('class', 'date');
-      date.innerHTML = `${day.toLocaleDateString('fi',
+      date.innerHTML = `${day.toLocaleDateString(`${locales}`,
         {
           day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
         }
       )}`;
     restaurantCard.appendChild(date);
+
+      const priceDescription = document.createElement('div');
+      priceDescription.setAttribute('class', 'price-description');
+      if (finnish===true){
+        priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
+      } else {
+        priceDescription.innerHTML = `Prices: Students / Staff / Other`;
+      }
+      restaurantCard.appendChild(priceDescription);
 
     //index for dish numbers
     let i = 1;
@@ -62,8 +78,6 @@ const showMenuSodexo = (finnish, glutenFree) => {
       } else {
         menu = course.title_en;
       }
-
-      restaurantCard.appendChild(courseNumber);
 
       //checks if user wants to see only gluten-free dishes
       if (glutenFree === true) {
