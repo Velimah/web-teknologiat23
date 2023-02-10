@@ -18,6 +18,8 @@ const search = (finnish, event) => {
         elem.style.color = '#FFFFFF';
         elem.style.borderRadius = '5px';
         elem.style.padding = '5px';
+        elem.style.marginTop = '5px';
+        elem.style.marginBottom = '5px';
         i++;
       }
     }
