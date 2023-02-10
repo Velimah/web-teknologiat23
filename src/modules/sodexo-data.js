@@ -8,16 +8,35 @@ const randomCourseBox = document.getElementById('random-course');
 const showMenuSodexo = (finnish, glutenFree) => {
   restaurantBox.innerHTML = '';
 
+  //gets the current weekdate number
+  const day = new Date();
+  const dayNumber = day.getDay();
+
+  // index for menus by date
+  let index=1;
+
   for (const mealdates of sodexoData.mealdates) {
+
+    // if current day matches the correct index in daily menus, prints the days menu
+    if(index === dayNumber) {
 
     //makes div container for the daily menu
     const restaurantCard = document.createElement('div');
     restaurantCard.setAttribute('class', 'restaurant-card');
     restaurantBox.appendChild(restaurantCard);
 
+    const title = document.createElement('div');
+    title.setAttribute('class', 'restaurant-title');
+    title.innerHTML= sodexoData.meta.ref_title;
+    restaurantCard.appendChild(title);
+
     const date = document.createElement('div');
     date.setAttribute('class', 'date');
-    date.innerHTML = mealdates.date;
+      date.innerHTML = `${day.toLocaleDateString('fi',
+        {
+          day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
+        }
+      )}`;
     restaurantCard.appendChild(date);
 
     //index for dish numbers
@@ -93,6 +112,9 @@ const showMenuSodexo = (finnish, glutenFree) => {
       // increases the dish number index
       i++;
     }
+  }
+    // increases the menu day index
+    index++;
   }
 };
 

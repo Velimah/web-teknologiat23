@@ -16,75 +16,91 @@ const showMenuFazer = (finnish, glutenFree) => {
     menu = fazerDataEn.MenusForDays;
   }
 
+  //gets the current weekdate number
+  const dayNumber = new Date().getDay();
+
   for (const MenusForDays of menu) {
 
-    //gets the weekdate number
-    const d = new Date(`${MenusForDays.Date}`);
-    let day = d.getDay();
+    //gets the weekdate number of daily menu
+    const day = new Date(`${MenusForDays.Date}`);
+    const menuDayNumber = day.getDay();
 
-    //breaks the loop if its weekend preventing incomplete boxes, as foodco doesn't have food for weekend.
-    if (day === 6 || day === 0) {
-      break;
-    }
+    //compares current day number to menu day number and shows today's menu.
+    if (menuDayNumber === dayNumber) {
 
-    //makes div container for the daily menu
-    const restaurantCard = document.createElement('div');
-    restaurantCard.setAttribute('class', 'restaurant-card');
-    restaurantBox.appendChild(restaurantCard);
-
-    // appends date of the daily menu and shortens it to appropriate format
-    const date = document.createElement('div');
-    date.setAttribute('class', 'date');
-    date.innerHTML = MenusForDays.Date.substring(0, 10);
-    restaurantCard.appendChild(date);
-
-    //index for dish numbers
-    let i = 1;
-    for (const SetMenus of MenusForDays.SetMenus) {
-      const courseNumber = document.createElement('div');
-      courseNumber.setAttribute('class', 'course-number');
-
-      //chooses the correct naming for dish depending on language
-      if (finnish === true) {
-        courseNumber.innerHTML = `Annos ${i}`;
-      } else {
-        courseNumber.innerHTML = `Dish ${i}`;
+      //breaks the loop if its weekend preventing incomplete boxes.
+      if (menuDayNumber === 6 || menuDayNumber === 0) {
+        break;
       }
-      restaurantCard.appendChild(courseNumber);
 
-      for (const component of SetMenus.Components) {
+      //makes div container for the daily menu
+      const restaurantCard = document.createElement('div');
+      restaurantCard.setAttribute('class', 'restaurant-card');
+      restaurantBox.appendChild(restaurantCard);
 
-        //checks if user wants to see only gluten-free dishes
-        if (glutenFree === true) {
+      const title = document.createElement('div');
+      title.setAttribute('class', 'restaurant-title');
+      title.innerHTML = 'Metropolia Karamalmi';
+      restaurantCard.appendChild(title);
 
-          //validates dish name and searches for 'G' marker for gluten-free
-          if (validator(component) === true && component.includes(', G' || 'G,')) {
-            const courseName = document.createElement('div');
-            courseName.setAttribute('class', 'course-name');
-            courseName.innerHTML = component;
-            courseNumber.appendChild(courseName);
-          }
+      // appends date of the daily menu and shortens it to appropriate format
+      const date = document.createElement('div');
+      date.setAttribute('class', 'date');
+      date.innerHTML = `${day.toLocaleDateString('fi',
+        {
+          day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
+        }
+      )}`;
+      restaurantCard.appendChild(date);
+
+      //index for dish numbers
+      let i = 1;
+      for (const SetMenus of MenusForDays.SetMenus) {
+        const courseNumber = document.createElement('div');
+        courseNumber.setAttribute('class', 'course-number');
+
+        //chooses the correct naming for dish depending on language
+        if (finnish === true) {
+          courseNumber.innerHTML = `Annos ${i}`;
         } else {
-          if (validator(component) === true) {
-            const courseName = document.createElement('div');
-            courseName.setAttribute('class', 'course-name');
-            courseName.innerHTML = component;
-            courseNumber.appendChild(courseName);
+          courseNumber.innerHTML = `Dish ${i}`;
+        }
+        restaurantCard.appendChild(courseNumber);
 
-            // removes dish data if it doesn't pass validation
+        for (const component of SetMenus.Components) {
+
+          //checks if user wants to see only gluten-free dishes
+          if (glutenFree === true) {
+
+            //validates dish name and searches for 'G' marker for gluten-free
+            if (validator(component) === true && component.includes(', G' || 'G,')) {
+              const courseName = document.createElement('div');
+              courseName.setAttribute('class', 'course-name');
+              courseName.innerHTML = component;
+              courseNumber.appendChild(courseName);
+            }
+          } else {
+            if (validator(component) === true) {
+              const courseName = document.createElement('div');
+              courseName.setAttribute('class', 'course-name');
+              courseName.innerHTML = component;
+              courseNumber.appendChild(courseName);
+
+              // removes dish data if it doesn't pass validation
+            }
           }
         }
-      }
 
-      // checks if the menu has a price and then appends it
-      if (SetMenus.Price !== null) {
-        const price = document.createElement('div');
-        price.setAttribute('class', 'course-price');
-        price.innerHTML = `${SetMenus.Price}`;
-        restaurantCard.appendChild(price);
+        // checks if the menu has a price and then appends it
+        if (SetMenus.Price !== null) {
+          const price = document.createElement('div');
+          price.setAttribute('class', 'course-price');
+          price.innerHTML = `${SetMenus.Price}`;
+          restaurantCard.appendChild(price);
+        }
+        // increases the dish number index
+        i++;
       }
-      // increases the dish number index
-      i++;
     }
   }
 };
