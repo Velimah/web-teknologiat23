@@ -98,8 +98,9 @@ const showMenuFazer = (finnish, glutenFree) => {
           //checks if user wants to see only gluten-free dishes
           if (glutenFree === true) {
 
-            //validates dish name and searches for 'G' marker for gluten-free
-            if (validator(component) === true && component.includes(', G' || 'G,')) {
+            console.log(component);
+            //validates dish name and searches for different 'G' markers for gluten-free
+            if (validator(component) === true && !component.includes(', G') && !component.includes('G, ') && !component.includes('(G')) {
               const courseName = document.createElement('div');
               courseName.setAttribute('class', 'course-name');
               courseName.innerHTML = component;
@@ -111,8 +112,6 @@ const showMenuFazer = (finnish, glutenFree) => {
               courseName.setAttribute('class', 'course-name');
               courseName.innerHTML = component;
               courseNumber.appendChild(courseName);
-
-              // removes dish data if it doesn't pass validation
             }
           }
         }
@@ -122,7 +121,14 @@ const showMenuFazer = (finnish, glutenFree) => {
         price.setAttribute('class', 'course-price');
         // splits the price string and adds spaces and euro sign
         price.innerHTML = `${priceArray[i - 1].substring(0, 4)} € / ${priceArray[i - 1].substring(5, 9)} € / ${priceArray[i - 1].substring(10, 14)} €`;
-        restaurantCard.appendChild(price);
+        courseNumber.appendChild(price);
+
+        // removes dish data if there are no gluten-free options
+        const nodes = courseNumber.childNodes;
+        if(nodes.length < 3) {
+          courseNumber.style.display = "none";
+        }
+
         // increases the dish number index
         i++;
       }

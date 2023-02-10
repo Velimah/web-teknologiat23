@@ -86,7 +86,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
         if (course.dietcodes !== undefined) {
 
           //validates dish name and searches for 'G' marker for gluten-free
-          if (validator(menu) === true && course.dietcodes.includes('G')) {
+          if (validator(menu) === true && !course.dietcodes.includes('G')) {
             const courseName = document.createElement('div');
             courseName.setAttribute('class', 'course-name');
             courseName.innerHTML = `${menu} (${course.dietcodes})`;
@@ -99,11 +99,11 @@ const showMenuSodexo = (finnish, glutenFree) => {
 
             // removes dish data if it is not gluten-free
           } else {
-            courseNumber.innerHTML = "";
+            courseNumber.style.display = "none";
           }
           // removes dish data if it is not gluten-free
         } else {
-          courseNumber.innerHTML = "";
+          courseNumber.style.display = "none";
         }
 
       } else {
@@ -120,7 +120,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
 
           // removes dish data if it doesn't pass validation
         } else {
-          courseNumber.innerHTML = "";
+          courseNumber.style.display = "none";
         }
       }
       // increases the dish number index
