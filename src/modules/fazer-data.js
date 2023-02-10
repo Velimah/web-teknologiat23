@@ -105,7 +105,7 @@ const showMenuFazer = (finnish, glutenFree) => {
         for (const component of SetMenus.Components) {
 
           //makes the first letter capital
-          const componentCapital = component.charAt(0).toUpperCase()+component.slice(1);
+          const componentCapital = component.charAt(0).toUpperCase() + component.slice(1);
 
           //checks if user wants to see only gluten-free dishes
           if (glutenFree === true) {
@@ -136,7 +136,7 @@ const showMenuFazer = (finnish, glutenFree) => {
 
         // removes dish data if there are no gluten-free options
         const nodes = courseNumber.childNodes;
-        if(nodes.length < 3) {
+        if (nodes.length < 3) {
           courseNumber.style.display = "none";
         }
 
