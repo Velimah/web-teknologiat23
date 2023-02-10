@@ -98,22 +98,24 @@ const showMenuFazer = (finnish, glutenFree) => {
 
         for (const component of SetMenus.Components) {
 
+          //makes the first letter capital
+          const componentCapital = component.charAt(0).toUpperCase()+component.slice(1);
+
           //checks if user wants to see only gluten-free dishes
           if (glutenFree === true) {
 
-            console.log(component);
             //validates dish name and searches for different 'G' markers for gluten-free
-            if (validator(component) === true && !component.includes(', G') && !component.includes('G, ') && !component.includes('(G')) {
+            if (validator(componentCapital) === true && !componentCapital.includes(', G') && !componentCapital.includes('G, ') && !componentCapital.includes('(G')) {
               const courseName = document.createElement('div');
               courseName.setAttribute('class', 'course-name');
-              courseName.innerHTML = component;
+              courseName.innerHTML = componentCapital;
               courseNumber.appendChild(courseName);
             }
           } else {
-            if (validator(component) === true) {
+            if (validator(componentCapital) === true) {
               const courseName = document.createElement('div');
               courseName.setAttribute('class', 'course-name');
-              courseName.innerHTML = component;
+              courseName.innerHTML = componentCapital;
               courseNumber.appendChild(courseName);
             }
           }

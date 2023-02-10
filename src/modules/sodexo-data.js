@@ -1,6 +1,6 @@
 'use strict';
 
-import {validator, sodexoData} from "../index";
+import {sodexoData, validator} from "../index";
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
@@ -45,8 +45,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
         }
       );
       //makes the first letter a capital letter
-      const dateStringCapital = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-      date.innerHTML = `${dateStringCapital}`;
+      date.innerHTML = dateString.charAt(0).toUpperCase() + dateString.slice(1);
       restaurantCard.appendChild(date);
 
       const priceDescription = document.createElement('div');
@@ -64,15 +63,18 @@ const showMenuSodexo = (finnish, glutenFree) => {
         // gets the food category
         const courseNumber = document.createElement('div');
         courseNumber.setAttribute('class', 'course-number');
-        courseNumber.innerHTML = `${course.category.toUpperCase()}`;
+
+        // Makes only the first letter capital
+        const courseCategory = course.category;
+        courseNumber.innerHTML = courseCategory.charAt(0).toUpperCase() + courseCategory.slice(1).toLowerCase();
         restaurantCard.appendChild(courseNumber);
 
-        //chooses the correct dish name depending on language
+        //chooses the correct dish name depending on language and Capital first letter
         let menu;
         if (finnish === true) {
-          menu = course.title_fi;
+          menu = course.title_fi.charAt(0).toUpperCase() + course.title_fi.slice(1).toLowerCase();
         } else {
-          menu = course.title_en;
+          menu = course.title_en.charAt(0).toUpperCase() + course.title_en.slice(1).toLowerCase();
         }
 
         //checks if user wants to see only gluten-free dishes
