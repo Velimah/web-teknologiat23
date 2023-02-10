@@ -215,64 +215,36 @@ nav {
   padding: 20px;
   color: var(--main-color-black);
 }
-
-.restaurant-image {
-  border-width: 1px;
-  padding: 10px;
-  max-width: 150px;
-  max-height: 150px;
-}
-
-.restaurant-info {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.restaurant-name {
-  gap: 5px;
+.restaurant-title {
   font-family: Lato-Bold, sans-serif;
+  font-size: 1.3rem;
   margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 150px;
-  color: var(--main-color-black);
 }
-
-.restaurant-name > * {
-  font-size: 1.4rem;
-  color: var(--main-color-black);
+.date {
+  font-family: Lato-Bold, sans-serif;
+  font-size: 1rem;
 }
-
-.location-pin {
-  height: 30px;
-  width: 30px;
+.price-description {
+  font-family: Lato-Bold, sans-serif;
+  font-size: 1rem;
 }
-
-.location-pin:hover {
-  transform: scale(1.1);
-  fill: var(--main-color-green);
-}
-
-.course-number {
+.course-category {
   font-family: Lato-Regular, sans-serif;
-  font-size: 13px;
-  margin-top: 7px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-weight: bold;
   color: var(--main-color-black);
 }
 
 .course-name {
   font-family: Lato-Regular, sans-serif;
-  font-size: 13px;
+  font-size: 0.9rem;
   color: var(--main-color-black);
 }
 
 .course-price {
   font-family: Lato-Regular, sans-serif;
-  font-size: 13px;
+  font-size: 0.9rem;
   color: var(--main-color-black);
 }
 

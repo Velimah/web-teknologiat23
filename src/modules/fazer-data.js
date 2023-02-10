@@ -86,16 +86,21 @@ const showMenuFazer = (finnish, glutenFree) => {
       //index for dish numbers
       let i = 1;
       for (const SetMenus of MenusForDays.SetMenus) {
+
         const courseNumber = document.createElement('div');
         courseNumber.setAttribute('class', 'course-number');
+        restaurantCard.appendChild(courseNumber);
+
+        const courseCategory = document.createElement('div');
+        courseCategory.setAttribute('class', 'course-category');
 
         //chooses the correct naming for dish depending on language
         if (finnish === true) {
-          courseNumber.innerHTML = `Annos ${i}`;
+          courseCategory.innerHTML = `Annos ${i}`;
         } else {
-          courseNumber.innerHTML = `Dish ${i}`;
+          courseCategory.innerHTML = `Dish ${i}`;
         }
-        restaurantCard.appendChild(courseNumber);
+        courseNumber.appendChild(courseCategory);
 
         for (const component of SetMenus.Components) {
 

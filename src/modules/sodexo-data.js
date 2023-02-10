@@ -64,11 +64,14 @@ const showMenuSodexo = (finnish, glutenFree) => {
         // gets the food category
         const courseNumber = document.createElement('div');
         courseNumber.setAttribute('class', 'course-number');
-
-        // Makes only the first letter capital
-        const courseCategory = course.category;
-        courseNumber.innerHTML = courseCategory.charAt(0).toUpperCase() + courseCategory.slice(1).toLowerCase();
         restaurantCard.appendChild(courseNumber);
+
+        const courseCategory = document.createElement('div');
+        courseCategory.setAttribute('class', 'course-category');
+        // Makes only the first letter capital
+        const category = course.category;
+        courseCategory.innerHTML = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+        courseNumber.appendChild(courseCategory);
 
         //chooses the correct dish name depending on language and Capital first letter
         let menu;
