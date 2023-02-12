@@ -161,6 +161,8 @@ const showMenu = () => {
   }
 };
 
+
+//saves settings to localstorage
 const saveSettings = () => {
   const settings = {};
   settings.finnish = finnish;
@@ -168,8 +170,8 @@ const saveSettings = () => {
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
+// loads data from localstorage and chooses language and color theme
 const loadSettings = () => {
-
   //checks if the localstorage is empty to avoid null error.
   let parsedData;
   try {
@@ -204,6 +206,7 @@ const loadSettings = () => {
   }
 };
 
+//starts the application
 const init = () => {
   loadSettings();
   loadMenus().then(() => showMenu());
