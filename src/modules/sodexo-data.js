@@ -12,6 +12,46 @@ const showMenuSodexo = (finnish, glutenFree) => {
   const day = new Date();
   const dayNumber = day.getDay();
 
+  //makes div container for the daily menu
+  const restaurantCard = document.createElement('div');
+  restaurantCard.setAttribute('class', 'restaurant-card');
+  restaurantBox.appendChild(restaurantCard);
+
+  const title = document.createElement('div');
+  title.setAttribute('class', 'restaurant-title');
+  title.innerHTML = sodexoData.meta.ref_title;
+  restaurantCard.appendChild(title);
+
+  let locales;
+  if (finnish === true) {
+    locales = 'fi';
+  } else {
+    locales = 'en';
+  }
+
+  // appends date of the and shortens it to appropriate format
+  const date = document.createElement('div');
+  date.setAttribute('class', 'date');
+
+  const dateString = day.toLocaleDateString(`${locales}`,
+    {
+      day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
+    }
+  );
+  //makes the first letter a capital letter
+  date.innerHTML = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+  restaurantCard.appendChild(date);
+
+  // chooses the correct pricing info based on language
+  const priceDescription = document.createElement('div');
+  priceDescription.setAttribute('class', 'price-description');
+  if (finnish === true) {
+    priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
+  } else {
+    priceDescription.innerHTML = `Prices: Students / Staff / Other`;
+  }
+  restaurantCard.appendChild(priceDescription);
+
   // index for menus by date
   let index = 1;
 
@@ -19,44 +59,6 @@ const showMenuSodexo = (finnish, glutenFree) => {
 
     // if current day matches the correct index in daily menus, prints the days menu
     if (index === dayNumber) {
-
-      //makes div container for the daily menu
-      const restaurantCard = document.createElement('div');
-      restaurantCard.setAttribute('class', 'restaurant-card');
-      restaurantBox.appendChild(restaurantCard);
-
-      const title = document.createElement('div');
-      title.setAttribute('class', 'restaurant-title');
-      title.innerHTML = sodexoData.meta.ref_title;
-      restaurantCard.appendChild(title);
-
-      let locales;
-      if (finnish === true) {
-        locales = 'fi';
-      } else {
-        locales = 'en';
-      }
-
-      const date = document.createElement('div');
-      date.setAttribute('class', 'date');
-      const dateString = day.toLocaleDateString(`${locales}`,
-        {
-          day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
-        }
-      );
-      //makes the first letter a capital letter
-      date.innerHTML = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-      restaurantCard.appendChild(date);
-
-      // chooses the correct pricing info based on language
-      const priceDescription = document.createElement('div');
-      priceDescription.setAttribute('class', 'price-description');
-      if (finnish === true) {
-        priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
-      } else {
-        priceDescription.innerHTML = `Prices: Students / Staff / Other`;
-      }
-      restaurantCard.appendChild(priceDescription);
 
       for (const index in mealdates.courses) {
         const course = mealdates.courses[index];

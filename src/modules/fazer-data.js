@@ -22,6 +22,42 @@ const showMenuFazer = (finnish, glutenFree) => {
   //gets the current weekdate number
   const dayNumber = new Date().getDay();
 
+  const day = new Date();
+
+  //makes div container for the daily menu
+  const restaurantCard = document.createElement('div');
+  restaurantCard.setAttribute('class', 'restaurant-card');
+  restaurantBox.appendChild(restaurantCard);
+
+  const title = document.createElement('div');
+  title.setAttribute('class', 'restaurant-title');
+  title.innerHTML = 'Metropolia Karamalmi';
+  restaurantCard.appendChild(title);
+
+  // appends date and shortens it to appropriate format
+  const date = document.createElement('div');
+  date.setAttribute('class', 'date');
+
+  const dateString = day.toLocaleDateString(`${locales}`,
+    {
+      day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
+    }
+  );
+  //makes the first letter a capital letter
+  const dateStringCapital = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+  date.innerHTML = `${dateStringCapital}`;
+  restaurantCard.appendChild(date);
+
+  // chooses the correct pricing info based on language
+  const priceDescription = document.createElement('div');
+  priceDescription.setAttribute('class', 'price-description');
+  if (finnish === true) {
+    priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
+  } else {
+    priceDescription.innerHTML = `Prices: Students / Staff / Other`;
+  }
+  restaurantCard.appendChild(priceDescription);
+
   // gets the current days prices from finnish version of food&co .json and saves them into array
   let priceArray = [];
   for (const MenusForDays of fazerDataFi.MenusForDays) {
@@ -38,51 +74,16 @@ const showMenuFazer = (finnish, glutenFree) => {
   for (const MenusForDays of menu) {
 
     //gets the weekdate number of daily menu
-    const day = new Date(`${MenusForDays.Date}`);
-    const menuDayNumber = day.getDay();
+    const menuDay = new Date(`${MenusForDays.Date}`);
+    const menuDayNumber = menuDay.getDay();
 
-    //compares current day number to menu day number and shows today's menu.
+    //compares current day number to menu day number and shows the correct menu.
     if (menuDayNumber === dayNumber) {
 
       //breaks the loop if its weekend preventing incomplete boxes.
       if (menuDayNumber === 6 || menuDayNumber === 0) {
         break;
       }
-
-      //makes div container for the daily menu
-      const restaurantCard = document.createElement('div');
-      restaurantCard.setAttribute('class', 'restaurant-card');
-      restaurantBox.appendChild(restaurantCard);
-
-      const title = document.createElement('div');
-      title.setAttribute('class', 'restaurant-title');
-      title.innerHTML = 'Metropolia Karamalmi';
-      restaurantCard.appendChild(title);
-
-      // appends date of the daily menu and shortens it to appropriate format
-      const date = document.createElement('div');
-      date.setAttribute('class', 'date');
-
-      const dateString = day.toLocaleDateString(`${locales}`,
-        {
-          day: "numeric", month: 'numeric', year: 'numeric', weekday: 'long'
-        }
-      );
-      //makes the first letter a capital letter
-      const dateStringCapital = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-      date.innerHTML = `${dateStringCapital}`;
-      restaurantCard.appendChild(date);
-
-      // chooses the correct pricing info based on language
-      const priceDescription = document.createElement('div');
-      priceDescription.setAttribute('class', 'price-description');
-      if (finnish === true) {
-        priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
-      } else {
-        priceDescription.innerHTML = `Prices: Students / Staff / Other`;
-      }
-      restaurantCard.appendChild(priceDescription);
-
       //index for dish numbers
       let i = 1;
       for (const SetMenus of MenusForDays.SetMenus) {
