@@ -368,6 +368,26 @@ button {
   justify-content: center;
 }
 
+#container4 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  border: solid 1px var(--main-color-red);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+}
+
+#map {
+  width: 400px;
+  height: 400px;
+}
+
+#hsl-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 600px) {
   .buttons {
     flex-direction: column;

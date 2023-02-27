@@ -6,6 +6,8 @@ import {doFetch} from './modules/network';
 import {darkTheme, lightTheme} from "./modules/dark-mode";
 import {search} from "./modules/search";
 import {mouseParallax} from "./modules/mouse-parallax";
+import {getRoutesByStopId, getNearestStops} from './modules/hsl';
+import {loadMap, addMarker, currentPosition} from "./modules/map";
 
 const sodexoButton = document.getElementById('restaurant-sodexo');
 const fazerButton = document.getElementById('restaurant-fazer');
@@ -15,6 +17,7 @@ const randomButton = document.getElementById('random-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
+
 
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
@@ -206,11 +209,53 @@ const loadSettings = () => {
   }
 };
 
+
+const CurrentPos = (position) => {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  renderHSLData(latitude, longitude);
+};
+
+const renderHSLData = async (latitude, longitude) => {
+
+  const stops = await getNearestStops(latitude, longitude);
+
+  let i=0;
+  for (const id of stops) {
+
+    const routes = await getRoutesByStopId(id.substring(4));
+    console.log('routes', routes);
+
+    const target = document.querySelector('#hsl-wrapper');
+
+    const name = document.createElement('div');
+    name.innerHTML = `${routes.stopName}`;
+
+    const ul = document.createElement('div');
+
+    loadMap();
+    addMarker(routes.coords, i);
+    currentPosition();
+
+    for (const route of routes.routes) {
+      const li = document.createElement('div');
+      li.textContent = `${route.name} ${route.headsign}, saapuu ${route.realtimeArrival}, ${route.arrivalDelay}`;
+      ul.append(li);
+    }
+    target.append(name);
+    target.append(ul);
+i++;
+  }
+};
+
+
 //starts the application
 const init = () => {
   loadSettings();
+  navigator.geolocation.getCurrentPosition(CurrentPos);
   loadMenus().then(() => showMenu());
 };
 init();
+
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
