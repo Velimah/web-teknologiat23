@@ -5,71 +5,36 @@ const map1 = new mapboxgl.Map({
   container: 'map1', // container id
   style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
   center: [24, 60], // starting position [lng, lat]
-  zoom: 13, // starting zoom
-});
-const map2 = new mapboxgl.Map({
-  container: 'map2', // container id
-  style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-  center: [24, 60], // starting position [lng, lat]
-  zoom: 13, // starting zoom
-});
-const map3 = new mapboxgl.Map({
-  container: 'map3', // container id
-  style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-  center: [24, 60], // starting position [lng, lat]
-  zoom: 13, // starting zoom
-});
-const map4 = new mapboxgl.Map({
-  container: 'map4', // container id
-  style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-  center: [24, 60], // starting position [lng, lat]
-  zoom: 13, // starting zoom
+  zoom: 16, // starting zoom
 });
 
 const addMarker = (coords, i, latitude, longitude) => {
   if (i === 1) {
-    map1.setCenter(coords);
-    const marker = new mapboxgl.Marker().setLngLat(coords).addTo(map1);
+    map1.setCenter([longitude, latitude]);
+    const marker = new mapboxgl.Marker({
+      color: '#ff7700',
+    }).setLngLat(coords).addTo(map1);
     const marker2 = new mapboxgl.Marker({
       color: '#ff0000',
-      scale: '0.5',
     }).setLngLat([longitude, latitude]).addTo(map1);
   } else if (i === 2) {
-    map2.setCenter(coords);
-    const marker = new mapboxgl.Marker().setLngLat(coords).addTo(map2);
-    const marker2 = new mapboxgl.Marker({
-      color: '#ff0000',
-      scale: '0.5',
-    }).setLngLat([longitude, latitude]).addTo(map2);
+    const marker = new mapboxgl.Marker({
+      color: '#36ff00',
+    }).setLngLat(coords).addTo(map1);
   } else if (i === 3) {
-    map3.setCenter(coords);
-    const marker = new mapboxgl.Marker().setLngLat(coords).addTo(map3);
-    const marker2 = new mapboxgl.Marker({
-      color: '#ff0000',
-      scale: '0.5',
-    }).setLngLat([longitude, latitude]).addTo(map3);
+    const marker = new mapboxgl.Marker({
+      color: '#0029ff',
+    }).setLngLat(coords).addTo(map1);
   } else if (i === 4) {
-    map4.setCenter(coords);
-    const marker = new mapboxgl.Marker().setLngLat(coords).addTo(map4);
-    const marker2 = new mapboxgl.Marker({
-      color: '#ff0000',
-      scale: '0.5',
-    }).setLngLat([longitude, latitude]).addTo(map4);
+    const marker = new mapboxgl.Marker({
+      color: '#c600ff',
+    }).setLngLat(coords).addTo(map1);
   }
 };
 
 const loadMap = () => {
   map1.on('load', function () {
     map1.resize();
-  });
-  map2.on('load', function () {
-    map2.resize();
-  });
-  map3.on('load', function () {
-    map3.resize();
-  });
-  map4.on('load', function () {
-    map4.resize();
   });
 };
 

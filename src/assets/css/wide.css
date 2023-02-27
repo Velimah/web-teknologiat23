@@ -374,30 +374,34 @@ button {
 
 #container4 {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   border: solid 1px var(--main-color-red);
   border-radius: 10px;
   margin: 10px;
+  padding: 10px;
 }
 
 .hsl-data {
-  margin: 20px;
+  margin: 5px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .line-container {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  height: 200px;
+  width: 400px;
+  height: 100%;
   justify-content: center;
+  border: solid 1px var(--main-color-red);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
 }
 
-#map1, #map2, #map3, #map4 {
-  width: 200px;
-  height: 200px;
+#map1 {
+  width: 100%;
+  height: 800px;
   border: solid 1px var(--main-color-red);
   border-radius: 10px;
 

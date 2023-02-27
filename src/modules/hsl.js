@@ -70,12 +70,18 @@ const getNearestStops = async (lat, lon) => {
 
   const routeData = await doFetch(apiUrl, false, options);
 
-  return routeData.data.stopsByRadius.edges.map((edge) => {
+  const routes = routeData.data.stopsByRadius.edges.map((edge) => {
     return edge.node.stop.gtfsId;
   });
+  const distance = routeData.data.stopsByRadius.edges.map((edge) => {
+    return edge.node.distance;
+  });
+
+  return {
+    routes,
+    distance,
+  };
 };
-
-
 
 /**
  * Converts HSL time to readable string format
@@ -92,11 +98,11 @@ const convertTimeToMins = (seconds) => {
   const mins = Math.floor(seconds % 3600 / 60);
 
   if (mins < 0) {
-    return `${Math.abs(mins)} minuuttia etuajassa`;
+    return `, ${Math.abs(mins)} min etuajassa`;
   } else if( mins === 0) {
-    return `ajallaan`;
+    return ``;
   } else {
-    return `${mins} minuuttia myöhässä`;
+    return `, ${mins} min myöhässä`;
   }
 };
 
