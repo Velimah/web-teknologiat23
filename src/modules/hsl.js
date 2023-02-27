@@ -116,7 +116,6 @@ const getRoutesByStopId = async (id) => {
   };
 
   const routeData = await doFetch(apiUrl, false, options);
-  console.log('routedata', routeData);
 
   const coords = [routeData.data.stop.lon, routeData.data.stop.lat];
   const stopName = routeData.data.stop.name;

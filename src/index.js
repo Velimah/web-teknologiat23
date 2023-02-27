@@ -220,31 +220,36 @@ const renderHSLData = async (latitude, longitude) => {
 
   const stops = await getNearestStops(latitude, longitude);
 
-  let i=0;
+  let i = 1;
   for (const id of stops) {
 
     const routes = await getRoutesByStopId(id.substring(4));
-    console.log('routes', routes);
 
-    const target = document.querySelector('#hsl-wrapper');
+    const target = document.querySelector('#container4');
 
-    const name = document.createElement('div');
-    name.innerHTML = `${routes.stopName}`;
+    const dataBox = document.createElement('div');
+    dataBox.setAttribute('class', 'hsl-data');
+    target.append(dataBox);
 
-    const ul = document.createElement('div');
+    const lineContainer = document.createElement('div');
+    lineContainer.setAttribute('class', 'line-container');
 
-    loadMap();
-    addMarker(routes.coords, i);
-    currentPosition();
+    const stopName = document.createElement('div');
+    stopName.setAttribute('class', 'stop-name');
+    stopName.innerHTML = `${routes.stopName}`;
+    lineContainer.appendChild(stopName);
+
+    addMarker(routes.coords, i, latitude, longitude);
 
     for (const route of routes.routes) {
-      const li = document.createElement('div');
-      li.textContent = `${route.name} ${route.headsign}, saapuu ${route.realtimeArrival}, ${route.arrivalDelay}`;
-      ul.append(li);
+      const routeInfo = document.createElement('div');
+      routeInfo.textContent = `${route.name} ${route.headsign}, saapuu ${route.realtimeArrival}, ${route.arrivalDelay}`;
+      lineContainer.append(routeInfo);
     }
-    target.append(name);
-    target.append(ul);
-i++;
+    dataBox.append(lineContainer);
+    dataBox.appendChild(document.getElementById(`map${i}`));
+
+    i++;
   }
 };
 
@@ -252,6 +257,7 @@ i++;
 //starts the application
 const init = () => {
   loadSettings();
+  loadMap();
   navigator.geolocation.getCurrentPosition(CurrentPos);
   loadMenus().then(() => showMenu());
 };
