@@ -406,6 +406,26 @@ button {
   border-radius: 10px;
 
 }
+#carousel{
+  max-width: 1100px;
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.powerpoint {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.active {
+  display: block;
+}
 
 @media screen and (max-width: 600px) {
   .buttons {

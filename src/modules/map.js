@@ -13,21 +13,26 @@ const addMarker = (coords, i, latitude, longitude) => {
     map1.setCenter([longitude, latitude]);
     const marker = new mapboxgl.Marker({
       color: '#ff7700',
+      scale: '1.2',
     }).setLngLat(coords).addTo(map1);
     const marker2 = new mapboxgl.Marker({
       color: '#ff0000',
+      scale: '1.2',
     }).setLngLat([longitude, latitude]).addTo(map1);
   } else if (i === 2) {
     const marker = new mapboxgl.Marker({
       color: '#36ff00',
+      scale: '1.2',
     }).setLngLat(coords).addTo(map1);
   } else if (i === 3) {
     const marker = new mapboxgl.Marker({
       color: '#0029ff',
+      scale: '1.2',
     }).setLngLat(coords).addTo(map1);
   } else if (i === 4) {
     const marker = new mapboxgl.Marker({
       color: '#c600ff',
+      scale: '1.2',
     }).setLngLat(coords).addTo(map1);
   }
 };

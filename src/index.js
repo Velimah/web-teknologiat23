@@ -270,6 +270,21 @@ const renderHSLData = async (latitude, longitude) => {
   }
 };
 
+
+const container = document.querySelector('#carousel');
+const images = container.querySelectorAll('img');
+console.log(container);
+const intervalTime = 3000;
+let index = 0;
+
+const carousel = () => {
+  images[index].classList.remove('active');
+  index = (index + 1) % images.length;
+  images[index].classList.add('active');
+};
+
+
+
 //starts the application
 const init = () => {
   loadSettings();
@@ -278,6 +293,7 @@ const init = () => {
   navigator.geolocation.getCurrentPosition(CurrentPos);
 };
 init();
+setInterval(carousel, intervalTime);
 
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
