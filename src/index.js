@@ -7,7 +7,7 @@ import {darkTheme, lightTheme} from "./modules/dark-mode";
 import {search} from "./modules/search";
 import {mouseParallax} from "./modules/mouse-parallax";
 import {getRoutesByStopId, getNearestStops} from './modules/hsl';
-import {loadMap, addMarker, currentPosition} from "./modules/map";
+import {loadMap, addMarker, addCurrentPosition} from "./modules/map";
 
 const sodexoButton = document.getElementById('restaurant-sodexo');
 const fazerButton = document.getElementById('restaurant-fazer');
@@ -219,7 +219,7 @@ const CurrentPos = (position) => {
 const renderHSLData = async (latitude, longitude) => {
 
   const stops = await getNearestStops(latitude, longitude);
- console.log(stops);
+  console.log(stops);
   const target = document.querySelector('#container4');
 
   const dataBox = document.createElement('div');
@@ -236,13 +236,13 @@ const renderHSLData = async (latitude, longitude) => {
     if (i === 1) {
       lineContainer.style.borderColor = '#ff7700';
       lineContainer.style.backgroundColor = 'rgba(255,119,0,0.3)';
-    } else if (i ===2) {
-      lineContainer.style.borderColor= '#36ff00';
+    } else if (i === 2) {
+      lineContainer.style.borderColor = '#36ff00';
       lineContainer.style.backgroundColor = 'rgba(54,255,0,0.3)';
-    } else if (i ===3) {
+    } else if (i === 3) {
       lineContainer.style.borderColor = '#0029ff';
       lineContainer.style.backgroundColor = 'rgba(0,41,255,0.3)';
-    } else if (i ===4) {
+    } else if (i === 4) {
       lineContainer.style.borderColor = '#c600ff';
       lineContainer.style.backgroundColor = 'rgba(198,0,255,0.3)';
     }
@@ -254,10 +254,11 @@ const renderHSLData = async (latitude, longitude) => {
 
     const stopDistance = document.createElement('div');
     stopDistance.setAttribute('class', 'stop-name');
-    stopDistance.innerHTML = `${stops.distance[i-1]} m`;
+    stopDistance.innerHTML = `${stops.distance[i - 1]} m`;
     lineContainer.appendChild(stopDistance);
 
-    addMarker(routes.coords, i, latitude, longitude);
+    addCurrentPosition(latitude, longitude);
+    addMarker(routes.coords, i);
 
     for (const route of routes.routes) {
       const routeInfo = document.createElement('div');
@@ -282,7 +283,6 @@ const carousel = () => {
   index = (index + 1) % images.length;
   images[index].classList.add('active');
 };
-
 
 
 //starts the application
