@@ -387,6 +387,16 @@ button {
   flex-direction: column;
 }
 
+.youre-here {
+  border-color: #ff0000;
+  background-color: rgba(255,0,0,0.3);
+  border: solid 1px var(--main-color-red);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
 .line-container {
   display: flex;
   flex-direction: column;

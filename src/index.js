@@ -18,7 +18,6 @@ const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById("search-input");
 const background = document.querySelector('.header-picture-area');
 
-
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
 let glutenFree = false;
@@ -164,7 +163,6 @@ const showMenu = () => {
   }
 };
 
-
 //saves settings to localstorage
 const saveSettings = () => {
   const settings = {};
@@ -225,6 +223,11 @@ const renderHSLData = async (latitude, longitude) => {
   dataBox.setAttribute('class', 'hsl-data');
   target.append(dataBox);
 
+  const marker = document.createElement('div');
+  marker.setAttribute('class', 'youre-here');
+  marker.innerHTML= 'Olet tässä';
+  dataBox.append(marker);
+
   let i = 1;
   for (const id of stops.routes) {
 
@@ -280,7 +283,6 @@ const carousel = () => {
   index = (index + 1) % images.length;
   images[index].classList.add('active');
 };
-
 
 //starts the application
 const init = () => {
