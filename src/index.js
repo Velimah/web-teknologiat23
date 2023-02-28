@@ -209,7 +209,6 @@ const loadSettings = () => {
   }
 };
 
-
 const CurrentPos = (position) => {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
@@ -257,9 +256,6 @@ const renderHSLData = async (latitude, longitude) => {
     stopDistance.innerHTML = `${stops.distance[i - 1]} m`;
     lineContainer.appendChild(stopDistance);
 
-    addCurrentPosition(latitude, longitude);
-    addMarker(routes.coords, i);
-
     for (const route of routes.routes) {
       const routeInfo = document.createElement('div');
       routeInfo.textContent = `${route.name} ${route.headsign}, saapuu ${route.realtimeArrival} ${route.arrivalDelay}`;
@@ -267,14 +263,15 @@ const renderHSLData = async (latitude, longitude) => {
     }
     dataBox.append(lineContainer);
 
+    addCurrentPosition(latitude, longitude);
+    addMarker(routes.coords, i);
     i++;
   }
 };
 
-
+//carousel
 const container = document.querySelector('#carousel');
 const images = container.querySelectorAll('img');
-console.log(container);
 const intervalTime = 3000;
 let index = 0;
 
@@ -291,9 +288,9 @@ const init = () => {
   loadMap();
   loadMenus().then(() => showMenu());
   navigator.geolocation.getCurrentPosition(CurrentPos);
+  setInterval(carousel, intervalTime);
 };
 init();
-setInterval(carousel, intervalTime);
 
 
 export {validator, sodexoData, fazerDataFi, fazerDataEn};
