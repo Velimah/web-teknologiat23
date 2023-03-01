@@ -1,5 +1,5 @@
 import {arabiaSettings, karamalmiSettings, myllypuroSettings, myyrmakiSettings, restaurants} from "./restaurant-info";
-import {fazerDataFiArabia, fazerDataFiKaramalmi, sodexoDataMyllypuro, sodexoDataMyyrmaki} from "./menu-fetch";
+import {fazerDataFiArabia, fazerDataFiKaramalmi, sodexoDataMyllypuro, sodexoDataMyyrmaki} from "./fetch-lunchmenu";
 
 
 // distance calculator for coordinates, from the wise people in internet

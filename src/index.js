@@ -1,23 +1,22 @@
 'use strict';
 
-import {renderMenuSodexo} from './modules/sodexo-data';
-import {renderMenuFazer} from './modules/fazer-data';
+import {renderMenuSodexo} from './modules/render-sodexo';
+import {renderMenuFazer} from './modules/render-fazer';
+import {renderHSLData} from "./modules/render-hsl";
 import {darkTheme, lightTheme} from './modules/dark-mode';
 import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
-import {renderHSLData} from "./modules/hsl-render";
 import {loadMap} from './modules/map';
-import {loadMenus} from './modules/menu-fetch';
-import {calculateDistance, showNearestRestaurantMenu} from "./modules/coordinate-calc";
-import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
 import {
-  fazerDataEnArabia,
+  loadMenus, fazerDataEnArabia,
   fazerDataEnKaramalmi,
   fazerDataFiArabia,
   fazerDataFiKaramalmi,
   sodexoDataMyllypuro,
   sodexoDataMyyrmaki
-} from "./modules/menu-fetch";
+} from './modules/fetch-lunchmenu';
+import {calculateDistance, showNearestRestaurantMenu} from "./modules/calculate-coordinates";
+import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
 import {doFetch} from "./modules/network";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
@@ -38,9 +37,9 @@ let lat;
 let lon;
 
 // interval timers
-const intervalTimeCarousel = 1000*3;
-const intervalTimeBusData = 1000*60;
-const intervalTimeFetchMenus = 1000*60*60;
+const intervalTimeCarousel = 1000 * 3;
+const intervalTimeBusData = 1000 * 60;
+const intervalTimeFetchMenus = 1000 * 60 * 60;
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -228,7 +227,7 @@ const init = () => {
   setInterval(carousel, intervalTimeCarousel);
 
   // refreshes the menu data every hour
-  setInterval(doFetch,showMenu, intervalTimeFetchMenus);
+  setInterval(doFetch, showMenu, intervalTimeFetchMenus);
 
   // refreshes bus stop data and map every minute
   setInterval(async () => {

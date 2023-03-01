@@ -1,4 +1,4 @@
-import {getNearestStops, getRoutesByStopId} from "./hsl-fetch";
+import {getNearestStops, getRoutesByStopId} from "./fetch-hsl";
 import {addCurrentPosition, addMarker} from "./map";
 
 const renderHSLData = async (latitude, longitude) => {

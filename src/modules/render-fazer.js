@@ -1,6 +1,6 @@
 'use strict';
 
-import {fazerDataFiKaramalmi} from './menu-fetch';
+import {fazerDataFiKaramalmi} from './fetch-lunchmenu';
 
 const restaurantBox = document.querySelector('.main');
 
