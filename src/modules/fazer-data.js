@@ -8,7 +8,6 @@ const randomCourseBox = document.getElementById('random-course');
 const showMenuFazer = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 
-  console.log('testi11',menu);
   //chooses the correct language for time
   let locales;
   if (finnish === true) {

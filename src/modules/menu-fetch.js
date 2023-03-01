@@ -1,4 +1,5 @@
 import {doFetch} from './network';
+import {myyrmakiSettings,karamalmiSettings,myllypuroSettings,arabiaSettings} from "./restaurant-info";
 
 let sodexoDataMyyrmaki;
 let sodexoDataMyllypuro;
@@ -44,7 +45,7 @@ const loadMenus = async () => {
   // fetches sodexo myllypuro menu
   try {
     sodexoDataMyllypuro = await doFetch(
-      'https://www.sodexo.fi/ruokalistat/output/weekly_json/158',
+      `https://www.sodexo.fi/ruokalistat/output/weekly_json/${myllypuroSettings.id}`,
       false,
     );
     console.log('sodexo menu myllypuro', sodexoDataMyllypuro);
@@ -54,7 +55,7 @@ const loadMenus = async () => {
   // fetches sodexo myyrmaki menu
   try {
     sodexoDataMyyrmaki = await doFetch(
-      'https://www.sodexo.fi/ruokalistat/output/weekly_json/152',
+      `https://www.sodexo.fi/ruokalistat/output/weekly_json/${myyrmakiSettings.id}`,
       false,
     );
     console.log('sodexo menu myyrmaki', sodexoDataMyyrmaki);
@@ -65,7 +66,7 @@ const loadMenus = async () => {
   // fetches finnish foodco arabia menu
   try {
     fazerDataFiArabia = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=fi',
+      `https://www.compass-group.fi/menuapi/feed/json?costNumber=${arabiaSettings.id}&language=fi`,
       true,
     );
     console.log('foodco menu arabia finnish', fazerDataFiArabia);
@@ -76,7 +77,7 @@ const loadMenus = async () => {
   // fetches english foodco arabia menu
   try {
     fazerDataEnArabia = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=en',
+      `https://www.compass-group.fi/menuapi/feed/json?costNumber=${arabiaSettings.id}&language=en`,
       true,
     );
     console.log('foodco menu arabia english', fazerDataEnArabia);
@@ -87,7 +88,7 @@ const loadMenus = async () => {
   // fetches finnish foodco karamalmi menu
   try {
     fazerDataFiKaramalmi = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi',
+      `https://www.compass-group.fi/menuapi/feed/json?costNumber=${karamalmiSettings.id}&language=fi`,
       true,
     );
     console.log('foodco menu karamalmi finnish', fazerDataFiKaramalmi);
@@ -98,7 +99,7 @@ const loadMenus = async () => {
   // fetches english foodco karamalmi menu
   try {
     fazerDataEnKaramalmi = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en',
+      `https://www.compass-group.fi/menuapi/feed/json?costNumber=${karamalmiSettings.id}&language=en`,
       true,
     );
     console.log('foodco menu karamalmi english', fazerDataEnKaramalmi);

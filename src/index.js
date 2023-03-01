@@ -8,6 +8,8 @@ import {mouseParallax} from './modules/mouse-parallax';
 import {getRoutesByStopId, getNearestStops} from './modules/hsl-fetch';
 import {loadMap, addMarker, addCurrentPosition} from './modules/map';
 import {loadMenus} from './modules/menu-fetch';
+import {calcDistance, showNearestRestaurantMenu} from "./modules/coordinate-calc";
+import {myyrmakiSettings,karamalmiSettings,myllypuroSettings,arabiaSettings} from "./modules/restaurant-info";
 import {
   fazerDataEnArabia,
   fazerDataEnKaramalmi,
@@ -28,10 +30,11 @@ const searchInput = document.getElementById('search-input');
 const background = document.querySelector('.header-picture-area');
 
 //booleans for choosing restaurant, language and dark mode
-let sodexo = true;
 let finnish;
 let darkMode;
 let menu;
+let lat;
+let lon;
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -46,13 +49,19 @@ if ('serviceWorker' in navigator) {
 
 myyrmakiButton.onclick = () => {
   menu = sodexoDataMyyrmaki;
-  sodexo = true;
   showMenu(menu);
+  renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
+  lat = myyrmakiSettings.lat;
+  lon = myyrmakiSettings.lon;
+  saveSettings();
 };
 myllypuroButton.onclick = () => {
   menu = sodexoDataMyllypuro;
-  sodexo = true;
   showMenu(menu);
+  renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
+  lat = myllypuroSettings.lat;
+  lon = myllypuroSettings.lon;
+  saveSettings();
 };
 karamalmiButton.onclick = () => {
   if (finnish === true) {
@@ -60,8 +69,11 @@ karamalmiButton.onclick = () => {
   } else {
     menu = fazerDataEnKaramalmi;
   }
-  sodexo = false;
   showMenu(menu);
+  renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
+  lat = karamalmiSettings.lat;
+  lon = karamalmiSettings.lon;
+  saveSettings();
 };
 arabiaButton.onclick = () => {
   if (finnish === true) {
@@ -69,8 +81,11 @@ arabiaButton.onclick = () => {
   } else {
     menu = fazerDataEnArabia;
   }
-  sodexo = false;
   showMenu(menu);
+  renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
+  lat = arabiaSettings.lat;
+  lon = arabiaSettings.lon;
+  saveSettings();
 };
 
 // changes language and saves boolean into local storage
@@ -88,10 +103,10 @@ languageButton.onclick = () => {
 
 //chooses the correct menu and changes the pressed buttons color
 const showMenu = (menu) => {
-  if (sodexo === true) {
-    showMenuSodexo(finnish, menu);
-  } else {
+  if ('RestaurantName' in menu) {
     showMenuFazer(finnish, menu);
+  } else {
+    showMenuSodexo(finnish, menu);
   }
 };
 
@@ -125,6 +140,8 @@ const saveSettings = () => {
   const settings = {};
   settings.finnish = finnish;
   settings.darkmode = darkMode;
+  settings.lat = lat;
+  settings.lon = lon;
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
@@ -163,20 +180,18 @@ const loadSettings = () => {
 };
 
 const CurrentPos = (position) => {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  renderHSLData(latitude, longitude);
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
+  calcDistance(lat, lon);
+  renderHSLData(lat, lon);
+  saveSettings();
 };
-
 const renderHSLData = async (latitude, longitude) => {
 
   const stops = await getNearestStops(latitude, longitude);
-  console.log(stops);
-  const target = document.querySelector('#container4');
 
-  const dataBox = document.createElement('div');
-  dataBox.setAttribute('class', 'hsl-data');
-  target.append(dataBox);
+  const dataBox = document.getElementById('hsl-data');
+  dataBox.innerHTML= '';
 
   const marker = document.createElement('div');
   marker.setAttribute('class', 'youre-here');
@@ -239,15 +254,16 @@ const carousel = () => {
   images[index].classList.add('active');
 };
 
+
+
 //starts the application
 const init = () => {
   loadSettings();
   loadMap();
-  loadMenus().then(() => {
-    menu = sodexoDataMyyrmaki;
-    showMenu(menu);
-  });
   navigator.geolocation.getCurrentPosition(CurrentPos);
+  loadMenus().then(() => {
+    showMenu(showNearestRestaurantMenu());
+  });
   setInterval(carousel, intervalTime);
 };
 init();

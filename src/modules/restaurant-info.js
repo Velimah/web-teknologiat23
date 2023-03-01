@@ -28,5 +28,9 @@ const restaurants = [
     lat: '60.21003284593111',
   },
 ];
+const myyrmakiSettings = restaurants[0];
+const karamalmiSettings = restaurants[1];
+const myllypuroSettings = restaurants[2];
+const arabiaSettings = restaurants[3];
 
-export {restaurants};
+export {myyrmakiSettings,karamalmiSettings,myllypuroSettings,arabiaSettings, restaurants};

@@ -351,11 +351,6 @@ footer {
   max-width: 90%;
 }
 
-#restaurant-sodexo {
-  background-color: var(--main-color-green);
-}
-
-
 button {
   margin: 10px;
   width: 100px;
@@ -381,7 +376,7 @@ button {
   padding: 10px;
 }
 
-.hsl-data {
+#hsl-data {
   margin: 5px;
   display: flex;
   flex-direction: column;
