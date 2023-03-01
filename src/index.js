@@ -6,16 +6,16 @@ import {renderHSLData} from "./modules/render-hsl";
 import {darkTheme, lightTheme} from './modules/dark-mode';
 import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
-import {loadMap} from './modules/map';
+import {loadHSLMap} from './modules/map';
 import {
-  loadMenus, fazerDataEnArabia,
+  getLunchMenus, fazerDataEnArabia,
   fazerDataEnKaramalmi,
   fazerDataFiArabia,
   fazerDataFiKaramalmi,
   sodexoDataMyllypuro,
   sodexoDataMyyrmaki
 } from './modules/fetch-lunchmenu';
-import {calculateDistance, showNearestRestaurantMenu} from "./modules/calculate-coordinates";
+import {calculateNearestCampus, showNearestRestaurantMenu} from "./modules/calculate-coordinates";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
 import {doFetch} from "./modules/network";
 
@@ -52,110 +52,11 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-myyrmakiButton.onclick = () => {
-  menu = sodexoDataMyyrmaki;
-  lat = myyrmakiSettings.lat;
-  lon = myyrmakiSettings.lon;
-  showMenu(menu);
-  renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
-  saveSettings();
-};
-myllypuroButton.onclick = () => {
-  menu = sodexoDataMyllypuro;
-  lat = myllypuroSettings.lat;
-  lon = myllypuroSettings.lon;
-  showMenu(menu);
-  renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
-  saveSettings();
-};
-karamalmiButton.onclick = () => {
-  if (finnish === true) {
-    menu = fazerDataFiKaramalmi;
-  } else {
-    menu = fazerDataEnKaramalmi;
-  }
-  lat = karamalmiSettings.lat;
-  lon = karamalmiSettings.lon;
-  showMenu(menu);
-  renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
-  saveSettings();
-};
-arabiaButton.onclick = () => {
-  if (finnish === true) {
-    menu = fazerDataFiArabia;
-  } else {
-    menu = fazerDataEnArabia;
-  }
-  lat = arabiaSettings.lat;
-  lon = arabiaSettings.lon;
-  showMenu(menu);
-  renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
-  saveSettings();
-};
-
-// changes language and saves boolean into local storage
-/*
-languageButton.onclick = () => {
-  if (finnish === true) {
-    languageButton.innerHTML = 'English';
-    finnish = false;
-  } else {
-    languageButton.innerHTML = 'Suomi';
-    finnish = true;
-  }
-  saveSettings();
-  showMenu(menu);
-};
-*/
-
-//chooses the correct menu through object properties
-const showMenu = (menu) => {
-  if ('RestaurantName' in menu) {
-    renderMenuFazer(finnish, menu);
-  } else {
-    renderMenuSodexo(finnish, menu);
-  }
-};
-
-
-// changes dark mode and saves boolean into local storage
-darkModeButton.onclick = () => {
-  if (darkMode === true) {
-    darkModeButton.innerHTML = 'Light mode';
-    lightTheme();
-    darkMode = false;
-  } else {
-    darkModeButton.innerHTML = 'Dark mode';
-    darkTheme();
-    darkMode = true;
-  }
-  saveSettings();
-};
-
-// search, takes value from input and searches course names for a match
-searchInput.addEventListener('keypress', (event) => {
-  search(finnish, event);
-});
-
-//parallax mouse effect
-background.addEventListener('mousemove', (evt) => {
-  mouseParallax(evt);
-});
-
-//saves settings to localstorage
-const saveSettings = () => {
-  const settings = {};
-  settings.finnish = finnish;
-  settings.darkmode = darkMode;
-  settings.lat = lat;
-  settings.lon = lon;
-  localStorage.setItem('settings', JSON.stringify(settings));
-};
-
 // loads data from localstorage and chooses language and color theme
-const loadSettings = () => {
-  //checks if the localstorage is empty to avoid null error.
+const loadSettingsFromLocalStorage = () => {
   let parsedData;
+
+  //checks if the localstorage is empty to avoid null error.
   try {
     parsedData = JSON.parse(localStorage.getItem('settings')).finnish;
   } catch (e) {
@@ -189,9 +90,18 @@ const loadSettings = () => {
 const getCurrentCoordinates = (position) => {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-  calculateDistance(lat, lon);
+  calculateNearestCampus(lat, lon);
   renderHSLData(lat, lon);
-  saveSettings();
+  saveSettingsToLocalStorage();
+};
+
+//chooses the correct menu through object properties
+const showLunchMenu = (menu) => {
+  if ('RestaurantName' in menu) {
+    renderMenuFazer(finnish, menu);
+  } else {
+    renderMenuSodexo(finnish, menu);
+  }
 };
 
 //carousel
@@ -205,29 +115,118 @@ const carousel = () => {
   images[index].classList.add('active');
 };
 
+myyrmakiButton.addEventListener('click', () => {
+  menu = sodexoDataMyyrmaki;
+  lat = myyrmakiSettings.lat;
+  lon = myyrmakiSettings.lon;
+  showLunchMenu(menu);
+  renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
+  saveSettingsToLocalStorage();
+});
+myllypuroButton.addEventListener('click', () => {
+  menu = sodexoDataMyllypuro;
+  lat = myllypuroSettings.lat;
+  lon = myllypuroSettings.lon;
+  showLunchMenu(menu);
+  renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
+  saveSettingsToLocalStorage();
+});
+karamalmiButton.addEventListener('click', () => {
+  if (finnish === true) {
+    menu = fazerDataFiKaramalmi;
+  } else {
+    menu = fazerDataEnKaramalmi;
+  }
+  lat = karamalmiSettings.lat;
+  lon = karamalmiSettings.lon;
+  showLunchMenu(menu);
+  renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
+  saveSettingsToLocalStorage();
+});
+arabiaButton.addEventListener('click', () => {
+  if (finnish === true) {
+    menu = fazerDataFiArabia;
+  } else {
+    menu = fazerDataEnArabia;
+  }
+  lat = arabiaSettings.lat;
+  lon = arabiaSettings.lon;
+  showLunchMenu(menu);
+  renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
+  saveSettingsToLocalStorage();
+});
+
+// changes language and saves boolean into local storage
+/*
+languageButton.onclick = () => {
+  if (finnish === true) {
+    languageButton.innerHTML = 'English';
+    finnish = false;
+  } else {
+    languageButton.innerHTML = 'Suomi';
+    finnish = true;
+  }
+  saveSettings();
+  showMenu(menu);
+};
+*/
+
+// changes dark mode and saves boolean into local storage
+darkModeButton.addEventListener('click', () => {
+  if (darkMode === true) {
+    darkModeButton.innerHTML = 'Light mode';
+    lightTheme();
+    darkMode = false;
+  } else {
+    darkModeButton.innerHTML = 'Dark mode';
+    darkTheme();
+    darkMode = true;
+  }
+  saveSettingsToLocalStorage();
+});
+
+// search, takes value from input and searches course names for a match
+searchInput.addEventListener('keypress', (event) => {
+  search(finnish, event);
+});
+
+//parallax mouse effect
+background.addEventListener('mousemove', (evt) => {
+  mouseParallax(evt);
+});
+
+//saves settings to localstorage
+const saveSettingsToLocalStorage = () => {
+  const settings = {};
+  settings.finnish = finnish;
+  settings.darkmode = darkMode;
+  settings.lat = lat;
+  settings.lon = lon;
+  localStorage.setItem('settings', JSON.stringify(settings));
+};
 
 //starts the application
 const init = () => {
 
   // loads localstorage settings
-  loadSettings();
+  loadSettingsFromLocalStorage();
 
   // loads bust stop map
-  loadMap();
+  loadHSLMap();
 
   // gets current coordinates and loads bus stop data
   navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
 
   //fetches lunch menus and then loads the nearest restaurant's menu
-  loadMenus().then(() => {
-    showMenu(showNearestRestaurantMenu());
+  getLunchMenus().then(() => {
+    showLunchMenu(showNearestRestaurantMenu());
   });
 
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
 
   // refreshes the menu data every hour
-  setInterval(doFetch, showMenu, intervalTimeFetchMenus);
+  setInterval(doFetch, showLunchMenu, intervalTimeFetchMenus);
 
   // refreshes bus stop data and map every minute
   setInterval(async () => {

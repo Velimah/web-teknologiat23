@@ -8,7 +8,7 @@ let fazerDataEnKaramalmi;
 let fazerDataFiArabia;
 let fazerDataEnArabia;
 
-const loadMenus = async () => {
+const getLunchMenus = async () => {
   /*
     if (type === 'sodexo') {
       try {
@@ -108,4 +108,4 @@ const loadMenus = async () => {
   }
 };
 
-export {sodexoDataMyyrmaki, sodexoDataMyllypuro, fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia, loadMenus};
+export {sodexoDataMyyrmaki, sodexoDataMyllypuro, fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia, getLunchMenus};

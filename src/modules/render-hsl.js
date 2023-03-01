@@ -1,5 +1,5 @@
 import {getNearestStops, getRoutesByStopId} from "./fetch-hsl";
-import {addCurrentPosition, addMarker} from "./map";
+import {addCurrentPositionMarker, addStopMarker} from "./map";
 
 const renderHSLData = async (latitude, longitude) => {
 
@@ -51,8 +51,8 @@ const renderHSLData = async (latitude, longitude) => {
     }
     dataBox.append(lineContainer);
 
-    addCurrentPosition(latitude, longitude);
-    addMarker(routes.coords, i);
+    addCurrentPositionMarker(latitude, longitude);
+    addStopMarker(routes.coords, i);
     i++;
   }
 };

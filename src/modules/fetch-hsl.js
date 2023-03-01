@@ -59,6 +59,29 @@ const getQueryForNearestStops = (lat, lon) => {
 }`;
 };
 
+/**
+ * Converts HSL time to readable string format
+ * @param {number} seconds
+ * @returns time in string format
+ */
+const convertTime = (seconds) => {
+  const hours = Math.floor(seconds / 3600);
+  const mins = Math.floor(seconds % 3600 / 60);
+  return `${hours}:${mins < 10 ? '0' + mins : mins}`;
+};
+
+const convertTimeToMins = (seconds) => {
+  const mins = Math.floor(seconds % 3600 / 60);
+
+  if (mins < 0) {
+    return `, ${Math.abs(mins)} min etuajassa`;
+  } else if( mins === 0) {
+    return ``;
+  } else {
+    return `, ${mins} min myöhässä`;
+  }
+};
+
 const getNearestStops = async (lat, lon) => {
   const options = {
     method: 'POST',
@@ -81,29 +104,6 @@ const getNearestStops = async (lat, lon) => {
     routes,
     distance,
   };
-};
-
-/**
- * Converts HSL time to readable string format
- * @param {number} seconds
- * @returns time in string format
- */
-const convertTime = (seconds) => {
-  const hours = Math.floor(seconds / 3600);
-  const mins = Math.floor(seconds % 3600 / 60);
-  return `${hours}:${mins < 10 ? '0' + mins : mins}`;
-};
-
-const convertTimeToMins = (seconds) => {
-  const mins = Math.floor(seconds % 3600 / 60);
-
-  if (mins < 0) {
-    return `, ${Math.abs(mins)} min etuajassa`;
-  } else if( mins === 0) {
-    return ``;
-  } else {
-    return `, ${mins} min myöhässä`;
-  }
 };
 
 /**

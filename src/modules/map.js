@@ -8,14 +8,14 @@ const map1 = new mapboxgl.Map({
   zoom: 15, // starting zoom
 });
 
-const addCurrentPosition = (latitude, longitude) => {
+const addCurrentPositionMarker = (latitude, longitude) => {
   map1.setCenter([longitude, latitude]);
-  const marker2 = new mapboxgl.Marker({
+  const marker = new mapboxgl.Marker({
     color: '#ff0000',
     scale: '1.2',
   }).setLngLat([longitude, latitude]).addTo(map1);
 };
-const addMarker = (coords, i) => {
+const addStopMarker = (coords, i) => {
   let color;
   if (i === 1) {
     color = '#ff7700';
@@ -32,11 +32,11 @@ const addMarker = (coords, i) => {
   }).setLngLat(coords).addTo(map1);
 };
 
-const loadMap = () => {
+const loadHSLMap = () => {
   map1.on('load', function () {
     map1.resize();
   });
 };
 
 
-export {addMarker, addCurrentPosition, loadMap};
+export {addStopMarker, addCurrentPositionMarker, loadHSLMap};
