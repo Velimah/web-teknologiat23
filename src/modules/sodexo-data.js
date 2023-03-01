@@ -1,12 +1,11 @@
 'use strict';
 
-import {validator} from "../index";
 import {sodexoDataMyyrmaki, sodexoDataMyllypuro} from './menu-fetch';
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showMenuSodexo = (finnish, glutenFree) => {
+const showMenuSodexo = (finnish) => {
   restaurantBox.innerHTML = '';
 
   //gets the current weekdate number
@@ -14,7 +13,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
   const dayNumber = day.getDay();
 
   let data;
-  if(true) {
+  if (true) {
     data = sodexoDataMyyrmaki;
   } else {
     data = sodexoDataMyllypuro;
@@ -91,71 +90,20 @@ const showMenuSodexo = (finnish, glutenFree) => {
           menu = course.title_en.charAt(0).toUpperCase() + course.title_en.slice(1).toLowerCase();
         }
 
-        //checks if user wants to see only gluten-free dishes
-        if (glutenFree === true) {
+        const courseName = document.createElement('div');
+        courseName.setAttribute('class', 'course-name');
+        courseName.innerHTML = `${menu} (${course.dietcodes})`;
+        courseNumber.appendChild(courseName);
 
-          // a cluster.f pyramid because some dish objects don't have 'dietcodes' key at all instead of value being empty
-          if (course.dietcodes !== undefined) {
+        const price = document.createElement('div');
+        price.setAttribute('class', 'course-price');
+        price.innerHTML = `${course.price}`;
+        courseNumber.appendChild(price);
 
-            //validates dish name and searches for 'G' marker for gluten-free
-            if (validator(menu) === true && !course.dietcodes.includes('G')) {
-              const courseName = document.createElement('div');
-              courseName.setAttribute('class', 'course-name');
-              courseName.innerHTML = `${menu} (${course.dietcodes})`;
-              courseNumber.appendChild(courseName);
-
-              const price = document.createElement('div');
-              price.setAttribute('class', 'course-price');
-              price.innerHTML = `${course.price}`;
-              courseNumber.appendChild(price);
-
-              // removes dish data if it is not gluten-free
-            } else {
-              courseNumber.style.display = "none";
-            }
-            // removes dish data if it is not gluten-free
-          } else {
-            courseNumber.style.display = "none";
-          }
-
-        } else {
-          if (validator(menu) === true) {
-            const courseName = document.createElement('div');
-            courseName.setAttribute('class', 'course-name');
-            courseName.innerHTML = `${menu} (${course.dietcodes})`;
-            courseNumber.appendChild(courseName);
-
-            const price = document.createElement('div');
-            price.setAttribute('class', 'course-price');
-            price.innerHTML = `${course.price}`;
-            courseNumber.appendChild(price);
-
-            // removes dish data if it doesn't pass validation
-          } else {
-            courseNumber.style.display = "none";
-          }
-        }
-        // increases the dish number index
       }
     }
     // increases the menu day index
     index++;
   }
 };
-
-const randomCourse = (finnish) => {
-
-  //maps all the menu items and flattens the arrays into one.
-  const courses = sodexoDataMyyrmaki.mealdates.map(day => {
-    if (finnish === true) {
-      return Object.values(day.courses).map(course => course.title_fi);
-    } else {
-      return Object.values(day.courses).map(course => course.title_en);
-    }
-  }).flat();
-
-  // gives a random item from the array
-  randomCourseBox.innerHTML = courses[Math.floor(Math.random() * courses.length)];
-};
-
-export {showMenuSodexo, randomCourse};
+export {showMenuSodexo};

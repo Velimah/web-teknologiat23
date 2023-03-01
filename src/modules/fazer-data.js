@@ -1,12 +1,11 @@
 'use strict';
 
-import {validator} from "../index";
 import {fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia} from './menu-fetch';
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showMenuFazer = (finnish, glutenFree) => {
+const showMenuFazer = (finnish) => {
   restaurantBox.innerHTML = '';
 
   //chooses the correct language for menu and time
@@ -109,24 +108,12 @@ const showMenuFazer = (finnish, glutenFree) => {
           //makes the first letter capital
           const componentCapital = component.charAt(0).toUpperCase() + component.slice(1);
 
-          //checks if user wants to see only gluten-free dishes
-          if (glutenFree === true) {
 
-            //validates dish name and searches for different 'G' markers for gluten-free
-            if (validator(componentCapital) === true && !componentCapital.includes(', G') && !componentCapital.includes('G, ') && !componentCapital.includes('(G')) {
-              const courseName = document.createElement('div');
-              courseName.setAttribute('class', 'course-name');
-              courseName.innerHTML = componentCapital;
-              courseNumber.appendChild(courseName);
-            }
-          } else {
-            if (validator(componentCapital) === true) {
-              const courseName = document.createElement('div');
-              courseName.setAttribute('class', 'course-name');
-              courseName.innerHTML = componentCapital;
-              courseNumber.appendChild(courseName);
-            }
-          }
+          const courseName = document.createElement('div');
+          courseName.setAttribute('class', 'course-name');
+          courseName.innerHTML = componentCapital;
+          courseNumber.appendChild(courseName);
+
         }
 
         // gets the price from price array saved from the finnish .json
@@ -136,12 +123,6 @@ const showMenuFazer = (finnish, glutenFree) => {
         price.innerHTML = `${priceArray[i - 1].substring(0, 4)} € / ${priceArray[i - 1].substring(5, 9)} € / ${priceArray[i - 1].substring(10, 14)} €`;
         courseNumber.appendChild(price);
 
-        // removes dish data if there are no gluten-free options
-        const nodes = courseNumber.childNodes;
-        if (nodes.length < 3) {
-          courseNumber.style.display = "none";
-        }
-
         // increases the dish number index
         i++;
       }
@@ -149,21 +130,4 @@ const showMenuFazer = (finnish, glutenFree) => {
   }
 };
 
-const randomCourseFazer = (finnish) => {
-
-  //checks the menu language
-  let menu;
-  if (finnish === true) {
-    menu = fazerDataFiKaramalmi.MenusForDays;
-  } else {
-    menu = fazerDataEnKaramalmi.MenusForDays;
-  }
-
-  //maps all the menu items and flattens the arrays into one.
-  let components = menu.map(day => day.SetMenus.map(menu => menu.Components)).flat().flat();
-
-  // gives a random item from the array
-  randomCourseBox.innerHTML = components[Math.floor(Math.random() * components.length)];
-};
-
-export {showMenuFazer, randomCourseFazer};
+export {showMenuFazer};

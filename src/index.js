@@ -1,8 +1,7 @@
 'use strict';
 
-import {showMenuSodexo, randomCourse} from './modules/sodexo-data';
-import {showMenuFazer, randomCourseFazer} from './modules/fazer-data';
-import {doFetch} from './modules/network';
+import {showMenuSodexo} from './modules/sodexo-data';
+import {showMenuFazer} from './modules/fazer-data';
 import {darkTheme, lightTheme} from './modules/dark-mode';
 import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
@@ -16,51 +15,14 @@ const myllypuroButton = document.getElementById('restaurant-sodexo2');
 const arabiaButton = document.getElementById('restaurant-fazer2');
 
 const languageButton = document.getElementById('language-button');
-const glutenButton = document.getElementById('gluten-button');
-const randomButton = document.getElementById('random-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById('search-input');
 const background = document.querySelector('.header-picture-area');
 
-const restaurants = [
-  {
-    name: 'Myyrmaki',
-    id: 152,
-    type: 'sodexo',
-    lon: '24.844454601853037',
-    lat: '60.258748360347994',
-  },
-  {
-    name: 'Karamalmi',
-    id: 3208,
-    type: 'fazer',
-    lon: '24.758666255819254',
-    lat: '60.22419827645741',
-  },
-  {
-    name: 'Myllypuro',
-    id: 158,
-    type: 'sodexo',
-    lon: '25.0779246',
-    lat: '60.223573821912986',
-  },
-  {
-    name: 'Arabia',
-    id: 1251,
-    type: 'fazer',
-    lon: '24.97673291349155',
-    lat: '60.21003284593111',
-  },
-];
-
-//booleans for choosing restaurant, language, gluten-free meals and dark mode
+//booleans for choosing restaurant, language and dark mode
 let sodexo = true;
-let glutenFree = false;
 let finnish;
 let darkMode;
-
-//variables for .json data from fetches
-
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -96,11 +58,9 @@ myllypuroButton.onclick = () => {
 languageButton.onclick = () => {
   if (finnish === true) {
     languageButton.innerHTML = 'English';
-    glutenButton.innerHTML = 'Gluten-free';
     finnish = false;
   } else {
     languageButton.innerHTML = 'Suomi';
-    glutenButton.innerHTML = 'Gluteeniton';
     finnish = true;
   }
   saveSettings();
@@ -121,26 +81,6 @@ darkModeButton.onclick = () => {
   saveSettings();
 };
 
-glutenButton.onclick = () => {
-  if (glutenFree === true) {
-    glutenFree = false;
-    glutenButton.style.backgroundColor = 'var(--supp-color-lgreen)';
-    showMenu();
-  } else {
-    glutenFree = true;
-    glutenButton.style.backgroundColor = 'var(--main-color-green)';
-    showMenu();
-  }
-};
-
-randomButton.onclick = () => {
-  if (sodexo === true) {
-    randomCourse(finnish);
-  } else {
-    randomCourseFazer(finnish);
-  }
-};
-
 // search, takes value from input and searches course names for a match
 searchInput.addEventListener('keypress', (event) => {
   search(finnish, event);
@@ -150,23 +90,14 @@ searchInput.addEventListener('keypress', (event) => {
 background.addEventListener('mousemove', (evt) => {
   mouseParallax(evt);
 });
-
-// validator for dish names
-let validator = (string) => {
-  const regexp = /^[A-ZÄÖÅ][A-ZÄÖÅa-zäöåêü0-9-/,()*\s]{3,100}$/;
-  return regexp.test(string);
-};
-
-
-
 //chooses the correct menu and changes the pressed buttons color
 const showMenu = () => {
   if (sodexo === true) {
-    showMenuSodexo(finnish, glutenFree);
+    showMenuSodexo(finnish);
     myyrmakiButton.style.backgroundColor = 'var(--main-color-green)';
     karamalmiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
-    showMenuFazer(finnish, glutenFree);
+    showMenuFazer(finnish);
     myyrmakiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
     karamalmiButton.style.backgroundColor = 'var(--main-color-green)';
   }
@@ -200,10 +131,8 @@ const loadSettings = () => {
   // chooses button texts based on localstorage settings
   if (finnish === true) {
     languageButton.innerHTML = 'Suomi';
-    glutenButton.innerHTML = 'Gluteeniton';
   } else {
     languageButton.innerHTML = 'English';
-    glutenButton.innerHTML = 'Gluten-free';
   }
 
   // chooses theme based on localstorage settings
@@ -302,5 +231,3 @@ const init = () => {
   setInterval(carousel, intervalTime);
 };
 init();
-
-export {validator};
