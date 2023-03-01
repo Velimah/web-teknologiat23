@@ -1,11 +1,10 @@
 'use strict';
 
-import {fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia} from './menu-fetch';
+import {fazerDataFiKaramalmi} from './menu-fetch';
 
 const restaurantBox = document.querySelector('.main');
-const randomCourseBox = document.getElementById('random-course');
 
-const showMenuFazer = (finnish, menu) => {
+const renderMenuFazer = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 
   //chooses the correct language for time
@@ -30,9 +29,9 @@ const showMenuFazer = (finnish, menu) => {
   title.setAttribute('class', 'restaurant-title');
 
   if (menu.RestaurantName === "Luova") {
-    title.innerHTML = 'Metropolia Arabia';
+    title.innerHTML = 'Food & Co Metropolia Arabia';
   } else {
-    title.innerHTML = 'Metropolia Karamalmi';
+    title.innerHTML = 'Food & Co Metropolia Karamalmi';
   }
   restaurantCard.appendChild(title);
 
@@ -132,4 +131,4 @@ const showMenuFazer = (finnish, menu) => {
   }
 };
 
-export {showMenuFazer};
+export {renderMenuFazer};

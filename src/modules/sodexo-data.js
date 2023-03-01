@@ -2,7 +2,7 @@
 
 const restaurantBox = document.querySelector('.main');
 
-const showMenuSodexo = (finnish, menu) => {
+const renderMenuSodexo = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 
   //gets the current weekdate number
@@ -16,7 +16,7 @@ const showMenuSodexo = (finnish, menu) => {
 
   const title = document.createElement('div');
   title.setAttribute('class', 'restaurant-title');
-  title.innerHTML = menu.meta.ref_title;
+  title.innerHTML = `Sodexo ${menu.meta.ref_title}`;
   restaurantCard.appendChild(title);
 
   let locales;
@@ -96,4 +96,4 @@ const showMenuSodexo = (finnish, menu) => {
     index++;
   }
 };
-export {showMenuSodexo};
+export {renderMenuSodexo};

@@ -25,7 +25,7 @@ let nearestRestaurant;
 let nearestCoordinate = null;
 let smallestDistance = Infinity;
 
-const calcDistance = (lat, lon) => {
+const calculateDistance = (lat, lon) => {
   console.log(lat, lon);
   for (const coord of restaurants) {
     const distance = getDistanceFromLatLonInKm(
@@ -52,4 +52,4 @@ const showNearestRestaurantMenu = () => {
   }
 };
 
-export {calcDistance, showNearestRestaurantMenu};
+export {calculateDistance, showNearestRestaurantMenu};

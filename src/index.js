@@ -1,14 +1,14 @@
 'use strict';
 
-import {showMenuSodexo} from './modules/sodexo-data';
-import {showMenuFazer} from './modules/fazer-data';
+import {renderMenuSodexo} from './modules/sodexo-data';
+import {renderMenuFazer} from './modules/fazer-data';
 import {darkTheme, lightTheme} from './modules/dark-mode';
 import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
 import {renderHSLData} from "./modules/hsl-render";
 import {loadMap} from './modules/map';
 import {loadMenus} from './modules/menu-fetch';
-import {calcDistance, showNearestRestaurantMenu} from "./modules/coordinate-calc";
+import {calculateDistance, showNearestRestaurantMenu} from "./modules/coordinate-calc";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
 import {
   fazerDataEnArabia,
@@ -18,6 +18,7 @@ import {
   sodexoDataMyllypuro,
   sodexoDataMyyrmaki
 } from "./modules/menu-fetch";
+import {doFetch} from "./modules/network";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
@@ -29,12 +30,17 @@ const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById('search-input');
 const background = document.querySelector('.header-picture-area');
 
-//booleans for choosing restaurant, language and dark mode
+//initialization of variables used in functions
 let finnish;
 let darkMode;
 let menu;
 let lat;
 let lon;
+
+// interval timers
+const intervalTimeCarousel = 1000*3;
+const intervalTimeBusData = 1000*60;
+const intervalTimeFetchMenus = 1000*60*60;
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -49,18 +55,18 @@ if ('serviceWorker' in navigator) {
 
 myyrmakiButton.onclick = () => {
   menu = sodexoDataMyyrmaki;
-  showMenu(menu);
-  renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   lat = myyrmakiSettings.lat;
   lon = myyrmakiSettings.lon;
+  showMenu(menu);
+  renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   saveSettings();
 };
 myllypuroButton.onclick = () => {
   menu = sodexoDataMyllypuro;
-  showMenu(menu);
-  renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
   lat = myllypuroSettings.lat;
   lon = myllypuroSettings.lon;
+  showMenu(menu);
+  renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
   saveSettings();
 };
 karamalmiButton.onclick = () => {
@@ -69,10 +75,10 @@ karamalmiButton.onclick = () => {
   } else {
     menu = fazerDataEnKaramalmi;
   }
-  showMenu(menu);
-  renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
   lat = karamalmiSettings.lat;
   lon = karamalmiSettings.lon;
+  showMenu(menu);
+  renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
   saveSettings();
 };
 arabiaButton.onclick = () => {
@@ -81,10 +87,10 @@ arabiaButton.onclick = () => {
   } else {
     menu = fazerDataEnArabia;
   }
-  showMenu(menu);
-  renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
   lat = arabiaSettings.lat;
   lon = arabiaSettings.lon;
+  showMenu(menu);
+  renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
   saveSettings();
 };
 
@@ -103,12 +109,12 @@ languageButton.onclick = () => {
 };
 */
 
-//chooses the correct menu and changes the pressed buttons color
+//chooses the correct menu through object properties
 const showMenu = (menu) => {
   if ('RestaurantName' in menu) {
-    showMenuFazer(finnish, menu);
+    renderMenuFazer(finnish, menu);
   } else {
-    showMenuSodexo(finnish, menu);
+    renderMenuSodexo(finnish, menu);
   }
 };
 
@@ -181,10 +187,10 @@ const loadSettings = () => {
   }
 };
 
-const CurrentPos = (position) => {
+const getCurrentCoordinates = (position) => {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-  calcDistance(lat, lon);
+  calculateDistance(lat, lon);
   renderHSLData(lat, lon);
   saveSettings();
 };
@@ -192,8 +198,6 @@ const CurrentPos = (position) => {
 //carousel
 const container = document.querySelector('#carousel');
 const images = container.querySelectorAll('img');
-const intervalTimeCarousel = 3000;
-const intervalTimeBusData = 60000;
 let index = 0;
 
 const carousel = () => {
@@ -213,15 +217,18 @@ const init = () => {
   loadMap();
 
   // gets current coordinates and loads bus stop data
-  navigator.geolocation.getCurrentPosition(CurrentPos);
+  navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
 
   //fetches lunch menus and then loads the nearest restaurant's menu
   loadMenus().then(() => {
     showMenu(showNearestRestaurantMenu());
   });
 
-  //starts the info-carousel
+  // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
+
+  // refreshes the menu data every hour
+  setInterval(doFetch,showMenu, intervalTimeFetchMenus);
 
   // refreshes bus stop data and map every minute
   setInterval(async () => {
