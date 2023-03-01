@@ -19,6 +19,15 @@ import {calculateNearestCampus, showNearestRestaurantMenu} from "./modules/calcu
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
 import {doFetch} from "./modules/network";
 
+const myyrmakiButton = document.getElementById('restaurant-sodexo');
+const karamalmiButton = document.getElementById('restaurant-fazer');
+const myllypuroButton = document.getElementById('restaurant-sodexo2');
+const arabiaButton = document.getElementById('restaurant-fazer2');
+const languageButton = document.getElementById('language-button');
+const darkModeButton = document.getElementById('darkmode-button');
+const searchInput = document.getElementById('search-input');
+const background = document.querySelector('.header-picture-area');
+
 //initialization of variables to save data from functions
 let finnish;
 let darkMode;
@@ -105,7 +114,6 @@ const carousel = () => {
   images[index].classList.add('active');
 };
 
-const myyrmakiButton = document.getElementById('restaurant-sodexo');
 myyrmakiButton.addEventListener('click', () => {
   menu = sodexoDataMyyrmaki;
   lat = myyrmakiSettings.lat;
@@ -114,8 +122,6 @@ myyrmakiButton.addEventListener('click', () => {
   renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   saveSettingsToLocalStorage();
 });
-
-const myllypuroButton = document.getElementById('restaurant-sodexo2');
 myllypuroButton.addEventListener('click', () => {
   menu = sodexoDataMyllypuro;
   lat = myllypuroSettings.lat;
@@ -124,8 +130,6 @@ myllypuroButton.addEventListener('click', () => {
   renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
   saveSettingsToLocalStorage();
 });
-
-const karamalmiButton = document.getElementById('restaurant-fazer');
 karamalmiButton.addEventListener('click', () => {
   if (finnish === true) {
     menu = fazerDataFiKaramalmi;
@@ -138,8 +142,6 @@ karamalmiButton.addEventListener('click', () => {
   renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
   saveSettingsToLocalStorage();
 });
-
-const arabiaButton = document.getElementById('restaurant-fazer2');
 arabiaButton.addEventListener('click', () => {
   if (finnish === true) {
     menu = fazerDataFiArabia;
@@ -154,7 +156,6 @@ arabiaButton.addEventListener('click', () => {
 });
 
 // changes language and saves boolean into local storage
-const languageButton = document.getElementById('language-button');
 /*
 languageButton.onclick = () => {
   if (finnish === true) {
@@ -169,7 +170,6 @@ languageButton.onclick = () => {
 };
 */
 
-const darkModeButton = document.getElementById('darkmode-button');
 // changes dark mode and saves boolean into local storage
 darkModeButton.addEventListener('click', () => {
   if (darkMode === true) {
@@ -184,13 +184,11 @@ darkModeButton.addEventListener('click', () => {
   saveSettingsToLocalStorage();
 });
 
-const searchInput = document.getElementById('search-input');
 // search, takes value from input and searches course names for a match
 searchInput.addEventListener('keypress', (event) => {
   search(finnish, event);
 });
 
-const background = document.querySelector('.header-picture-area');
 //parallax mouse effect
 background.addEventListener('mousemove', (evt) => {
   mouseParallax(evt);
