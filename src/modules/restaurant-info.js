@@ -33,4 +33,4 @@ const karamalmiSettings = restaurants[1];
 const myllypuroSettings = restaurants[2];
 const arabiaSettings = restaurants[3];
 
-export {myyrmakiSettings,karamalmiSettings,myllypuroSettings,arabiaSettings, restaurants};
+export {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings, restaurants};
