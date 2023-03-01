@@ -1,22 +1,57 @@
 'use strict';
 
 import {showMenuSodexo, randomCourse} from './modules/sodexo-data';
-import {showMenuFazer, randomCourseFazer} from "./modules/fazer-data";
+import {showMenuFazer, randomCourseFazer} from './modules/fazer-data';
 import {doFetch} from './modules/network';
-import {darkTheme, lightTheme} from "./modules/dark-mode";
-import {search} from "./modules/search";
-import {mouseParallax} from "./modules/mouse-parallax";
+import {darkTheme, lightTheme} from './modules/dark-mode';
+import {search} from './modules/search';
+import {mouseParallax} from './modules/mouse-parallax';
 import {getRoutesByStopId, getNearestStops} from './modules/hsl';
-import {loadMap, addMarker, addCurrentPosition} from "./modules/map";
+import {loadMap, addMarker, addCurrentPosition} from './modules/map';
+import {loadMenus} from './modules/menu-fetch';
 
-const sodexoButton = document.getElementById('restaurant-sodexo');
-const fazerButton = document.getElementById('restaurant-fazer');
+const myyrmakiButton = document.getElementById('restaurant-sodexo');
+const karamalmiButton = document.getElementById('restaurant-fazer');
+const myllypuroButton = document.getElementById('restaurant-sodexo2');
+const arabiaButton = document.getElementById('restaurant-fazer2');
+
 const languageButton = document.getElementById('language-button');
 const glutenButton = document.getElementById('gluten-button');
 const randomButton = document.getElementById('random-button');
 const darkModeButton = document.getElementById('darkmode-button');
-const searchInput = document.getElementById("search-input");
+const searchInput = document.getElementById('search-input');
 const background = document.querySelector('.header-picture-area');
+
+const restaurants = [
+  {
+    name: 'Myyrmaki',
+    id: 152,
+    type: 'sodexo',
+    lon: '24.844454601853037',
+    lat: '60.258748360347994',
+  },
+  {
+    name: 'Karamalmi',
+    id: 3208,
+    type: 'fazer',
+    lon: '24.758666255819254',
+    lat: '60.22419827645741',
+  },
+  {
+    name: 'Myllypuro',
+    id: 158,
+    type: 'sodexo',
+    lon: '25.0779246',
+    lat: '60.223573821912986',
+  },
+  {
+    name: 'Arabia',
+    id: 1251,
+    type: 'fazer',
+    lon: '24.97673291349155',
+    lat: '60.21003284593111',
+  },
+];
 
 //booleans for choosing restaurant, language, gluten-free meals and dark mode
 let sodexo = true;
@@ -25,28 +60,35 @@ let finnish;
 let darkMode;
 
 //variables for .json data from fetches
-let sodexoData;
-let fazerDataFi;
-let fazerDataEn;
+
 
 // pwa
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
+    navigator.serviceWorker.register('./service-worker.js').
+      then(registration => {
+        console.log('SW registered: ', registration);
+      }).
+      catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
   });
 }
 
-sodexoButton.onclick = () => {
+myyrmakiButton.onclick = () => {
   sodexo = true;
   showMenu();
 };
-
-fazerButton.onclick = () => {
+karamalmiButton.onclick = () => {
   sodexo = false;
+  showMenu();
+};
+arabiaButton.onclick = () => {
+  sodexo = false;
+  showMenu();
+};
+myllypuroButton.onclick = () => {
+  sodexo = true;
   showMenu();
 };
 
@@ -100,7 +142,7 @@ randomButton.onclick = () => {
 };
 
 // search, takes value from input and searches course names for a match
-searchInput.addEventListener("keypress", (event) => {
+searchInput.addEventListener('keypress', (event) => {
   search(finnish, event);
 });
 
@@ -115,51 +157,18 @@ let validator = (string) => {
   return regexp.test(string);
 };
 
-// fetches the menus from sodexo and foodco
-const loadMenus = async () => {
-  // fetches sodexo menu
-  try {
-    sodexoData = await doFetch(
-      'https://www.sodexo.fi/ruokalistat/output/weekly_json/152',
-      false
-    );
-    console.log('sodexo menu', sodexoData);
-  } catch (error) {
-    console.log('menu ei saatavilla');
-  }
-  // fetches finnish foodco menu
-  try {
-    fazerDataFi = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi',
-      true
-    );
-    console.log('foodco menu finnish', fazerDataFi);
-  } catch (error) {
-    console.log('menu ei saatavilla');
-  }
 
-  // fetches english foodco menu
-  try {
-    fazerDataEn = await doFetch(
-      'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en',
-      true
-    );
-    console.log('foodco menu english', fazerDataEn);
-  } catch (error) {
-    console.log('menu ei saatavilla');
-  }
-};
 
 //chooses the correct menu and changes the pressed buttons color
 const showMenu = () => {
   if (sodexo === true) {
     showMenuSodexo(finnish, glutenFree);
-    sodexoButton.style.backgroundColor = 'var(--main-color-green)';
-    fazerButton.style.backgroundColor = 'var(--supp-color-lgreen)';
+    myyrmakiButton.style.backgroundColor = 'var(--main-color-green)';
+    karamalmiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
   } else {
     showMenuFazer(finnish, glutenFree);
-    sodexoButton.style.backgroundColor = 'var(--supp-color-lgreen)';
-    fazerButton.style.backgroundColor = 'var(--main-color-green)';
+    myyrmakiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
+    karamalmiButton.style.backgroundColor = 'var(--main-color-green)';
   }
 };
 
@@ -225,7 +234,7 @@ const renderHSLData = async (latitude, longitude) => {
 
   const marker = document.createElement('div');
   marker.setAttribute('class', 'youre-here');
-  marker.innerHTML= 'Olet tässä';
+  marker.innerHTML = 'Olet tässä';
   dataBox.append(marker);
 
   let i = 1;
@@ -294,5 +303,4 @@ const init = () => {
 };
 init();
 
-
-export {validator, sodexoData, fazerDataFi, fazerDataEn};
+export {validator};

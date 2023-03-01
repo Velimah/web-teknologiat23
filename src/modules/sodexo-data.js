@@ -1,6 +1,7 @@
 'use strict';
 
-import {sodexoData, validator} from "../index";
+import {validator} from "../index";
+import {sodexoDataMyyrmaki, sodexoDataMyllypuro} from './menu-fetch';
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
@@ -12,6 +13,13 @@ const showMenuSodexo = (finnish, glutenFree) => {
   const day = new Date();
   const dayNumber = day.getDay();
 
+  let data;
+  if(true) {
+    data = sodexoDataMyyrmaki;
+  } else {
+    data = sodexoDataMyllypuro;
+  }
+
   //makes div container for the daily menu
   const restaurantCard = document.createElement('div');
   restaurantCard.setAttribute('class', 'restaurant-card');
@@ -19,7 +27,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
 
   const title = document.createElement('div');
   title.setAttribute('class', 'restaurant-title');
-  title.innerHTML = sodexoData.meta.ref_title;
+  title.innerHTML = data.meta.ref_title;
   restaurantCard.appendChild(title);
 
   let locales;
@@ -55,7 +63,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
   // index for menus by date
   let index = 1;
 
-  for (const mealdates of sodexoData.mealdates) {
+  for (const mealdates of data.mealdates) {
 
     // if current day matches the correct index in daily menus, prints the days menu
     if (index === dayNumber) {
@@ -138,7 +146,7 @@ const showMenuSodexo = (finnish, glutenFree) => {
 const randomCourse = (finnish) => {
 
   //maps all the menu items and flattens the arrays into one.
-  const courses = sodexoData.mealdates.map(day => {
+  const courses = sodexoDataMyyrmaki.mealdates.map(day => {
     if (finnish === true) {
       return Object.values(day.courses).map(course => course.title_fi);
     } else {

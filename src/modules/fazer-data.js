@@ -1,6 +1,7 @@
 'use strict';
 
-import {validator, fazerDataFi, fazerDataEn} from "../index";
+import {validator} from "../index";
+import {fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia} from './menu-fetch';
 
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
@@ -13,10 +14,10 @@ const showMenuFazer = (finnish, glutenFree) => {
   let locales;
   if (finnish === true) {
     locales = 'fi';
-    menu = fazerDataFi.MenusForDays;
+    menu = fazerDataFiKaramalmi.MenusForDays;
   } else {
     locales = 'en';
-    menu = fazerDataEn.MenusForDays;
+    menu = fazerDataEnKaramalmi.MenusForDays;
   }
 
   //gets the current weekdate number
@@ -60,7 +61,7 @@ const showMenuFazer = (finnish, glutenFree) => {
 
   // gets the current days prices from finnish version of food&co .json and saves them into array
   let priceArray = [];
-  for (const MenusForDays of fazerDataFi.MenusForDays) {
+  for (const MenusForDays of fazerDataFiKaramalmi.MenusForDays) {
     const day = new Date(`${MenusForDays.Date}`);
     const menuDayNumber = day.getDay();
     //compares current day number to menu day number and then loops prices.
@@ -153,9 +154,9 @@ const randomCourseFazer = (finnish) => {
   //checks the menu language
   let menu;
   if (finnish === true) {
-    menu = fazerDataFi.MenusForDays;
+    menu = fazerDataFiKaramalmi.MenusForDays;
   } else {
-    menu = fazerDataEn.MenusForDays;
+    menu = fazerDataEnKaramalmi.MenusForDays;
   }
 
   //maps all the menu items and flattens the arrays into one.
