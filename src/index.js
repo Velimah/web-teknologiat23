@@ -8,15 +8,16 @@ import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
 import {loadHSLMap} from './modules/map';
 import {
-  getLunchMenus, fazerDataEnArabia,
+  getLunchMenus,
+  fazerDataEnArabia,
   fazerDataEnKaramalmi,
   fazerDataFiArabia,
   fazerDataFiKaramalmi,
   sodexoDataMyllypuro,
   sodexoDataMyyrmaki
 } from './modules/fetch-lunchmenu';
-import {calculateNearestCampus, showNearestRestaurantMenu} from "./modules/calculate-coordinates";
-import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-info";
+import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
+import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
 import {doFetch} from "./modules/network";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
@@ -94,8 +95,8 @@ const getCurrentCoordinates = (position) => {
   saveSettingsToLocalStorage();
 };
 
-//chooses the correct menu through object properties
-const showLunchMenu = (menu) => {
+//chooses the correct menu renderer through object properties
+const renderLunchMenu = (menu) => {
   if ('RestaurantName' in menu) {
     renderMenuFazer(finnish, menu);
   } else {
@@ -118,18 +119,20 @@ myyrmakiButton.addEventListener('click', () => {
   menu = sodexoDataMyyrmaki;
   lat = myyrmakiSettings.lat;
   lon = myyrmakiSettings.lon;
-  showLunchMenu(menu);
+  renderMenuSodexo(finnish, menu);
   renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   saveSettingsToLocalStorage();
 });
+
 myllypuroButton.addEventListener('click', () => {
   menu = sodexoDataMyllypuro;
   lat = myllypuroSettings.lat;
   lon = myllypuroSettings.lon;
-  showLunchMenu(menu);
+  renderMenuSodexo(finnish, menu);
   renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
   saveSettingsToLocalStorage();
 });
+
 karamalmiButton.addEventListener('click', () => {
   if (finnish === true) {
     menu = fazerDataFiKaramalmi;
@@ -138,10 +141,11 @@ karamalmiButton.addEventListener('click', () => {
   }
   lat = karamalmiSettings.lat;
   lon = karamalmiSettings.lon;
-  showLunchMenu(menu);
+  renderMenuFazer(finnish, menu);
   renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
   saveSettingsToLocalStorage();
 });
+
 arabiaButton.addEventListener('click', () => {
   if (finnish === true) {
     menu = fazerDataFiArabia;
@@ -150,7 +154,7 @@ arabiaButton.addEventListener('click', () => {
   }
   lat = arabiaSettings.lat;
   lon = arabiaSettings.lon;
-  showLunchMenu(menu);
+  renderMenuFazer(finnish, menu);
   renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
   saveSettingsToLocalStorage();
 });
@@ -218,14 +222,14 @@ const init = () => {
 
   //fetches lunch menus and then loads the nearest restaurant's menu
   getLunchMenus().then(() => {
-    showLunchMenu(showNearestRestaurantMenu());
+    renderLunchMenu(getNearestRestaurantMenu());
   });
 
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
 
   // refreshes the menu data every hour
-  setInterval(doFetch, showLunchMenu, intervalTimeFetchMenus);
+  setInterval(doFetch, renderLunchMenu, intervalTimeFetchMenus);
 
   // refreshes bus stop data and map every minute
   setInterval(async () => {

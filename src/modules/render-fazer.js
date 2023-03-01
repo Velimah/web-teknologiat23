@@ -109,7 +109,6 @@ const renderMenuFazer = (finnish, menu) => {
           //makes the first letter capital
           const componentCapital = component.charAt(0).toUpperCase() + component.slice(1);
 
-
           const courseName = document.createElement('div');
           courseName.setAttribute('class', 'course-name');
           courseName.innerHTML = componentCapital;

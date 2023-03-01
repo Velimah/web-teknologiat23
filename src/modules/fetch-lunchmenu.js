@@ -1,5 +1,5 @@
 import {doFetch} from './network';
-import {myyrmakiSettings,karamalmiSettings,myllypuroSettings,arabiaSettings} from "./restaurant-info";
+import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./restaurant-settings";
 
 let sodexoDataMyyrmaki;
 let sodexoDataMyllypuro;
@@ -108,4 +108,12 @@ const getLunchMenus = async () => {
   }
 };
 
-export {sodexoDataMyyrmaki, sodexoDataMyllypuro, fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerDataEnArabia, getLunchMenus};
+export {
+  sodexoDataMyyrmaki,
+  sodexoDataMyllypuro,
+  fazerDataFiKaramalmi,
+  fazerDataEnKaramalmi,
+  fazerDataFiArabia,
+  fazerDataEnArabia,
+  getLunchMenus
+};

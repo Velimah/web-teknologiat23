@@ -38,5 +38,4 @@ const loadHSLMap = () => {
   });
 };
 
-
 export {addStopMarker, addCurrentPositionMarker, loadHSLMap};

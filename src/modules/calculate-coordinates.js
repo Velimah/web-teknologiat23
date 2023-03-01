@@ -1,4 +1,10 @@
-import {arabiaSettings, karamalmiSettings, myllypuroSettings, myyrmakiSettings, restaurants} from "./restaurant-info";
+import {
+  arabiaSettings,
+  karamalmiSettings,
+  myllypuroSettings,
+  myyrmakiSettings,
+  restaurants
+} from "./restaurant-settings";
 import {fazerDataFiArabia, fazerDataFiKaramalmi, sodexoDataMyllypuro, sodexoDataMyyrmaki} from "./fetch-lunchmenu";
 
 
@@ -13,7 +19,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     Math.sin(dLon / 2) * Math.sin(dLon / 2)
   ;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-   // Distance in km
+  // Distance in km
   return earthRadius * c;
 }
 
@@ -40,7 +46,7 @@ const calculateNearestCampus = (lat, lon) => {
   nearestRestaurant = nearestCoordinate;
 };
 
-const showNearestRestaurantMenu = () => {
+const getNearestRestaurantMenu = () => {
   if (nearestRestaurant.id === karamalmiSettings.id) {
     return fazerDataFiKaramalmi;
   } else if (nearestRestaurant.id === myllypuroSettings.id) {
@@ -52,4 +58,4 @@ const showNearestRestaurantMenu = () => {
   }
 };
 
-export {calculateNearestCampus, showNearestRestaurantMenu};
+export {calculateNearestCampus, getNearestRestaurantMenu};

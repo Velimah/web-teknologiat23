@@ -75,7 +75,7 @@ const convertTimeToMins = (seconds) => {
 
   if (mins < 0) {
     return `, ${Math.abs(mins)} min etuajassa`;
-  } else if( mins === 0) {
+  } else if (mins === 0) {
     return ``;
   } else {
     return `, ${mins} min myöhässä`;
