@@ -1,0 +1,17 @@
+.header-picture-area {
+    height: 200px;
+    gap: 5%;
+}
+
+#header-picture {
+    height: 200px;
+    width: 467px;
+}
+
+#logo {
+    font-size: 3rem;
+}
+
+#slogan {
+    font-size: 1rem;
+}

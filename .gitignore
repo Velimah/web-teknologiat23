@@ -9,3 +9,5 @@ npm-debug.log
 node_modules/
 dist/
 UX/
+src/assets/Fonts/
+src/assets/Images/
