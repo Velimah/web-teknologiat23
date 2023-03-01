@@ -89,6 +89,7 @@ arabiaButton.onclick = () => {
 };
 
 // changes language and saves boolean into local storage
+/*
 languageButton.onclick = () => {
   if (finnish === true) {
     languageButton.innerHTML = 'English';
@@ -100,6 +101,7 @@ languageButton.onclick = () => {
   saveSettings();
   showMenu(menu);
 };
+*/
 
 //chooses the correct menu and changes the pressed buttons color
 const showMenu = (menu) => {
@@ -255,15 +257,30 @@ const carousel = () => {
 };
 
 
-
 //starts the application
 const init = () => {
+
+  // loads localstorage settings
   loadSettings();
+
+  // loads bust stop map
   loadMap();
+
+  // gets current coordinates and loads bus stop data
   navigator.geolocation.getCurrentPosition(CurrentPos);
+
+  //fetches lunch menus and then loads the nearest restaurant's menu
   loadMenus().then(() => {
     showMenu(showNearestRestaurantMenu());
   });
+
+  //starts the info-carousel
   setInterval(carousel, intervalTime);
+
+  // refreshes bus stop data and map every minute
+  setInterval(async () => {
+    await renderHSLData(lat, lon);
+  }, 60000);
+
 };
 init();
