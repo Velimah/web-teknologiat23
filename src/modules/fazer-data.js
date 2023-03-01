@@ -5,18 +5,16 @@ import {fazerDataFiKaramalmi, fazerDataEnKaramalmi, fazerDataFiArabia, fazerData
 const restaurantBox = document.querySelector('.main');
 const randomCourseBox = document.getElementById('random-course');
 
-const showMenuFazer = (finnish) => {
+const showMenuFazer = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 
-  //chooses the correct language for menu and time
-  let menu;
+  console.log('testi11',menu);
+  //chooses the correct language for time
   let locales;
   if (finnish === true) {
     locales = 'fi';
-    menu = fazerDataFiKaramalmi.MenusForDays;
   } else {
     locales = 'en';
-    menu = fazerDataEnKaramalmi.MenusForDays;
   }
 
   //gets the current weekdate number
@@ -31,7 +29,12 @@ const showMenuFazer = (finnish) => {
 
   const title = document.createElement('div');
   title.setAttribute('class', 'restaurant-title');
-  title.innerHTML = 'Metropolia Karamalmi';
+
+  if (menu.RestaurantName === "Luova") {
+    title.innerHTML = 'Metropolia Arabia';
+  } else {
+    title.innerHTML = 'Metropolia Karamalmi';
+  }
   restaurantCard.appendChild(title);
 
   // appends date and shortens it to appropriate format
@@ -71,7 +74,7 @@ const showMenuFazer = (finnish) => {
     }
   }
 
-  for (const MenusForDays of menu) {
+  for (const MenusForDays of menu.MenusForDays) {
 
     //gets the weekdate number of daily menu
     const menuDay = new Date(`${MenusForDays.Date}`);

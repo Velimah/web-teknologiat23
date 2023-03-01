@@ -43,11 +43,11 @@ const loadMenus = async () => {
 
   // fetches sodexo myllypuro menu
   try {
-    sodexoDataMyyrmaki = await doFetch(
+    sodexoDataMyllypuro = await doFetch(
       'https://www.sodexo.fi/ruokalistat/output/weekly_json/158',
       false,
     );
-    console.log('sodexo menu', sodexoDataMyllypuro);
+    console.log('sodexo menu myllypuro', sodexoDataMyllypuro);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
@@ -57,29 +57,29 @@ const loadMenus = async () => {
       'https://www.sodexo.fi/ruokalistat/output/weekly_json/152',
       false,
     );
-    console.log('sodexo menu', sodexoDataMyyrmaki);
+    console.log('sodexo menu myyrmaki', sodexoDataMyyrmaki);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
 
   // fetches finnish foodco arabia menu
   try {
-    fazerDataFiKaramalmi = await doFetch(
+    fazerDataFiArabia = await doFetch(
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=fi',
       true,
     );
-    console.log('foodco menu finnish', fazerDataFiArabia);
+    console.log('foodco menu arabia finnish', fazerDataFiArabia);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
 
   // fetches english foodco arabia menu
   try {
-    fazerDataEnKaramalmi = await doFetch(
+    fazerDataEnArabia = await doFetch(
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=1251&language=en',
       true,
     );
-    console.log('foodco menu english', fazerDataEnArabia);
+    console.log('foodco menu arabia english', fazerDataEnArabia);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
@@ -90,7 +90,7 @@ const loadMenus = async () => {
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=fi',
       true,
     );
-    console.log('foodco menu finnish', fazerDataFiKaramalmi);
+    console.log('foodco menu karamalmi finnish', fazerDataFiKaramalmi);
   } catch (error) {
     console.log('menu ei saatavilla');
   }
@@ -101,7 +101,7 @@ const loadMenus = async () => {
       'https://www.compass-group.fi/menuapi/feed/json?costNumber=3208&language=en',
       true,
     );
-    console.log('foodco menu english', fazerDataEnKaramalmi);
+    console.log('foodco menu karamalmi english', fazerDataEnKaramalmi);
   } catch (error) {
     console.log('menu ei saatavilla');
   }

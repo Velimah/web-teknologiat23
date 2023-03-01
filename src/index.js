@@ -5,9 +5,17 @@ import {showMenuFazer} from './modules/fazer-data';
 import {darkTheme, lightTheme} from './modules/dark-mode';
 import {search} from './modules/search';
 import {mouseParallax} from './modules/mouse-parallax';
-import {getRoutesByStopId, getNearestStops} from './modules/hsl';
+import {getRoutesByStopId, getNearestStops} from './modules/hsl-fetch';
 import {loadMap, addMarker, addCurrentPosition} from './modules/map';
 import {loadMenus} from './modules/menu-fetch';
+import {
+  fazerDataEnArabia,
+  fazerDataEnKaramalmi,
+  fazerDataFiArabia,
+  fazerDataFiKaramalmi,
+  sodexoDataMyllypuro,
+  sodexoDataMyyrmaki
+} from "./modules/menu-fetch";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
@@ -23,35 +31,46 @@ const background = document.querySelector('.header-picture-area');
 let sodexo = true;
 let finnish;
 let darkMode;
+let menu;
 
 // pwa
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').
-      then(registration => {
-        console.log('SW registered: ', registration);
-      }).
-      catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
+    navigator.serviceWorker.register('./service-worker.js').then(registration => {
+      console.log('SW registered: ', registration);
+    }).catch(registrationError => {
+      console.log('SW registration failed: ', registrationError);
+    });
   });
 }
 
 myyrmakiButton.onclick = () => {
+  menu = sodexoDataMyyrmaki;
   sodexo = true;
-  showMenu();
-};
-karamalmiButton.onclick = () => {
-  sodexo = false;
-  showMenu();
-};
-arabiaButton.onclick = () => {
-  sodexo = false;
-  showMenu();
+  showMenu(menu);
 };
 myllypuroButton.onclick = () => {
+  menu = sodexoDataMyllypuro;
   sodexo = true;
-  showMenu();
+  showMenu(menu);
+};
+karamalmiButton.onclick = () => {
+  if (finnish === true) {
+    menu = fazerDataFiKaramalmi;
+  } else {
+    menu = fazerDataEnKaramalmi;
+  }
+  sodexo = false;
+  showMenu(menu);
+};
+arabiaButton.onclick = () => {
+  if (finnish === true) {
+    menu = fazerDataFiArabia;
+  } else {
+    menu = fazerDataEnArabia;
+  }
+  sodexo = false;
+  showMenu(menu);
 };
 
 // changes language and saves boolean into local storage
@@ -64,8 +83,18 @@ languageButton.onclick = () => {
     finnish = true;
   }
   saveSettings();
-  showMenu();
+  showMenu(menu);
 };
+
+//chooses the correct menu and changes the pressed buttons color
+const showMenu = (menu) => {
+  if (sodexo === true) {
+    showMenuSodexo(finnish, menu);
+  } else {
+    showMenuFazer(finnish, menu);
+  }
+};
+
 
 // changes dark mode and saves boolean into local storage
 darkModeButton.onclick = () => {
@@ -90,18 +119,6 @@ searchInput.addEventListener('keypress', (event) => {
 background.addEventListener('mousemove', (evt) => {
   mouseParallax(evt);
 });
-//chooses the correct menu and changes the pressed buttons color
-const showMenu = () => {
-  if (sodexo === true) {
-    showMenuSodexo(finnish);
-    myyrmakiButton.style.backgroundColor = 'var(--main-color-green)';
-    karamalmiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
-  } else {
-    showMenuFazer(finnish);
-    myyrmakiButton.style.backgroundColor = 'var(--supp-color-lgreen)';
-    karamalmiButton.style.backgroundColor = 'var(--main-color-green)';
-  }
-};
 
 //saves settings to localstorage
 const saveSettings = () => {
@@ -226,7 +243,10 @@ const carousel = () => {
 const init = () => {
   loadSettings();
   loadMap();
-  loadMenus().then(() => showMenu());
+  loadMenus().then(() => {
+    menu = sodexoDataMyyrmaki;
+    showMenu(menu);
+  });
   navigator.geolocation.getCurrentPosition(CurrentPos);
   setInterval(carousel, intervalTime);
 };

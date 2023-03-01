@@ -1,23 +1,13 @@
 'use strict';
 
-import {sodexoDataMyyrmaki, sodexoDataMyllypuro} from './menu-fetch';
-
 const restaurantBox = document.querySelector('.main');
-const randomCourseBox = document.getElementById('random-course');
 
-const showMenuSodexo = (finnish) => {
+const showMenuSodexo = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 
   //gets the current weekdate number
   const day = new Date();
   const dayNumber = day.getDay();
-
-  let data;
-  if (true) {
-    data = sodexoDataMyyrmaki;
-  } else {
-    data = sodexoDataMyllypuro;
-  }
 
   //makes div container for the daily menu
   const restaurantCard = document.createElement('div');
@@ -26,7 +16,7 @@ const showMenuSodexo = (finnish) => {
 
   const title = document.createElement('div');
   title.setAttribute('class', 'restaurant-title');
-  title.innerHTML = data.meta.ref_title;
+  title.innerHTML = menu.meta.ref_title;
   restaurantCard.appendChild(title);
 
   let locales;
@@ -62,7 +52,7 @@ const showMenuSodexo = (finnish) => {
   // index for menus by date
   let index = 1;
 
-  for (const mealdates of data.mealdates) {
+  for (const mealdates of menu.mealdates) {
 
     // if current day matches the correct index in daily menus, prints the days menu
     if (index === dayNumber) {
