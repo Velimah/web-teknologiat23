@@ -19,12 +19,13 @@ import {
 import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
 import {doFetch} from "./modules/network";
-import {renderBitcoinData} from "./modules/fetch-bitcoin";
+import {getBitcoinData} from "./modules/fetch-bitcoin";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
 const myllypuroButton = document.getElementById('restaurant-sodexo2');
 const arabiaButton = document.getElementById('restaurant-fazer2');
+const currentPositionButton = document.getElementById('current-position-button');
 const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById('search-input');
@@ -160,6 +161,11 @@ arabiaButton.addEventListener('click', () => {
   saveSettingsToLocalStorage();
 });
 
+currentPositionButton.addEventListener('click', () => {
+  currentPosition();
+  renderLunchMenu(getNearestRestaurantMenu());
+});
+
 // changes language and saves boolean into local storage
 /*
 languageButton.onclick = () => {
@@ -209,6 +215,10 @@ const saveSettingsToLocalStorage = () => {
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
+const currentPosition = () => {
+  navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
+};
+
 //starts the application
 const init = () => {
 
@@ -219,12 +229,15 @@ const init = () => {
   loadHSLMap();
 
   // gets current coordinates and loads bus stop data
-  navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
+  currentPosition();
 
   //fetches lunch menus and then loads the nearest restaurant's menu
   getLunchMenus().then(() => {
     renderLunchMenu(getNearestRestaurantMenu());
   });
+
+  //fetches bitcoin data and renders it
+  getBitcoinData();
 
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
@@ -237,8 +250,6 @@ const init = () => {
   setInterval(async () => {
     await renderHSLData(lat, lon);
   }, intervalTimeBusData);
-
-  renderBitcoinData();
 
 };
 init();

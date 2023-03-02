@@ -60,4 +60,4 @@ const getBitcoinData = () => {
     });
 };
 
-getBitcoinData();
+export {getBitcoinData};
