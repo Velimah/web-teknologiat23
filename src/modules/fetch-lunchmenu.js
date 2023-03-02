@@ -9,38 +9,6 @@ let fazerDataFiArabia;
 let fazerDataEnArabia;
 
 const getLunchMenus = async () => {
-  /*
-    if (type === 'sodexo') {
-      try {
-        sodexoData = await doFetch(
-          `https://www.sodexo.fi/ruokalistat/output/weekly_json/${id}`,
-          false,
-        );
-        console.log('sodexo menu', sodexoData);
-      } catch (error) {
-        console.log('menu ei saatavilla');
-      }
-    } else if (type === 'fazer') {
-      try {
-        fazerDataFi = await doFetch(
-          `https://www.compass-group.fi/menuapi/feed/json?costNumber=${id}&language=fi`,
-          true,
-        );
-        console.log('foodco menu finnish', fazerDataFi);
-      } catch (error) {
-        console.log('menu ei saatavilla');
-      }
-      try {
-        fazerDataEn = await doFetch(
-          `https://www.compass-group.fi/menuapi/feed/json?costNumber=${id}&language=en`,
-          true,
-        );
-        console.log('foodco menu finnish', fazerDataFi);
-      } catch (error) {
-        console.log('menu ei saatavilla');
-      }
-    }
-  */
 
   // fetches sodexo myllypuro menu
   try {

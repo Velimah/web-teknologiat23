@@ -20,6 +20,7 @@ const search = (finnish, event) => {
         elem.style.padding = '5px';
         elem.style.marginTop = '5px';
         elem.style.marginBottom = '5px';
+        elem.style.fontSize='1rem';
         i++;
       }
     }

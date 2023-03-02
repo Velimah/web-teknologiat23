@@ -37,9 +37,9 @@ let lat;
 let lon;
 
 // interval timers
-const intervalTimeCarousel = 1000 * 3;
-const intervalTimeBusData = 1000 * 60;
-const intervalTimeFetchMenus = 1000 * 60 * 60;
+const intervalTimeCarousel = 3000;
+const intervalTimeBusData = 60000;
+const intervalTimeFetchMenus = 3600000;
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -228,10 +228,11 @@ const init = () => {
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
 
-  // refreshes the menu data every hour
-  setInterval(doFetch, renderLunchMenu, intervalTimeFetchMenus);
+  // refreshes lunch menu data every hour
+  setInterval(doFetch, intervalTimeFetchMenus);
+  setInterval(renderLunchMenu, intervalTimeFetchMenus);
 
-  // refreshes bus stop data and map every minute
+  // refreshes HSL data every minute
   setInterval(async () => {
     await renderHSLData(lat, lon);
   }, intervalTimeBusData);

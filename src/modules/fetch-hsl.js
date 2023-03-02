@@ -3,12 +3,37 @@ import {doFetch} from './network';
 const apiUrl =
   'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
+const searchRadius = 500;
+const busStopCount = 6;
+const getQueryForNearestStops = (lat, lon) => {
+  return `{
+  stopsByRadius(lat: ${lat}, lon: ${lon}, radius: ${searchRadius}, last: ${busStopCount}) {
+    edges {
+      node {
+        stop {
+          gtfsId
+          name
+          lat
+          lon
+          code
+        }
+        distance
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}`;
+};
+
 /**
  * https://digitransit.fi/en/developers/apis/1-routing-api/stops/#query-scheduled-departure-and-arrival-times-of-a-stop
  * @param {number} id - id number of the hsl stop
  * e.g. Karanristi stops: 2132208 (Leppävaara direcrion) & 2132207
  */
-
 
 const getQueryForNextRidesByStopId = (id) => {
   return `{
@@ -16,6 +41,7 @@ const getQueryForNextRidesByStopId = (id) => {
       name
       lat
       lon
+      vehicleMode
       stoptimesWithoutPatterns {
         scheduledArrival
         realtimeArrival
@@ -34,29 +60,6 @@ const getQueryForNextRidesByStopId = (id) => {
       }
     }
   }`;
-};
-
-const getQueryForNearestStops = (lat, lon) => {
-  return `{
-  stopsByRadius(lat: ${lat}, lon: ${lon}, radius: 500, first: 4) {
-    edges {
-      node {
-        stop {
-          gtfsId
-          name
-          lat
-          lon
-        }
-        distance
-      }
-      cursor
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}`;
 };
 
 /**

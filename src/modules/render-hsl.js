@@ -4,7 +4,7 @@ import {addCurrentPositionMarker, addStopMarker} from "./map";
 const renderHSLData = async (latitude, longitude) => {
 
   const stops = await getNearestStops(latitude, longitude);
-
+  console.log('hösselidata', stops);
   const dataBox = document.getElementById('hsl-data');
   dataBox.innerHTML = '';
 
@@ -32,6 +32,12 @@ const renderHSLData = async (latitude, longitude) => {
     } else if (i === 4) {
       lineContainer.style.borderColor = '#c600ff';
       lineContainer.style.backgroundColor = 'rgba(198,0,255,0.3)';
+    } else if (i === 5) {
+      lineContainer.style.borderColor = '#ff00ae';
+      lineContainer.style.backgroundColor = 'rgba(255,0,174,0.3)';
+    } else if (i === 6) {
+      lineContainer.style.borderColor = '#00ffc4';
+      lineContainer.style.backgroundColor = 'rgba(0,255,196,0.3)';
     }
 
     const stopName = document.createElement('div');

@@ -7,8 +7,6 @@ import {
 } from "./restaurant-settings";
 import {fazerDataFiArabia, fazerDataFiKaramalmi, sodexoDataMyllypuro, sodexoDataMyyrmaki} from "./fetch-lunchmenu";
 
-
-// distance calculator for coordinates, from the wise people in internet
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371; // Radius of the earth in km
   const dLat = deg2rad(lat2 - lat1);  // deg2rad below
