@@ -18,17 +18,17 @@ const addCurrentPositionMarker = (latitude, longitude) => {
 };
 const addStopMarker = (coords, i) => {
   let color;
-  if (i === 1) {
+  if (i === 0) {
     color = '#ff7700';
-  } else if (i === 2) {
+  } else if (i === 1) {
     color = '#36ff00';
-  } else if (i === 3) {
+  } else if (i === 2) {
     color = '#0029ff';
-  } else if (i === 4) {
+  } else if (i === 3) {
     color = '#c600ff';
-  } else if (i === 5) {
+  } else if (i === 4) {
     color = '#ff00ae';
-  } else if (i === 6) {
+  } else if (i === 5) {
     color = '#00ffc4';
   }
   const marker = new mapboxgl.Marker({
