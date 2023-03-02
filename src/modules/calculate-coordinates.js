@@ -30,7 +30,6 @@ let nearestCoordinate = null;
 let smallestDistance = Infinity;
 
 const calculateNearestCampus = (lat, lon) => {
-  console.log(lat, lon);
   for (const coord of restaurants) {
     const distance = getDistanceFromLatLonInKm(
       lat, lon,

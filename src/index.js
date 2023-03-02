@@ -18,8 +18,7 @@ import {
 } from './modules/fetch-lunchmenu';
 import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
-import {doFetch} from "./modules/network";
-import {getBitcoinData} from "./modules/fetch-bitcoin";
+import {getBitcoinData, btcPrice} from "./modules/fetch-bitcoin";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
@@ -41,6 +40,7 @@ let lon;
 // interval timers
 const intervalTimeCarousel = 3000;
 const intervalTimeBusData = 60000;
+const intervalTimeBTC = 60000;
 const intervalTimeFetchMenus = 3600000;
 
 // pwa
@@ -212,6 +212,7 @@ const saveSettingsToLocalStorage = () => {
   settings.darkmode = darkMode;
   settings.lat = lat;
   settings.lon = lon;
+  settings.btcPrice = btcPrice;
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
@@ -219,13 +220,15 @@ const currentPosition = () => {
   navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
 };
 
+
+
 //starts the application
 const init = () => {
 
   // loads localstorage settings
   loadSettingsFromLocalStorage();
 
-  // loads bust stop map
+  // loads HSL stop map
   loadHSLMap();
 
   // gets current coordinates and loads bus stop data
@@ -242,8 +245,11 @@ const init = () => {
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
 
+  // refreshes bitcoin data every minute
+  setInterval(getBitcoinData, intervalTimeBTC);
+
   // refreshes lunch menu data every hour
-  setInterval(doFetch, intervalTimeFetchMenus);
+  setInterval(getLunchMenus, intervalTimeFetchMenus);
   setInterval(renderLunchMenu, intervalTimeFetchMenus);
 
   // refreshes HSL data every minute
@@ -253,3 +259,5 @@ const init = () => {
 
 };
 init();
+
+export {saveSettingsToLocalStorage};

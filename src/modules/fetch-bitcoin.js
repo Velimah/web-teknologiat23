@@ -1,6 +1,9 @@
+import {saveSettingsToLocalStorage} from "../index";
+
 const axios = require("axios");
 let accessToken;
 let optionsFetchBTC;
+let btcPrice;
 
 const optionsToken = {
   method: 'POST',
@@ -32,6 +35,8 @@ const getBitcoinData = () => {
     .then(function (response) {
       console.log('btctesti', response.data);
 
+      document.getElementById('btc').innerHTML = '';
+
       const time = new Date(response.data.content[0].timestamp).toTimeString().substring(0,18);
       const timestamp = document.createElement('div');
       timestamp.setAttribute('class', 'timestamp');
@@ -53,6 +58,8 @@ const getBitcoinData = () => {
       marketCap.innerHTML = `Market Cap $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Billion`;
       document.getElementById('btc').append(marketCap);
 
+      btcPrice = response.data.content[0].price;
+      saveSettingsToLocalStorage();
     })
     .catch(function (error) {
       console.log(error);
@@ -60,4 +67,4 @@ const getBitcoinData = () => {
     });
 };
 
-export {getBitcoinData};
+export {getBitcoinData, btcPrice};

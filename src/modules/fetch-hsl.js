@@ -3,9 +3,6 @@ import {doFetch} from './network';
 const apiUrl =
   'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
-const searchRadius = 1000;
-const busStopCount = 4;
-
 /**
  * Converts HSL time to readable string format
  * @param {number} seconds
@@ -31,11 +28,13 @@ const convertTimeToMins = (seconds) => {
 
 /**
  * https://digitransit.fi/en/developers/apis/1-routing-api/stops/#query-scheduled-departure-and-arrival-times-of-a-stop
- * e.g. Karanristi stops: 2132208 (Leppävaara direcrion) & 2132207
+ * e.g. Karanristi stops: 2132208 (Leppävaara direction) & 2132207
  * @param lat
  * @param lon
  */
-
+const searchRadius = 1000;
+const busStopCount = 4;
+const numberOfDepartures = 5;
 const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
   return `{
   stopsByRadius(lat: ${lat}, lon: ${lon}, radius: ${searchRadius}, first: ${busStopCount}) {
@@ -45,7 +44,7 @@ const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
       name
       lat
       lon
-      stoptimesWithoutPatterns (numberOfDepartures: 5) {
+      stoptimesWithoutPatterns (numberOfDepartures: ${numberOfDepartures}) {
         scheduledArrival
         realtimeArrival
         arrivalDelay
@@ -68,7 +67,6 @@ const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
  * @param lat
  * @param lon
  */
-
 const getNearestStopsAndTimetables = async (lat, lon) => {
   try {
     const options = {
@@ -84,15 +82,12 @@ const getNearestStopsAndTimetables = async (lat, lon) => {
     const distance = routeData.data.stopsByRadius.edges.map((edge) => {
       return edge.node.distance;
     });
-
     const coords = routeData.data.stopsByRadius.edges.map((edge) => {
       return [edge.node.stop.lon, edge.node.stop.lat];
     });
-
     const stopName = routeData.data.stopsByRadius.edges.map((edge) => {
       return edge.node.stop.name;
     });
-
     const routes = routeData.data.stopsByRadius.edges.map((edge) => {
       return edge.node.stop.stoptimesWithoutPatterns.map((route) => {
         return {
