@@ -14,9 +14,7 @@ const renderHSLData = async (latitude, longitude) => {
   marker.innerHTML = 'Olet tässä';
   dataBox.append(marker);
 
-  let i = 0;
-  for (const stop in stops) {
-
+  for (let i = 0; i < stops.stopName.length; i++) {
     const lineContainer = document.createElement('div');
     lineContainer.setAttribute('class', 'line-container');
     if (i === 0) {
@@ -39,20 +37,18 @@ const renderHSLData = async (latitude, longitude) => {
       lineContainer.style.backgroundColor = 'rgba(0,255,196,0.3)';
     }
 
-    const stopName = document.createElement('div');
-    stopName.setAttribute('class', 'stop-name');
-    stopName.innerHTML = `${stops.stopName[i]}`;
-    lineContainer.appendChild(stopName);
-    console.log(stops.stopName[i]);
+    const name = document.createElement('div');
+    name.setAttribute('class', 'stop-name');
+    name.innerHTML = `${stops.stopName[i]}`;
+    lineContainer.appendChild(name);
 
     const stopDistance = document.createElement('div');
     stopDistance.setAttribute('class', 'stop-name');
-    stopDistance.innerHTML = `${stops.distance[i - 1]} m`;
+    stopDistance.innerHTML = `${stops.distance[i]} m`;
     lineContainer.appendChild(stopDistance);
 
-    for (const route of stops.routes) {
-      console.log(stops.routes[i]);
-      console.log(route[i].name);
+    const route = stops.routes[i];
+    for (let i = 0; i < route.length; i++) {
       const routeInfo = document.createElement('div');
       routeInfo.textContent = `${route[i].name} ${route[i].headsign}, saapuu ${route[i].realtimeArrival} ${route[i].arrivalDelay}`;
       lineContainer.append(routeInfo);
@@ -61,7 +57,6 @@ const renderHSLData = async (latitude, longitude) => {
 
     addCurrentPositionMarker(latitude, longitude);
     addStopMarker(stops.coords[i], i);
-    i++;
   }
 };
 

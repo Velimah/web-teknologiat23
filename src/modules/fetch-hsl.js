@@ -3,8 +3,8 @@ import {doFetch} from './network';
 const apiUrl =
   'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
-const searchRadius = 500;
-const busStopCount = 6;
+const searchRadius = 1000;
+const busStopCount = 4;
 
 /**
  * Converts HSL time to readable string format
@@ -97,16 +97,13 @@ const getRoutesByStopId = async (lat, lon) => {
     return edge.node.distance;
   });
 
-
   const coords = routeData.data.stopsByRadius.edges.map((edge) => {
     return [edge.node.stop.lon, edge.node.stop.lat];
   });
 
-
   const stopName = routeData.data.stopsByRadius.edges.map((edge) => {
     return edge.node.stop.name;
   });
-
 
   const routes = routeData.data.stopsByRadius.edges.map((edge) => {
     return edge.node.stop.stoptimesWithoutPatterns.map((route) => {
