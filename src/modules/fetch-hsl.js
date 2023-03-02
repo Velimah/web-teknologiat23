@@ -36,7 +36,7 @@ const convertTimeToMins = (seconds) => {
  * @param lon
  */
 
-const getQueryForNextRidesByStopId = (lat, lon,) => {
+const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
   return `{
   stopsByRadius(lat: ${lat}, lon: ${lon}, radius: ${searchRadius}, first: ${busStopCount}) {
     edges {
@@ -45,31 +45,18 @@ const getQueryForNextRidesByStopId = (lat, lon,) => {
       name
       lat
       lon
-      vehicleMode
       stoptimesWithoutPatterns (numberOfDepartures: 5) {
         scheduledArrival
         realtimeArrival
         arrivalDelay
-        scheduledDeparture
-        realtimeDeparture
-        departureDelay
-        realtime
-        realtimeState
-        serviceDay
         headsign
         trip {
           routeShortName
-          tripHeadsign
         }
       }
     }
         distance
       }
-      cursor
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
     }
   }
 }`;
@@ -82,48 +69,51 @@ const getQueryForNextRidesByStopId = (lat, lon,) => {
  * @param lon
  */
 
-const getRoutesByStopId = async (lat, lon) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/graphql',
-    },
-    body: getQueryForNextRidesByStopId(lat, lon),
-  };
+const getNearestStopsAndTimetables = async (lat, lon) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/graphql',
+      },
+      body: getQueryForNearestStopsAndTimetables(lat, lon),
+    };
 
-  const routeData = await doFetch(apiUrl, false, options);
+    const routeData = await doFetch(apiUrl, false, options);
 
-  const distance = routeData.data.stopsByRadius.edges.map((edge) => {
-    return edge.node.distance;
-  });
-
-  const coords = routeData.data.stopsByRadius.edges.map((edge) => {
-    return [edge.node.stop.lon, edge.node.stop.lat];
-  });
-
-  const stopName = routeData.data.stopsByRadius.edges.map((edge) => {
-    return edge.node.stop.name;
-  });
-
-  const routes = routeData.data.stopsByRadius.edges.map((edge) => {
-    return edge.node.stop.stoptimesWithoutPatterns.map((route) => {
-      return {
-        name: route.trip.routeShortName,
-        headsign: route.headsign,
-        arrivalDelay: convertTimeToMins(route.arrivalDelay),
-        scheduledArrival: convertTime(route.scheduledArrival),
-        realtimeArrival: convertTime(route.realtimeArrival),
-      };
+    const distance = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.distance;
     });
-  });
 
+    const coords = routeData.data.stopsByRadius.edges.map((edge) => {
+      return [edge.node.stop.lon, edge.node.stop.lat];
+    });
 
-  return {
-    coords,
-    distance,
-    stopName,
-    routes,
-  };
+    const stopName = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.stop.name;
+    });
+
+    const routes = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.stop.stoptimesWithoutPatterns.map((route) => {
+        return {
+          name: route.trip.routeShortName,
+          headsign: route.headsign,
+          arrivalDelay: convertTimeToMins(route.arrivalDelay),
+          scheduledArrival: convertTime(route.scheduledArrival),
+          realtimeArrival: convertTime(route.realtimeArrival),
+        };
+      });
+    });
+
+    return {
+      coords,
+      distance,
+      stopName,
+      routes,
+    };
+  } catch (error) {
+    console.log('hsl data ei saatavilla');
+  }
 };
 
-export {getRoutesByStopId};
+export {getNearestStopsAndTimetables};

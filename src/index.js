@@ -19,6 +19,7 @@ import {
 import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
 import {doFetch} from "./modules/network";
+import {renderBitcoinData} from "./modules/fetch-bitcoin";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
@@ -236,6 +237,8 @@ const init = () => {
   setInterval(async () => {
     await renderHSLData(lat, lon);
   }, intervalTimeBusData);
+
+  renderBitcoinData();
 
 };
 init();

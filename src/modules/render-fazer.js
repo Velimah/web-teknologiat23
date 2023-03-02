@@ -1,7 +1,5 @@
 'use strict';
 
-import {fazerDataFiKaramalmi} from './fetch-lunchmenu';
-
 const restaurantBox = document.querySelector('.main');
 
 const renderMenuFazer = (finnish, menu) => {
@@ -59,19 +57,6 @@ const renderMenuFazer = (finnish, menu) => {
   }
   restaurantCard.appendChild(priceDescription);
 
-  // gets the current days prices from finnish version of food&co .json and saves them into array
-  let priceArray = [];
-  for (const MenusForDays of fazerDataFiKaramalmi.MenusForDays) {
-    const day = new Date(`${MenusForDays.Date}`);
-    const menuDayNumber = day.getDay();
-    //compares current day number to menu day number and then loops prices.
-    if (menuDayNumber === dayNumber) {
-      for (const SetMenus of MenusForDays.SetMenus) {
-        priceArray.push(SetMenus.Price);
-      }
-    }
-  }
-
   for (const MenusForDays of menu.MenusForDays) {
 
     //gets the weekdate number of daily menu
@@ -105,7 +90,6 @@ const renderMenuFazer = (finnish, menu) => {
         courseNumber.appendChild(courseCategory);
 
         for (const component of SetMenus.Components) {
-
           //makes the first letter capital
           const componentCapital = component.charAt(0).toUpperCase() + component.slice(1);
 
@@ -119,10 +103,16 @@ const renderMenuFazer = (finnish, menu) => {
         // gets the price from price array saved from the finnish .json
         const price = document.createElement('div');
         price.setAttribute('class', 'course-price');
-        // splits the price string and adds spaces and euro sign
-        price.innerHTML = `${priceArray[i - 1].substring(0, 4)} € / ${priceArray[i - 1].substring(5, 9)} € / ${priceArray[i - 1].substring(10, 14)} €`;
-        courseNumber.appendChild(price);
 
+        // checks if price is missing from json
+        if (SetMenus.Price !== null) {
+        // splits the price string and adds spaces and euro sign
+        price.innerHTML = `${SetMenus.Price.substring(0, 4)} € / ${SetMenus.Price.substring(5, 9)} € / ${SetMenus.Price.substring(10, 14)} €`;
+        courseNumber.appendChild(price);
+        } else {
+          price.innerHTML = `Hinnat puuttuu`;
+          courseNumber.appendChild(price);
+        }
         // increases the dish number index
         i++;
       }
