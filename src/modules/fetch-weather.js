@@ -4,6 +4,9 @@ import {weatherAPIKey} from "./api-keys";
 const getWeatherData = async (lat, lon) => {
   try {
     const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '');
+    if (!response.ok) {
+      throw new Error('http error, code: ' + response.status);
+    }
 
     const weatherData = await response.json();
 
