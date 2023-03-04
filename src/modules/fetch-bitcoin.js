@@ -20,6 +20,7 @@ const getBitcoinData = () => {
   axios.request(optionsToken)
     .then(function (response) {
       accessToken = response.data.access_token;
+
       optionsFetchBTC = {
         method: 'GET',
         url: 'https://bravenewcoin.p.rapidapi.com/market-cap',
@@ -29,6 +30,7 @@ const getBitcoinData = () => {
           'X-RapidAPI-Key': '0bf430eee7msh6afb2f0a00b6889p1d5649jsn4e8d832a064a',
           'X-RapidAPI-Host': 'bravenewcoin.p.rapidapi.com'
         }
+
       };
       return axios.request(optionsFetchBTC); // make the GET request here
     })

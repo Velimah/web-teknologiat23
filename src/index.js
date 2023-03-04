@@ -19,6 +19,7 @@ import {
 import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
 import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
 import {getBitcoinData, btcPrice} from "./modules/fetch-bitcoin";
+import {getWeatherData} from "./modules/fetch-weather";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
 const karamalmiButton = document.getElementById('restaurant-fazer');
@@ -95,6 +96,7 @@ const getCurrentCoordinates = (position) => {
   calculateNearestCampus(lat, lon);
   renderHSLData(lat, lon);
   saveSettingsToLocalStorage();
+  getWeatherData(lat, lon);
 };
 
 //chooses the correct menu renderer through object properties
@@ -244,6 +246,10 @@ const init = () => {
 
   // starts the info-carousel
   setInterval(carousel, intervalTimeCarousel);
+
+  setInterval(async () => {
+    await getWeatherData(lat, lon);
+  }, intervalTimeBTC);
 
   // refreshes bitcoin data every minute
   setInterval(getBitcoinData, intervalTimeBTC);

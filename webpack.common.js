@@ -15,7 +15,7 @@ module.exports = {
       name: 'Lunch Progressive Web App',
       short_name: 'LunchPWA',
       description: 'Describe your Progressive Web App here',
-      background_color: '#ffffff',
+      background_color: '#ff6d00',
       crossorigin: 'use-credentials',
       icons: [
         {
