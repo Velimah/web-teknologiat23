@@ -14,7 +14,7 @@ const convertTime = (seconds) => {
   return `${hours}:${mins < 10 ? '0' + mins : mins}`;
 };
 
-const convertTimeToMins = (seconds) => {
+const convertTimeToMinutes = (seconds) => {
   const mins = Math.floor(seconds % 3600 / 60);
 
   if (mins < 0) {
@@ -93,7 +93,7 @@ const getNearestStopsAndTimetables = async (lat, lon) => {
         return {
           name: route.trip.routeShortName,
           headsign: route.headsign,
-          arrivalDelay: convertTimeToMins(route.arrivalDelay),
+          arrivalDelay: convertTimeToMinutes(route.arrivalDelay),
           scheduledArrival: convertTime(route.scheduledArrival),
           realtimeArrival: convertTime(route.realtimeArrival),
         };

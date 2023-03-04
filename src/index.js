@@ -42,6 +42,7 @@ let lon;
 const intervalTimeCarousel = 3000;
 const intervalTimeBusData = 60000;
 const intervalTimeBTC = 60000;
+const intervalTimeWeather = 60000;
 const intervalTimeFetchMenus = 3600000;
 
 // pwa
@@ -125,6 +126,7 @@ myyrmakiButton.addEventListener('click', () => {
   lon = myyrmakiSettings.lon;
   renderMenuSodexo(finnish, menu);
   renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
+  getWeatherData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   saveSettingsToLocalStorage();
 });
 
@@ -134,6 +136,7 @@ myllypuroButton.addEventListener('click', () => {
   lon = myllypuroSettings.lon;
   renderMenuSodexo(finnish, menu);
   renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
+  getWeatherData(myllypuroSettings.lat, myllypuroSettings.lon);
   saveSettingsToLocalStorage();
 });
 
@@ -147,6 +150,7 @@ karamalmiButton.addEventListener('click', () => {
   lon = karamalmiSettings.lon;
   renderMenuFazer(finnish, menu);
   renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
+  getWeatherData(karamalmiSettings.lat, karamalmiSettings.lon);
   saveSettingsToLocalStorage();
 });
 
@@ -160,6 +164,7 @@ arabiaButton.addEventListener('click', () => {
   lon = arabiaSettings.lon;
   renderMenuFazer(finnish, menu);
   renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
+  getWeatherData(arabiaSettings.lat, arabiaSettings.lon);
   saveSettingsToLocalStorage();
 });
 
@@ -249,7 +254,7 @@ const init = () => {
 
   setInterval(async () => {
     await getWeatherData(lat, lon);
-  }, intervalTimeBTC);
+  }, intervalTimeWeather);
 
   // refreshes bitcoin data every minute
   setInterval(getBitcoinData, intervalTimeBTC);

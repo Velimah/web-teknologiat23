@@ -8,6 +8,8 @@ const getWeatherData = async (lat, lon) => {
 
     console.log('weather data', weatherData);
 
+    document.getElementById('weather').innerHTML= '';
+
     const image = document.createElement('img');
     image.setAttribute('class', 'temperature');
     image.setAttribute('src', `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`);
@@ -29,10 +31,20 @@ const getWeatherData = async (lat, lon) => {
     humidity.innerHTML = `Humidity ${weatherData.main.humidity} %`;
     document.getElementById('weather').append(humidity);
 
+    const clouds = document.createElement('div');
+    clouds.setAttribute('class', 'humidity');
+    clouds.innerHTML = `clouds ${weatherData.clouds.all} %`;
+    document.getElementById('weather').append(clouds);
+
     const wind = document.createElement('div');
     wind.setAttribute('class', 'wind');
     wind.innerHTML = `Wind ${weatherData.wind.speed} m/s`;
     document.getElementById('weather').append(wind);
+
+    const windGust = document.createElement('div');
+    windGust.setAttribute('class', 'wind');
+    windGust.innerHTML = `Wind ${weatherData.wind.gust} m/s`;
+    document.getElementById('weather').append(windGust);
 
     const pressure = document.createElement('div');
     pressure.setAttribute('class', 'pressure');
