@@ -30,8 +30,8 @@ const renderHSLData = async (latitude, longitude) => {
         lineContainer.style.borderColor = '#c600ff';
         lineContainer.style.backgroundColor = 'rgba(198,0,255,0.3)';
       } else if (i === 4) {
-        lineContainer.style.borderColor = '#ff00ae';
-        lineContainer.style.backgroundColor = 'rgba(255,0,174,0.3)';
+        lineContainer.style.borderColor = '#fffb00';
+        lineContainer.style.backgroundColor = 'rgba(255,251,0,0.3)';
       } else if (i === 5) {
         lineContainer.style.borderColor = '#00ffc4';
         lineContainer.style.backgroundColor = 'rgba(0,255,196,0.3)';

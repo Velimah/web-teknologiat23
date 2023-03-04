@@ -57,7 +57,9 @@ const getWeatherData = async (lat, lon) => {
 
     const sunset = document.createElement('div');
     sunset.setAttribute('class', 'sunrise');
-    sunset.innerHTML = `Sunrise: ${new Date(weatherData.sys.sunset * 1000)}`;
+    const date = new Date(weatherData.sys.sunset * 1000);
+    console.log(date);
+    sunset.innerHTML = `Sunrise: ${date}`;
     document.getElementById('weather').appendChild(sunset);
 
     const dayLength = document.createElement('div');
