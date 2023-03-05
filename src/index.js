@@ -17,7 +17,13 @@ import {
   sodexoDataMyyrmaki
 } from './modules/fetch-lunchmenu';
 import {calculateNearestCampus, getNearestRestaurantMenu} from "./modules/calculate-coordinates";
-import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./modules/restaurant-settings";
+import {
+  myyrmakiSettings,
+  karamalmiSettings,
+  myllypuroSettings,
+  arabiaSettings,
+  getCampusSettings
+} from "./modules/campus-settings";
 import {getBitcoinData, btcPrice} from "./modules/fetch-bitcoin";
 import {getWeatherData} from "./modules/fetch-weather";
 
@@ -124,6 +130,8 @@ myyrmakiButton.addEventListener('click', () => {
   menu = sodexoDataMyyrmaki;
   lat = myyrmakiSettings.lat;
   lon = myyrmakiSettings.lon;
+  document.getElementById('logo').innerHTML = 'Myyrmäki';
+  document.getElementById('header-picture').setAttribute("src", "assets/Images/myyrmaen-kampus-ilmakuva.jpg");
   renderMenuSodexo(finnish, menu);
   renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon);
   getWeatherData(myyrmakiSettings.lat, myyrmakiSettings.lon);
@@ -134,6 +142,8 @@ myllypuroButton.addEventListener('click', () => {
   menu = sodexoDataMyllypuro;
   lat = myllypuroSettings.lat;
   lon = myllypuroSettings.lon;
+  document.getElementById('logo').innerHTML = 'Myllypuro';
+  document.getElementById('header-picture').setAttribute("src", "assets/Images/myllypuron-kampus-ilmakuva.jpg");
   renderMenuSodexo(finnish, menu);
   renderHSLData(myllypuroSettings.lat, myllypuroSettings.lon);
   getWeatherData(myllypuroSettings.lat, myllypuroSettings.lon);
@@ -148,6 +158,8 @@ karamalmiButton.addEventListener('click', () => {
   }
   lat = karamalmiSettings.lat;
   lon = karamalmiSettings.lon;
+  document.getElementById('logo').innerHTML = 'Karamalmi';
+  document.getElementById('header-picture').setAttribute("src", "assets/Images/karamalmin-kampus.jpg");
   renderMenuFazer(finnish, menu);
   renderHSLData(karamalmiSettings.lat, karamalmiSettings.lon);
   getWeatherData(karamalmiSettings.lat, karamalmiSettings.lon);
@@ -155,6 +167,7 @@ karamalmiButton.addEventListener('click', () => {
 });
 
 arabiaButton.addEventListener('click', () => {
+  console.log('vottit');
   if (finnish === true) {
     menu = fazerDataFiArabia;
   } else {
@@ -162,6 +175,8 @@ arabiaButton.addEventListener('click', () => {
   }
   lat = arabiaSettings.lat;
   lon = arabiaSettings.lon;
+  document.getElementById('logo').innerHTML = 'Arabia';
+  document.getElementById('header-picture').setAttribute("src", "assets/Images/arabian-kampus-sisaankaynti.jpg");
   renderMenuFazer(finnish, menu);
   renderHSLData(arabiaSettings.lat, arabiaSettings.lon);
   getWeatherData(arabiaSettings.lat, arabiaSettings.lon);
@@ -228,18 +243,17 @@ const currentPosition = () => {
 };
 
 
-
 //starts the application
 const init = () => {
 
   // loads localstorage settings
   loadSettingsFromLocalStorage();
 
+  getCampusSettings().then(() => currentPosition());
+
   // loads HSL stop map
   loadHSLMap();
 
-  // gets current coordinates and loads bus stop data
-  currentPosition();
 
   //fetches lunch menus and then loads the nearest restaurant's menu
   getLunchMenus().then(() => {

@@ -12,24 +12,24 @@ const addCurrentPositionMarker = (latitude, longitude) => {
   map1.setCenter([longitude, latitude]);
 
   const marker = new mapboxgl.Marker({
-    color: '#ff0000',
+    color: '#000000',
     scale: '1.2',
   }).setLngLat([longitude, latitude]).addTo(map1);
 };
 const addStopMarker = (coords, i) => {
   let color;
   if (i === 0) {
-    color = '#ff7700';
+    color = '#ff5000';
   } else if (i === 1) {
-    color = '#36ff00';
+    color = '#e384c4';
   } else if (i === 2) {
-    color = '#0029ff';
+    color = '#4046a8';
   } else if (i === 3) {
-    color = '#c600ff';
+    color = '#3ba88f';
   } else if (i === 4) {
-    color = '#ff00ae';
+    color = '#fff000';
   } else if (i === 5) {
-    color = '#00ffc4';
+    color = '#cb2228';
   }
   const marker = new mapboxgl.Marker({
     color: color,

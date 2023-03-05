@@ -5,23 +5,18 @@
 }
 
 .picture-text {
-    flex-direction: row;
+    flex-direction: column;
     gap: 20px;
-    height: 70px;
+    height: 200px;
+    padding: 0;
 }
 
 #logo {
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 #slogan {
     font-size: 1rem;
-}
-
-#header-picture-container {
-    height: 130px;
-    background-image: url("../Images/tomaatteja-yrtteja-ja-musta-paistinpannu-puisella-poydalla-jossa-spagettia.avif");
-    background-size: cover;
 }
 
 #header-picture {

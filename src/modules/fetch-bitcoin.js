@@ -37,7 +37,12 @@ const getBitcoinData = () => {
     .then(function (response) {
       console.log('btctesti', response.data);
 
-      document.getElementById('btc').innerHTML = '';
+      document.getElementById('btc').innerHTML='';
+
+      const name = document.createElement('div');
+      name.setAttribute('class', 'btc-name');
+      name.innerHTML = `Bitcoin information`;
+      document.getElementById('btc').append(name);
 
       const time = new Date(response.data.content[0].timestamp).toTimeString().substring(0,18);
       const timestamp = document.createElement('div');
@@ -56,7 +61,7 @@ const getBitcoinData = () => {
       document.getElementById('btc').append(volume);
 
       const marketCap = document.createElement('div');
-      marketCap.setAttribute('class', 'marketCap');
+      marketCap.setAttribute('class', 'market-cap');
       marketCap.innerHTML = `Market Cap $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Billion`;
       document.getElementById('btc').append(marketCap);
 

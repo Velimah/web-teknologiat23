@@ -1,18 +1,20 @@
 const darkTheme = () => {
   document.documentElement.style.setProperty('--main-color-white', '#000000');
   document.documentElement.style.setProperty('--main-color-black', '#FFFFFF');
-  document.documentElement.style.setProperty('--main-color-green', '#940E3F');
-  document.documentElement.style.setProperty('--supp-color-lgreen', '#B43362');
-  document.documentElement.style.setProperty('--main-color-blue', '#343A40');
-  document.documentElement.style.setProperty('--main-color-red', '#b43362');
+  document.documentElement.style.setProperty('--main-color-orange', '#ff5000');
+  document.documentElement.style.setProperty('--main-color-yellow', '#fff000');
+  document.documentElement.style.setProperty('--main-color-blue', '#4046a8');
+  document.documentElement.style.setProperty('--main-color-red', '#cb2228');
+  document.getElementById('header-picture2').setAttribute("src", "assets/Images/metropolia_s_musta.png");
 };
 const lightTheme = () => {
   document.documentElement.style.setProperty('--main-color-white', '#FFFFFF');
   document.documentElement.style.setProperty('--main-color-black', '#000000');
-  document.documentElement.style.setProperty('--main-color-green', '#43E04F');
-  document.documentElement.style.setProperty('--supp-color-lgreen', '#65FF71');
-  document.documentElement.style.setProperty('--main-color-blue', '#cdd8e3');
-  document.documentElement.style.setProperty('--main-color-red', '#E0437C');
+  document.documentElement.style.setProperty('--main-color-orange', '#ff5000');
+  document.documentElement.style.setProperty('--main-color-yellow', '#fff000');
+  document.documentElement.style.setProperty('--main-color-blue', '#4046a8');
+  document.documentElement.style.setProperty('--main-color-red', '#cb2228');
+  document.getElementById('header-picture2').setAttribute("src", "assets/Images/metropolia_s_valkoinen.png");
 };
 
 export {darkTheme, lightTheme};

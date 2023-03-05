@@ -1,5 +1,5 @@
 import {doFetch} from './network';
-import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./restaurant-settings";
+import {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings} from "./campus-settings";
 
 let sodexoDataMyyrmaki;
 let sodexoDataMyllypuro;

@@ -3,8 +3,8 @@ import {
   karamalmiSettings,
   myllypuroSettings,
   myyrmakiSettings,
-  restaurants
-} from "./restaurant-settings";
+  campuses
+} from "./campus-settings";
 import {fazerDataFiArabia, fazerDataFiKaramalmi, sodexoDataMyllypuro, sodexoDataMyyrmaki} from "./fetch-lunchmenu";
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -30,7 +30,7 @@ let nearestCoordinate = null;
 let smallestDistance = Infinity;
 
 const calculateNearestCampus = (lat, lon) => {
-  for (const coord of restaurants) {
+  for (const coord of campuses) {
     const distance = getDistanceFromLatLonInKm(
       lat, lon,
       coord.lat, coord.lon
@@ -45,12 +45,20 @@ const calculateNearestCampus = (lat, lon) => {
 
 const getNearestRestaurantMenu = () => {
   if (nearestRestaurant.id === karamalmiSettings.id) {
+    document.getElementById('logo').innerHTML = 'Karamalmi';
+    document.getElementById('header-picture').setAttribute("src", "assets/Images/karamalmin-kampus.jpg");
     return fazerDataFiKaramalmi;
   } else if (nearestRestaurant.id === myllypuroSettings.id) {
+    document.getElementById('logo').innerHTML = 'Myllypuro';
+    document.getElementById('header-picture').setAttribute("src", "assets/Images/myllypuron-kampus-ilmakuva.jpg");
     return sodexoDataMyllypuro;
   } else if (nearestRestaurant.id === arabiaSettings.id) {
+    document.getElementById('logo').innerHTML = 'Arabia';
+    document.getElementById('header-picture').setAttribute("src", "assets/Images/arabian-kampus-sisaankaynti.jpg");
     return fazerDataFiArabia;
   } else if (nearestRestaurant.id === myyrmakiSettings.id) {
+    document.getElementById('logo').innerHTML = 'Myyrmäki';
+    document.getElementById('header-picture').setAttribute("src", "assets/Images/myyrmaen-kampus-ilmakuva.jpg");
     return sodexoDataMyyrmaki;
   }
 };

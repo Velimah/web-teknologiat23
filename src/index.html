@@ -10,7 +10,6 @@
   <link rel="stylesheet" media="screen and (max-width: 980px)" href="assets/css/medium.css">
   <link rel="stylesheet" media="screen and (max-width: 870px)" href="assets/css/small.css">
   <link rel="stylesheet" media="screen and (max-width: 735px)" href="assets/css/mobile.css">
-  <!--<link rel="stylesheet" href="assets/styles.css">-->
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css' rel='stylesheet'/>
 </head>
 <body>
@@ -22,32 +21,38 @@
 
     <div id="nav-button">
       <div id="nav-box">
-      <div class="nav-item2">
-        <a class="nav-link" href="index.html">Etusivu</a>
-      </div>
-      <div class="nav-item2">
-        <a class="nav-link" href="tehtava5.html">Ruokalistat</a>
-      </div>
-      <div class="nav-item2">
-        <a class="nav-link" href="tehtava6.html">Ravintolat</a>
-      </div>
-      <div class="nav-item2">
-        <a class="nav-link" href="tehtava7.html">Yhteystiedot</a>
-      </div>
+        <div class="nav-item">
+          <a class="nav-link restaurant-fazer2">Arabia</a>
+        </div>
+        <div class="nav-item2">
+          <a class="nav-link" href="index.html">Arabia</a>
+        </div>
+        <div class="nav-item2">
+          <a class="nav-link" href="tehtava5.html">Karamalmi</a>
+        </div>
+        <div class="nav-item2">
+          <a class="nav-link" href="tehtava6.html">Myllypuro</a>
+        </div>
+        <div class="nav-item2">
+          <a class="nav-link" href="tehtava7.html">Myyrmäki</a>
+        </div>
       </div>
     </div>
 
     <div class="nav-item">
-      <a class="nav-link" href="index.html">Etusivu</a>
+      <a class="nav-link" id="current-position-button">Auto</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="tehtava5.html">Ruokalistat</a>
+      <a class="nav-link" id="restaurant-fazer2">Arabia</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="tehtava6.html">Ravintolat</a>
+      <a class="nav-link" id="restaurant-fazer">Karamalmi</a>
     </div>
     <div class="nav-item">
-      <a class="nav-link" href="tehtava7.html">Yhteystiedot</a>
+      <a class="nav-link" id="restaurant-sodexo2">Myllypuro</a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link" id="restaurant-sodexo">Myyrmäki</a>
     </div>
 
   </nav>
@@ -56,8 +61,8 @@
     <svg id="search-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
          x="0px" y="0px"
          viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve"><symbol viewBox="-27.299 -39.024 54.598 78.047"><path fill="none" d="M11.157,34.02c-1.275-1.85-3.408-3.026-5.733-3.026c-2.13,0-4.118,0.985-5.424,2.607   c-1.306-1.622-3.294-2.607-5.423-2.607c-2.325,0-4.457,1.176-5.734,3.026c-1.275-1.85-3.408-3.026-5.733-3.026   c-1.913,0-3.648,0.776-4.908,2.029v-66.474c1.26,1.253,2.995,2.029,4.908,2.029c2.325,0,4.458-1.176,5.733-3.026   c1.277,1.85,3.409,3.026,5.734,3.026c2.129,0,4.117-0.986,5.423-2.607c1.306,1.622,3.294,2.607,5.424,2.607   c2.325,0,4.458-1.176,5.733-3.026c1.277,1.85,3.409,3.026,5.734,3.026c1.913,0,3.647-0.776,4.907-2.028v66.473   c-1.26-1.253-2.994-2.028-4.907-2.028C14.567,30.995,12.435,32.17,11.157,34.02z"/><path
-          fill="#000000" stroke="#000000" stroke-width="3" stroke-miterlimit="10"
-          d="M-20.463-37.524   c0.391,1.615,1.839,2.822,3.573,2.822c1.733,0,3.181-1.207,3.572-2.822h4.323c0.391,1.615,1.839,2.822,3.573,2.822   s3.182-1.207,3.573-2.822h3.701c0.391,1.615,1.839,2.822,3.573,2.822s3.182-1.207,3.573-2.822h4.322   c0.391,1.615,1.839,2.822,3.573,2.822s3.182-1.207,3.573-2.822h5.335v75.047h-5.266c-0.219-1.825-1.759-3.25-3.641-3.25   s-3.423,1.425-3.641,3.25H9.065c-0.219-1.825-1.759-3.25-3.641-3.25s-3.423,1.425-3.641,3.25h-3.564   c-0.219-1.825-1.759-3.25-3.641-3.25s-3.423,1.425-3.641,3.25h-4.186c-0.219-1.825-1.758-3.25-3.641-3.25   c-1.883,0-3.423,1.425-3.641,3.25h-5.267v-75.047H-20.463z"/></symbol>
+      fill="#000000" stroke="#000000" stroke-width="3" stroke-miterlimit="10"
+      d="M-20.463-37.524   c0.391,1.615,1.839,2.822,3.573,2.822c1.733,0,3.181-1.207,3.572-2.822h4.323c0.391,1.615,1.839,2.822,3.573,2.822   s3.182-1.207,3.573-2.822h3.701c0.391,1.615,1.839,2.822,3.573,2.822s3.182-1.207,3.573-2.822h4.322   c0.391,1.615,1.839,2.822,3.573,2.822s3.182-1.207,3.573-2.822h5.335v75.047h-5.266c-0.219-1.825-1.759-3.25-3.641-3.25   s-3.423,1.425-3.641,3.25H9.065c-0.219-1.825-1.759-3.25-3.641-3.25s-3.423,1.425-3.641,3.25h-3.564   c-0.219-1.825-1.759-3.25-3.641-3.25s-3.423,1.425-3.641,3.25h-4.186c-0.219-1.825-1.758-3.25-3.641-3.25   c-1.883,0-3.423,1.425-3.641,3.25h-5.267v-75.047H-20.463z"/></symbol>
       <symbol viewBox="-30.282 -48.056 60.563 94.113"><path fill="#000000" stroke="#000000" stroke-width="6" stroke-miterlimit="10" d="M16.006,43.056   c-3.233-4.883-8.77-8.108-15.065-8.108s-11.832,3.225-15.065,8.108h-10.584v-88.113h10.584c3.233,4.883,8.77,8.108,15.065,8.108   s11.832-3.224,15.065-8.108H26.59v88.113H16.006z"/>
         <line fill="none" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
               stroke-miterlimit="10" stroke-dasharray="7,8" x1="27.781" y1="-20.755" x2="-27.782"
@@ -88,38 +93,29 @@
               y2="13.75"/></symbol>
       <g display="none"><path display="inline" fill="#000000" d="M228.792,1074.743h-1237.798c-2.084,0-3.789-1.705-3.789-3.789V-116.211   c0-2.084,1.705-3.789,3.789-3.789H228.792c2.084,0,3.789,1.705,3.789,3.789v1187.164   C232.582,1073.038,230.877,1074.743,228.792,1074.743z"/></g>
       <g><g><g><path d="M93.118,85.708L73.116,65.521l0.514-0.726c4.566-6.454,6.98-14.033,6.98-21.916C80.61,21.992,63.717,5,42.955,5     C22.191,5,5.298,21.992,5.298,42.879s16.892,37.879,37.656,37.879c7.835,0,15.366-2.427,21.782-7.019l0.734-0.525L85.483,93.41     C86.502,94.435,87.859,95,89.3,95c1.442,0,2.799-0.565,3.819-1.592c2.11-2.123,2.11-5.576,0-7.699L93.118,85.708z M64.844,58.494     L64.844,58.494l-2.642,3.735l-3.713,2.657c-4.581,3.278-9.953,5.01-15.534,5.01c-14.816,0-26.87-12.12-26.87-27.018     c0-14.898,12.054-27.018,26.87-27.018s26.87,12.12,26.87,27.018C69.825,48.489,68.102,53.889,64.844,58.494z"/><path
-            d="M45.542,20.649c-13.543,0-24.561,11.018-24.561,24.562c0,1.579,1.28,2.859,2.859,2.859s2.859-1.28,2.859-2.859     c0-10.391,8.453-18.844,18.844-18.844c1.578,0,2.859-1.28,2.859-2.859S47.121,20.649,45.542,20.649z"/></g></g></g>
+        d="M45.542,20.649c-13.543,0-24.561,11.018-24.561,24.562c0,1.579,1.28,2.859,2.859,2.859s2.859-1.28,2.859-2.859     c0-10.391,8.453-18.844,18.844-18.844c1.578,0,2.859-1.28,2.859-2.859S47.121,20.649,45.542,20.649z"/></g></g></g>
       <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold"
             font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text>
       <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold"
             font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text></svg>
-    <input id="search-input" required minlength="1" type="text" aria-label="Search" name="message_body" placeholder="Etsi ravintolaa">
+    <input id="search-input" required minlength="1" type="text" aria-label="Search" name="message_body"
+           placeholder="Etsi ruokaa">
   </div>
 
   <div class="header-picture-area">
     <div class="picture-text">
-      <h1 id="logo">Lounari</h1>
-      <h2 id="slogan">Missä tänään syötäisiin.</h2>
+      <h1 id="logo">Karamalmi</h1>
+      <img id="header-picture2" width="250px" height="57px" src="assets/Images/metropolia_s_valkoinen.png" alt="logo">
     </div>
     <div id="header-picture-container">
-      <img id="header-picture" width="700px" height="300px" src="assets/Images/tomaatteja-yrtteja-ja-musta-paistinpannu-puisella-poydalla-jossa-spagettia.avif" alt="picture of a restaurant dish">
+      <img id="header-picture" width="533px" height="300px" src="assets/Images/karamalmin-kampus.jpg" alt="campus">
     </div>
-  </div>
-
-  <div class="header-text">Missä tänään syötäisiin? Tuttu tarina ennen lounashetkeä. Palvelu etsii lähellä olevat
-    lounaspaikat, sekä näyttää niiden lounaslistan.
-    Viikottaiset lounaslistat ovat myös käytettävissäsi. Pääset niihin klikkaamalla ravintolan logoa.
   </div>
 
 </header>
 
 <div id="container2">
   <div class="buttons">
-    <button id="current-position-button">Live</button>
-    <button id="restaurant-fazer2">Arabia</button>
-    <button id="restaurant-fazer">Karamalmi</button>
-    <button id="restaurant-sodexo2">Myllypuro</button>
-    <button id="restaurant-sodexo">Myyrmäki</button>
   </div>
   <div class="buttons">
     <button id="language-button">Suomi</button>
@@ -129,34 +125,28 @@
 
 <main class="main">
 
-  <div class="restaurant-card" id="add-restaurant">
-    <svg id="add-button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
-         viewBox="0 0 128 160" style="enable-background:new 0 0 128 128;" xml:space="preserve"><g><path d="M64,1L64,1C29.2,1,1,29.2,1,64s28.2,63,63,63h0c34.8,0,63-28.2,63-63S98.8,1,64,1z M94,69H69v25H59V69H34V59h25V34h10v25   h25V69z"/></g>
-      <text x="0" y="143" fill="#000000" font-size="5px" font-weight="bold"
-            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text>
-      <text x="0" y="148" fill="#000000" font-size="5px" font-weight="bold"
-            font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"></text></svg>
-    <div id="add-text">Lisää ravintola</div>
-  </div>
-
 </main>
-
+<div id="container5">
+  <div id="btc">
+  </div>
+  <div id="weather"></div>
+</div>
 <div id="container4">
-<div id="map1"></div>
+  <div id="map1"></div>
   <div id="hsl-data"></div>
 </div>
 
-<div id="btc"></div>
-<div id="weather"></div>
-
-<div id="carousel">
-  <img class="powerpoint" src="assets/Images/Slide1.JPG" alt="aa">
-  <img class="powerpoint" src="assets/Images/Slide2.JPG" alt="aa">
-  <img class="powerpoint" src="assets/Images/Slide3.JPG" alt="aa">
-  <img class="powerpoint" src="assets/Images/Slide4.JPG" alt="aa">
-  <img class="powerpoint" src="assets/Images/Slide5.JPG" alt="aa">
-  <img class="powerpoint" src="assets/Images/Slide6.JPG" alt="aa">
+<div id="container6">
+  <div id="carousel">
+    <img class="powerpoint" src="assets/Images/Slide1.JPG" alt="aa">
+    <img class="powerpoint" src="assets/Images/Slide2.JPG" alt="aa">
+    <img class="powerpoint" src="assets/Images/Slide3.JPG" alt="aa">
+    <img class="powerpoint" src="assets/Images/Slide4.JPG" alt="aa">
+    <img class="powerpoint" src="assets/Images/Slide5.JPG" alt="aa">
+    <img class="powerpoint" src="assets/Images/Slide6.JPG" alt="aa">
+  </div>
 </div>
+
 
 <footer></footer>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js'></script>
