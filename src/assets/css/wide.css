@@ -88,9 +88,7 @@ nav {
   padding: 5px;
 }
 
-.location {
-  margin-left: -10px;
-}
+
 
 .nav-link {
   font-family: RobotoSlab-Regular, sans-serif;
@@ -342,9 +340,9 @@ button:hover {
 
 .location {
   font-family: RobotoSlab-Regular, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   padding-bottom: 5px;
-  margin-top: 25px;
+  margin-top: 35px;
 }
 
 .weather-image {
