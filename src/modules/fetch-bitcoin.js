@@ -16,7 +16,7 @@ const optionsToken = {
   data: '{"audience":"https://api.bravenewcoin.com","client_id":"oCdQoZoI96ERE9HY3sQ7JmbACfBf55RY","grant_type":"client_credentials"}'
 };
 
-const getBitcoinData = () => {
+const getBitcoinData = (finnish) => {
   axios.request(optionsToken)
     .then(function (response) {
       accessToken = response.data.access_token;
@@ -35,13 +35,12 @@ const getBitcoinData = () => {
       return axios.request(optionsFetchBTC); // make the GET request here
     })
     .then(function (response) {
-      console.log('btctesti', response.data);
 
       document.getElementById('btc').innerHTML='';
 
       const name = document.createElement('div');
-      name.setAttribute('class', 'btc-name');
-      name.innerHTML = `Bitcoin information`;
+      name.setAttribute('id', 'btc-name');
+      name.innerHTML = `Bitcoin`;
       document.getElementById('btc').append(name);
 
       const time = new Date(response.data.content[0].timestamp).toTimeString().substring(0,18);
@@ -52,17 +51,29 @@ const getBitcoinData = () => {
 
       const price = document.createElement('div');
       price.setAttribute('class', 'price');
-      price.innerHTML = `Price $${Math.round(response.data.content[0].price)}`;
+      if (finnish === true) {
+        price.innerHTML = `Hinta: $${Math.round(response.data.content[0].price)}`;
+      } else {
+        price.innerHTML = `Price: $${Math.round(response.data.content[0].price)}`;
+      }
       document.getElementById('btc').append(price);
 
       const volume = document.createElement('div');
       volume.setAttribute('class', 'volume');
-      volume.innerHTML = `Volume ${Math.round(response.data.content[0].volume)}`;
+      if (finnish === true) {
+        volume.innerHTML = `Volyymi: ${Math.round(response.data.content[0].volume)}`;
+      } else {
+        volume.innerHTML = `Volume: ${Math.round(response.data.content[0].volume)}`;
+      }
       document.getElementById('btc').append(volume);
 
       const marketCap = document.createElement('div');
       marketCap.setAttribute('class', 'market-cap');
-      marketCap.innerHTML = `Market Cap $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Billion`;
+      if (finnish === true) {
+        marketCap.innerHTML = `Markkina-arvo: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Miljardia`;
+      } else {
+        marketCap.innerHTML = `Market Cap: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Billion`;
+      }
       document.getElementById('btc').append(marketCap);
 
       btcPrice = response.data.content[0].price;

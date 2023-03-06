@@ -109,10 +109,12 @@ const renderMenuFazer = (finnish, menu) => {
         // splits the price string and adds spaces and euro sign
         price.innerHTML = `${SetMenus.Price.substring(0, 4)} € / ${SetMenus.Price.substring(5, 9)} € / ${SetMenus.Price.substring(10, 14)} €`;
         courseNumber.appendChild(price);
-        } else {
+        } else if (finnish === true) {
           price.innerHTML = `Hinnat puuttuu`;
-          courseNumber.appendChild(price);
+        } else {
+          price.innerHTML = `Prices missing`;
         }
+        courseNumber.appendChild(price);
         // increases the dish number index
         i++;
       }

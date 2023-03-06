@@ -1,17 +1,20 @@
 import {getNearestStopsAndTimetables} from "./fetch-hsl";
 import {addCurrentPositionMarker, addStopMarker} from "./map";
 
-const renderHSLData = async (latitude, longitude) => {
+const renderHSLData = async (latitude, longitude, finnish) => {
   try {
     const stops = await getNearestStopsAndTimetables(latitude, longitude);
-    console.log('hösselidata', stops);
 
     const dataBox = document.getElementById('hsl-data');
     dataBox.innerHTML = '';
 
     const marker = document.createElement('div');
     marker.setAttribute('class', 'youre-here');
-    marker.innerHTML = 'Olet tässä';
+    if (finnish === true) {
+      marker.innerHTML = 'Olet tässä';
+    } else {
+      marker.innerHTML = 'You are Here';
+    }
     dataBox.append(marker);
 
     for (let i = 0; i < stops.stopName.length; i++) {

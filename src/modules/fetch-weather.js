@@ -1,7 +1,7 @@
 "use strict";
 import {weatherAPIKey} from "./api-keys";
 
-const getWeatherData = async (lat, lon) => {
+const getWeatherData = async (lat, lon, finnish) => {
   try {
     const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '');
     if (!response.ok) {
@@ -9,8 +9,6 @@ const getWeatherData = async (lat, lon) => {
     }
 
     const weatherData = await response.json();
-
-    console.log('weather data', weatherData);
 
     document.getElementById('weather').innerHTML = '';
 
@@ -37,32 +35,56 @@ const getWeatherData = async (lat, lon) => {
 
     const temperature = document.createElement('div');
     temperature.setAttribute('class', 'temperature');
-    temperature.innerHTML = `Temperature ${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+    if (finnish === true) {
+      temperature.innerHTML = `Lämpötila: ${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+    } else {
+      temperature.innerHTML = `Temperature: ${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+    }
     document.getElementById('weather-container2').appendChild(temperature);
 
     const humidity = document.createElement('div');
     humidity.setAttribute('class', 'humidity');
-    humidity.innerHTML = `Humidity ${weatherData.main.humidity} %`;
-    document.getElementById('weather-container2').appendChild(humidity);
+    if (finnish === true) {
+      humidity.innerHTML = `Ilmankosteus: ${weatherData.main.humidity} %`;
+    } else {
+      humidity.innerHTML = `Humidity: ${weatherData.main.humidity} %`;
+    }
+    document.getElementById('weather-container3').appendChild(humidity);
 
     const clouds = document.createElement('div');
     clouds.setAttribute('class', 'clouds');
-    clouds.innerHTML = `clouds ${weatherData.clouds.all} %`;
+    if (finnish === true) {
+      clouds.innerHTML = `Pilvisyys: ${weatherData.clouds.all} %`;
+    } else {
+      clouds.innerHTML = `Clouds: ${weatherData.clouds.all} %`;
+    }
     document.getElementById('weather-container2').appendChild(clouds);
 
     const wind = document.createElement('div');
     wind.setAttribute('class', 'wind');
-    wind.innerHTML = `Wind ${weatherData.wind.speed} m/s`;
-    document.getElementById('weather-container3').appendChild(wind);
+    if (finnish === true) {
+      wind.innerHTML = `Tuuli: ${weatherData.wind.speed} m/s`;
+    } else {
+      wind.innerHTML = `Wind: ${weatherData.wind.speed} m/s`;
+    }
+    document.getElementById('weather-container2').appendChild(wind);
 
     const pressure = document.createElement('div');
     pressure.setAttribute('class', 'pressure');
-    pressure.innerHTML = `Pressure ${weatherData.main.pressure} hPa`;
+    if (finnish === true) {
+      pressure.innerHTML = `Ilmanpaine: ${weatherData.main.pressure} hPa`;
+    } else {
+      pressure.innerHTML = `Pressure: ${weatherData.main.pressure} hPa`;
+    }
     document.getElementById('weather-container3').append(pressure);
 
     const dayLength = document.createElement('div');
     dayLength.setAttribute('class', 'sunrise');
-    dayLength.innerHTML = `Daylength: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
+    if (finnish === true) {
+      dayLength.innerHTML = `Päivän pituus: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
+    } else {
+      dayLength.innerHTML = `Day length: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
+    }
     document.getElementById('weather-container3').appendChild(dayLength);
 
   } catch (error) {

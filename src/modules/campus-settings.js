@@ -32,17 +32,16 @@ let campuses =
     },
   ];
 
-let myyrmakiSettings;
-let karamalmiSettings;
-let myllypuroSettings;
-let arabiaSettings;
+let myyrmakiSettings = campuses[0];
+let karamalmiSettings= campuses[1];
+let myllypuroSettings= campuses[2];
+let arabiaSettings = campuses[3];
 const getCampusSettings = async () => {
   try {
     campuses = await doFetch(
       `https://users.metropolia.fi/~velimah/settings`,
       true,
     );
-    console.log('asetukset', campuses);
     myyrmakiSettings = campuses[0];
     karamalmiSettings = campuses[1];
     myllypuroSettings = campuses[2];

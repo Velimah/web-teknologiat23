@@ -18,3 +18,10 @@
 .picture-text {
   padding: 0;
 }
+.header {
+  padding-left: 0;
+  padding-right: 0;
+}
+.nav {
+  justify-content: center;
+}

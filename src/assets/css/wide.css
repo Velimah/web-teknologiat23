@@ -47,7 +47,6 @@
 }
 
 html {
-  padding-top: 10px;
   background-color: var(--main-color-white);
 }
 
@@ -67,9 +66,9 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "nav nav search"
     "picture picture picture"
-    "header header header";
+    "header header header"
+    "nav nav nav";
 }
 
 nav {
@@ -78,10 +77,13 @@ nav {
   flex-direction: row;
   justify-content: flex-start;
   align-content: center;
-  height: 50px;
+  height: 60px;
   gap: 30px;
 }
-
+#nav-container {
+  display: flex;
+  flex-direction: row;
+}
 .nav-item {
   display: flex;
   align-items: center;
@@ -94,7 +96,7 @@ nav {
   padding: 10px;
   text-decoration: none;
   transition: color, background-color .2s ease-in-out;
-  border-radius: 10px;
+  border-radius: 2px;
   color: var(--main-color-black);
 }
 
@@ -108,21 +110,23 @@ nav {
 }
 
 .search {
+  margin-left: -22px;
+  width: 350px;
   padding: 10px;
+  padding-bottom: 0;
   grid-area: search;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  flex-basis: 400px;
 }
 
 #search-input {
+  width: 350px;
   height: 35px;
-  border-radius: 10px;
+  border-radius: 2px;
   border-width: 1px;
-  flex-basis: 80%;
   padding: 5px 5px 5px 35px;
-  border-color: var(--main-color-red);
+  border-color: var(--main-color-black);
   background-color: var(--main-color-white);
   color: var(--main-color-black);
 }
@@ -176,7 +180,7 @@ nav {
 }
 
 .main {
-  margin-top: 50px;
+  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   max-width: 1200px;
@@ -204,7 +208,7 @@ nav {
 
 .restaurant-title {
   font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-bottom: 10px;
 }
 
@@ -220,8 +224,9 @@ nav {
 
 .course-category {
   font-family: OpenSans-Regular, sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-top: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
   color: var(--main-color-black);
 }
@@ -245,49 +250,11 @@ nav {
   align-items: center;
 }
 footer {
-
-  margin-top: 200px;
+  margin-top: 20px;
   height: 50px;
   background-color: var(--main-color-orange);
 }
 
-#nav-button {
-  background-color: var(--main-color-white);
-  background-image: url("../Images/navigaatio-ikoni.png");
-  background-size: cover;
-  position: relative;
-  top: 10px;
-  left: 10px;
-  width: 40px;
-  height: 40px;
-  display: none;
-  border-radius: 5px;
-}
-
-#nav-box {
-  background-color: var(--main-color-white);
-  position: absolute;
-  z-index: 1;
-  height: fit-content;
-  min-width: 200px;
-  width: fit-content;
-  left: 0;
-  top: 40px;
-  display: none;
-  flex-direction: column;
-  padding: 10px;
-  box-shadow: 2px 2px 5px -2px black;
-}
-
-#nav-button:hover > * {
-  display: flex;
-}
-
-.nav-item2 {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-}
 
 #container {
   max-width: 1000px;
@@ -295,13 +262,6 @@ footer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 5px;
-}
-
-#container2 {
-  margin: auto;
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-around;
 }
 
 #container3 {
@@ -318,24 +278,29 @@ footer {
 }
 
 button {
-  margin: 10px;
-  width: 100px;
-  height: 50px;
-  border-radius: 5px;
+  margin: 5px;
+  margin-top: 10px;
+  width: 80px;
+  height: 40px;
+  border-radius: 2px;
   background-color: var(--main-color-orange);
   color: var(--main-color-white);
-  box-shadow: 2px 2px 10px -5px var(--main-color-black);
+  transition: color, background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--main-color-red);
 }
 
 .buttons {
   display: flex;
   margin: auto;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 #container4 {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   border: solid 1px var(--main-color-black);
   box-shadow: 2px 2px 10px -5px var(--main-color-black);
   margin: 10px;
@@ -407,7 +372,7 @@ button {
 
 }
 #container5 {
-  background-color: var(--main-color-teal);
+  background-color: var(--main-color-white);
   display: flex;
   flex-direction: row;
   border: solid 1px var(--main-color-black);
@@ -421,7 +386,7 @@ button {
   flex: 2;
   padding: 10px;
 }
-.btc-name {
+#btc-name {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.5rem;
   padding-bottom: 5px;
@@ -462,56 +427,55 @@ button {
   height: 100px;
 }
 #weather-container1 {
-  padding: 10px;
+padding: 0;
 }
 #weather-container2 {
-  padding: 30px 20px 20px;
+  padding: 40px 20px 20px;
 }
 #weather-container3 {
-  padding: 30px 20px 20px;
+  padding: 40px 20px 20px;
 }
 #weather-container2 > *{
   font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   padding-bottom: 3px;
 }
 #weather-container3 > *{
   font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   padding-bottom: 3px;
 }
 
 #container6 {
   display: flex;
   flex-direction: row;
-  border: solid 1px var(--main-color-black);
-  box-shadow: 2px 2px 10px -5px var(--main-color-black);
   margin: 10px;
   padding: 0;
 }
-#carousel{
+#carousel-fi{
   max-width: 1100px;
   width: 100%;
   height: 615px;
   position: relative;
   overflow: hidden;
-  margin: 10px;
+}
+#carousel-en{
+  max-width: 1100px;
+  width: 100%;
+  height: 615px;
+  position: relative;
+  overflow: hidden;
 }
 
 .powerpoint {
-  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   display: none;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .active {
   display: block;
-}
-
-@media screen and (max-width: 600px) {
-  .buttons {
-    flex-direction: column;
-  }
 }
