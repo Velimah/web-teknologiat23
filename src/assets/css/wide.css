@@ -1,18 +1,6 @@
 @font-face {
-  font-family: Lato-Bold;
-  src: url(../Fonts/OpenSans-Regular.ttf);
-  font-display: swap
-}
-
-@font-face {
   font-family: OpenSans-Regular;
   src: url(../Fonts/OpenSans-Regular.ttf);
-  font-display: swap
-}
-
-@font-face {
-  font-family: RobotoSlab-ExtraBold;
-  src: url(../Fonts/RobotoSlab-ExtraBold.ttf);
   font-display: swap
 }
 
@@ -89,9 +77,12 @@ nav {
   align-items: center;
   padding: 5px;
 }
+.location {
+  margin-left: -10px;
+}
 
 .nav-link {
-  font-family: OpenSans-Regular, sans-serif;
+  font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.3rem;
   padding: 10px;
   text-decoration: none;
@@ -150,8 +141,9 @@ nav {
 }
 
 #logo {
-  font-family: RobotoSlab-ExtraBold, sans-serif;
+  font-family: RobotoSlab-Regular, sans-serif;
   font-size: 4rem;
+  font-weight: bolder;
   color: var(--main-color-white);
 }
 
@@ -207,7 +199,7 @@ nav {
 }
 
 .restaurant-title {
-  font-family: OpenSans-Regular, sans-serif;
+  font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.4rem;
   margin-bottom: 10px;
 }
@@ -223,11 +215,10 @@ nav {
 }
 
 .course-category {
-  font-family: OpenSans-Regular, sans-serif;
+  font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1rem;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 5px;
-  font-weight: bold;
   color: var(--main-color-black);
 }
 
@@ -285,6 +276,7 @@ button {
   border-radius: 2px;
   background-color: var(--main-color-orange);
   color: var(--main-color-white);
+  font-weight: bold;
   transition: color, background-color 0.2s ease-in-out;
 }
 
@@ -368,6 +360,7 @@ button:hover {
 
 #map1 {
   width: 100%;
+  max-width: 678px;
   height: 850px;
 
 }
@@ -378,7 +371,7 @@ button:hover {
   border: solid 1px var(--main-color-black);
   box-shadow: 2px 2px 10px -5px var(--main-color-black);
   margin: 10px;
-  padding: 0;
+  margin-top: 50px;
 }
 #btc {
   display: flex;

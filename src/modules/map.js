@@ -5,7 +5,7 @@ const map1 = new mapboxgl.Map({
   container: 'map1', // container id
   style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
   center: [24, 60], // starting position [lng, lat]
-  zoom: 15, // starting zoom
+  zoom: 16, // starting zoom
 });
 
 const addCurrentPositionMarker = (latitude, longitude) => {

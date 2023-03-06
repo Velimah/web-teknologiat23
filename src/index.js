@@ -123,8 +123,8 @@ const renderLunchMenu = (menus) => {
 };
 
 //carousel
-const containerFi = document.querySelector('#carousel-fi');
-const containerEn = document.querySelector('#carousel-en');
+const containerFi = document.getElementById('carousel-fi');
+const containerEn = document.getElementById('carousel-en');
 const imagesFi = containerFi.querySelectorAll('img');
 const imagesEn = containerEn.querySelectorAll('img');
 let index = 0;
@@ -184,7 +184,7 @@ arabiaButton.addEventListener('click', () => {
   if (finnish === true) {
     menu = fazerDataFiArabia;
   } else {
-    menu = fazerDataEnArabia;
+    menu = fazerDataFiArabia;
   }
   lat = arabiaSettings.lat;
   lon = arabiaSettings.lon;
@@ -205,7 +205,7 @@ currentPositionButton.addEventListener('click', () => {
 
 languageButton.addEventListener('click', () => {
   if (finnish === true && menu.RestaurantName === "Luova") {
-    menu = fazerDataEnArabia;
+    menu = fazerDataFiArabia;
     finnish = false;
     renderMenuFazer(finnish, menu);
 
