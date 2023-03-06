@@ -8,7 +8,15 @@ const map1 = new mapboxgl.Map({
   zoom: 16, // starting zoom
 });
 
+map1.on('render', function () {
+  map1.resize();
+});
+map1.on('load', function () {
+  map1.resize();
+});
+
 const addCurrentPositionMarker = (latitude, longitude) => {
+
   map1.setCenter([longitude, latitude]);
 
   const marker = new mapboxgl.Marker({
@@ -38,7 +46,7 @@ const addStopMarker = (coords, i) => {
 };
 
 const loadHSLMap = () => {
-  map1.on('load', function () {
+  map1.on('render', function () {
     map1.resize();
   });
 };

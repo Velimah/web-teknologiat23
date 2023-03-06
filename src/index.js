@@ -4,7 +4,7 @@ import {renderMenuSodexo} from './modules/render-sodexo';
 import {renderMenuFazer} from './modules/render-fazer';
 import {renderHSLData} from "./modules/render-hsl";
 import {darkTheme, lightTheme} from './modules/dark-mode';
-import {search} from './modules/search';
+
 import {loadHSLMap} from './modules/map';
 import {
   getLunchMenus,
@@ -33,9 +33,20 @@ const arabiaButton = document.getElementById('restaurant-fazer2');
 const currentPositionButton = document.getElementById('current-position-button');
 const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
-const searchInput = document.getElementById('search-input');
-const background = document.querySelector('.header-picture-area');
+const settingsButton = document.querySelector('html');
 
+let visible;
+settingsButton.addEventListener('click', () => {
+  if (visible) {
+    visible = false;
+    console.log(visible);
+    document.querySelector('.nav').style.display = 'flex';
+  } else {
+    visible = true;
+    console.log(visible);
+    document.querySelector('.nav').style.display = 'none';
+  }
+});
 
 //initialization of variables to save data from functions
 let finnish;
@@ -45,23 +56,12 @@ let lat;
 let lon;
 
 // interval timers
-const intervalTimeCarousel = 3000;
 const intervalTimeBusData = 60000;
 const intervalTimeBTC = 60000;
 const intervalTimeWeather = 60000;
 const intervalTimeFetchMenus = 3600000;
-
-
-// pwa
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
-    }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
-    });
-  });
-}
+const intervalTimeCarousel = 3000;
+const intervalTimeCarouselSlide = 10000;
 
 // loads data from localstorage and chooses language and color theme
 const loadSettingsFromLocalStorage = () => {
@@ -84,26 +84,24 @@ const loadSettingsFromLocalStorage = () => {
   // chooses button texts based on localstorage settings
   if (finnish === true) {
     languageButton.innerHTML = 'Suomi';
-    document.getElementById('carousel-fi').style.display='block';
-    document.getElementById('carousel-en').style.display='none';
-    searchInput.placeholder = "Etsi ruoka-annosta";
+    document.getElementById('carousel-fi').style.display = 'block';
+    document.getElementById('carousel-en').style.display = 'none';
   } else {
     languageButton.innerHTML = 'English';
-    document.getElementById('carousel-fi').style.display='none';
-    document.getElementById('carousel-en').style.display='block';
-    searchInput.placeholder = "Search for a dish";
+    document.getElementById('carousel-fi').style.display = 'none';
+    document.getElementById('carousel-en').style.display = 'block';
   }
 
   // chooses theme based on localstorage settings
   if (darkMode === true) {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Dark';
     }
     darkTheme();
   } else {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Vaalea';
     } else {
       darkModeButton.innerHTML = 'Light';
@@ -138,6 +136,26 @@ const carouselEn = () => {
   imagesEn[index].classList.remove('active');
   index = (index + 1) % imagesEn.length;
   imagesEn[index].classList.add('active');
+};
+
+let index2 = 0;
+const carouselSignage = () => {
+  if (index2 === 0) {
+    document.getElementById('lunch-container').style.display = "none";
+    document.getElementById('hsl-container').style.display = "flex";
+    document.getElementById('carousel-container').style.display = "none";
+  } else if (index2 === 1) {
+    document.getElementById('lunch-container').style.display = "grid";
+    document.getElementById('hsl-container').style.display = "none";
+    document.getElementById('carousel-container').style.display = "none";
+  } else if (index2 === 2) {
+    document.getElementById('lunch-container').style.display = "none";
+    document.getElementById('hsl-container').style.display = "none";
+    document.getElementById('carousel-container').style.display = "flex";
+  } else {
+    index2=-1;
+  }
+  index2++;
 };
 
 myyrmakiButton.addEventListener('click', () => {
@@ -232,23 +250,21 @@ languageButton.addEventListener('click', () => {
     finnish = true;
     renderMenuSodexo(finnish, menu);
   }
-  if (finnish===true ){
-    document.getElementById('carousel-fi').style.display='block';
-    document.getElementById('carousel-en').style.display='none';
-    searchInput.placeholder = "Etsi ruoka-annosta";
+  if (finnish === true) {
+    document.getElementById('carousel-fi').style.display = 'block';
+    document.getElementById('carousel-en').style.display = 'none';
     languageButton.innerHTML = 'Suomi';
-    if (darkMode===true) {
+    if (darkMode === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Vaalea';
     }
 
   } else {
-    document.getElementById('carousel-fi').style.display='none';
-    document.getElementById('carousel-en').style.display='block';
-    searchInput.placeholder = "Search for a dish";
+    document.getElementById('carousel-fi').style.display = 'none';
+    document.getElementById('carousel-en').style.display = 'block';
     languageButton.innerHTML = 'English';
-    if (darkMode===true) {
+    if (darkMode === true) {
       darkModeButton.innerHTML = 'Dark';
     } else {
       darkModeButton.innerHTML = 'Light';
@@ -265,7 +281,7 @@ languageButton.addEventListener('click', () => {
 darkModeButton.addEventListener('click', () => {
 
   if (darkMode === true) {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Vaalea';
     } else {
       darkModeButton.innerHTML = 'Light';
@@ -273,7 +289,7 @@ darkModeButton.addEventListener('click', () => {
     lightTheme();
     darkMode = false;
   } else {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Dark';
@@ -282,11 +298,6 @@ darkModeButton.addEventListener('click', () => {
     darkMode = true;
   }
   saveSettingsToLocalStorage();
-});
-
-// search, takes value from input and searches course names for a match
-searchInput.addEventListener('keypress', (event) => {
-  search(finnish, event);
 });
 
 //saves settings to localstorage
@@ -334,8 +345,9 @@ const init = () => {
   getBitcoinData(finnish);
 
   // starts the info-carousel
-  setInterval(carouselFi, intervalTimeCarousel);
-  setInterval(carouselEn, intervalTimeCarousel);
+  setInterval(carouselFi, intervalTimeCarouselSlide);
+  setInterval(carouselEn, intervalTimeCarouselSlide);
+  setInterval(carouselSignage, intervalTimeCarousel);
 
   setInterval(async () => {
     await getWeatherData(lat, lon, finnish);

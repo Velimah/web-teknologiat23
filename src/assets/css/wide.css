@@ -9,6 +9,10 @@
   src: url(../Fonts/RobotoSlab-Regular.ttf);
   font-display: swap
 }
+::-webkit-scrollbar {
+  width: 0px;
+  background-color: transparent;
+}
 
 :root {
   --main-color-white: #FFFFFF;
@@ -39,17 +43,20 @@ html {
 }
 
 body {
-  max-width: 1100px;
+  max-width: 1920px;
+  width: 100%;
   margin: auto;
-  min-height: 100vh;
   font-family: OpenSans-Regular, sans-serif;
   color: var(--main-color-black);
+
+  overflow: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .header {
-  padding-left: 10px;
-  padding-right: 10px;
-  max-width: 1100px;
+  max-width: 1920px;
+  width: 100%;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -60,8 +67,8 @@ body {
 }
 
 nav {
-  grid-area: nav;
   display: flex;
+  grid-area: nav;
   flex-direction: row;
   justify-content: flex-start;
   align-content: center;
@@ -100,40 +107,9 @@ nav {
   background-color: var(--main-color-red);
 }
 
-.search {
-  margin-left: -22px;
-  width: 350px;
-  padding: 10px;
-  padding-bottom: 0;
-  grid-area: search;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-#search-input {
-  width: 350px;
-  height: 35px;
-  border-radius: 2px;
-  border-width: 1px;
-  padding: 5px 5px 5px 35px;
-  border-color: var(--main-color-black);
-  background-color: var(--main-color-white);
-  color: var(--main-color-black);
-}
-
-#search-icon {
-  position: relative;
-  left: 30px;
-  top: 2px;
-  height: 27px;
-  width: 27px;
-  fill: var(--main-color-red);
-}
-
 .header-picture-area {
   grid-area: picture;
-  height: 300px;
+  height: 200px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -142,28 +118,22 @@ nav {
 
 #logo {
   font-family: RobotoSlab-Regular, sans-serif;
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bolder;
   color: var(--main-color-white);
-}
-
-#slogan {
-  font-family: RobotoSlab-Regular, sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  color: var(--main-color-white);
+  margin-left: 50px;
 }
 
 .picture-text {
   padding-right: 100px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
 }
 
 #header-picture {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%);
 }
 
 
@@ -171,19 +141,9 @@ nav {
   margin-right: -1px;
 }
 
-.main {
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 20px;
-}
-
 .restaurant-card {
 
-  height: fit-content;
+  height: 840px;
   border-radius: 2px;
   font-size: 30px;
   text-align: left;
@@ -191,7 +151,10 @@ nav {
   flex-direction: column;
   align-items: flex-start;
   padding: 10px;
+  padding-left: 250px;
   color: var(--main-color-black);
+  justify-content: center;
+  flex-wrap: wrap;
 
   border: solid 1px var(--main-color-black);
   box-shadow: 2px 2px 10px -5px var(--main-color-black);
@@ -217,7 +180,7 @@ nav {
 .course-category {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1rem;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-bottom: 5px;
   color: var(--main-color-black);
 }
@@ -290,14 +253,7 @@ button:hover {
   justify-content: flex-end;
 }
 
-#container4 {
-  display: flex;
-  flex-direction: row;
-  border: solid 1px var(--main-color-black);
-  box-shadow: 2px 2px 10px -5px var(--main-color-black);
-  margin: 10px;
-  padding: 0;
-}
+
 
 #hsl-data {
   display: flex;
@@ -312,18 +268,18 @@ button:hover {
   font-size: 1.5rem;
   border-radius: 2px;
   padding: 10px;
-  height: 50px;
+  height: 60px;
 }
 
 .line-container {
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 200px;
+  height: 195px;
   justify-content: center;
   border: solid 1px var(--main-color-red);
   border-radius: 2px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .stop-name {
   font-family: RobotoSlab-Regular,sans-serif;
@@ -360,24 +316,17 @@ button:hover {
 
 #map1 {
   width: 100%;
-  max-width: 678px;
-  height: 850px;
+  max-width: 1162px;
+  height: 840px;
 
 }
-#container5 {
-  background-color: var(--main-color-white);
-  display: flex;
-  flex-direction: row;
-  border: solid 1px var(--main-color-black);
-  box-shadow: 2px 2px 10px -5px var(--main-color-black);
-  margin: 10px;
-  margin-top: 50px;
-}
+
 #btc {
   display: flex;
   flex-direction: column;
   flex: 2;
-  padding: 10px;
+  padding: 40px;
+  padding-top: 0;
 }
 #btc-name {
   font-family: RobotoSlab-Regular, sans-serif;
@@ -405,15 +354,16 @@ button:hover {
   padding-bottom: 3px;
 }
 #weather {
-  padding: 10px;
+  padding: 40px;
   flex: 3;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .location {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.5rem;
   padding-bottom: 5px;
+  margin-top: 25px;
 }
 .weather-image {
   width: 100px;
@@ -421,9 +371,10 @@ button:hover {
 }
 #weather-container1 {
 padding: 0;
+  display: flex;
+  flex-direction: row;
 }
 #weather-container2 {
-  padding: 40px 20px 20px;
 }
 #weather-container3 {
   padding: 40px 20px 20px;
@@ -439,36 +390,112 @@ padding: 0;
   padding-bottom: 3px;
 }
 
-#container6 {
-  display: flex;
-  flex-direction: row;
-  margin: 10px;
-  padding: 0;
-}
 #carousel-fi{
-  max-width: 1100px;
-  width: 100%;
-  height: 615px;
+
+  width: 1562px;
+  height: 840px;
   position: relative;
-  overflow: hidden;
 }
 #carousel-en{
-  max-width: 1100px;
-  width: 100%;
-  height: 615px;
+
+  width: 1562px;
+  height: 840px;
   position: relative;
-  overflow: hidden;
 }
 
 .powerpoint {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 35px;
   display: none;
-  max-width: 100%;
-  max-height: 100%;
+  width: 1490px;
 }
 
+
+
+#signage-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#signage-cell1 {
+  display: flex;
+  flex:5;
+  flex-direction: column;
+}
 .active {
   display: block;
+}
+#lunch-container {
+   margin-left: auto;
+   margin-right: auto;
+   height: 840px;
+   max-width: 1920px;
+   width: 100%;
+   display: none;
+   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+ }
+
+#hsl-container {
+  flex-direction: row;
+  border: solid 1px var(--main-color-black);
+  box-shadow: 2px 2px 10px -5px var(--main-color-black);
+  margin: 10px;
+  padding: 0;
+  display: flex;
+}
+
+#carousel-container {
+  height: 840px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 0;
+}
+
+#container5 {
+  background-color: var(--main-color-white);
+  display: flex;
+  flex-direction: column;
+  height: 840px;
+  border: solid 1px var(--main-color-black);
+  box-shadow: 2px 2px 10px -5px var(--main-color-black);
+  margin: 10px;
+  flex: 1;
+}
+
+.restaurant-title-fazer {
+  font-family: RobotoSlab-Regular, sans-serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.date-fazer {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.5rem;
+}
+.price-description-fazer {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.course-name-fazer {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.4rem;
+  color: var(--main-color-black);
+}
+.course-price-fazer {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.4rem;
+  color: var(--main-color-black);
+  margin-bottom: 20px;
+}
+.course-category-fazer {
+  font-family: RobotoSlab-Regular, sans-serif;
+  font-size: 1.4rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: var(--main-color-black);
 }

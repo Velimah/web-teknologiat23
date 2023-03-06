@@ -18,9 +18,6 @@ const getWeatherData = async (lat, lon, finnish) => {
     const container2 = document.createElement('div');
     container2.setAttribute('id', 'weather-container2');
     document.getElementById('weather').appendChild(container2);
-    const container3 = document.createElement('div');
-    container3.setAttribute('id', 'weather-container3');
-    document.getElementById('weather').appendChild(container3);
 
     const location = document.createElement('div');
     location.setAttribute('class', 'location');
@@ -49,7 +46,7 @@ const getWeatherData = async (lat, lon, finnish) => {
     } else {
       humidity.innerHTML = `Humidity: ${weatherData.main.humidity} %`;
     }
-    document.getElementById('weather-container3').appendChild(humidity);
+    document.getElementById('weather-container2').appendChild(humidity);
 
     const clouds = document.createElement('div');
     clouds.setAttribute('class', 'clouds');
@@ -76,7 +73,7 @@ const getWeatherData = async (lat, lon, finnish) => {
     } else {
       pressure.innerHTML = `Pressure: ${weatherData.main.pressure} hPa`;
     }
-    document.getElementById('weather-container3').append(pressure);
+    document.getElementById('weather-container2').append(pressure);
 
     const dayLength = document.createElement('div');
     dayLength.setAttribute('class', 'sunrise');
@@ -85,7 +82,7 @@ const getWeatherData = async (lat, lon, finnish) => {
     } else {
       dayLength.innerHTML = `Day length: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
     }
-    document.getElementById('weather-container3').appendChild(dayLength);
+    document.getElementById('weather-container2').appendChild(dayLength);
 
   } catch (error) {
     console.log(error);

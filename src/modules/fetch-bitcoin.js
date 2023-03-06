@@ -70,9 +70,9 @@ const getBitcoinData = (finnish) => {
       const marketCap = document.createElement('div');
       marketCap.setAttribute('class', 'market-cap');
       if (finnish === true) {
-        marketCap.innerHTML = `Markkina-arvo: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Miljardia`;
+        marketCap.innerHTML = `Markkina-arvo: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Mrd`;
       } else {
-        marketCap.innerHTML = `Market Cap: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Billion`;
+        marketCap.innerHTML = `Market Cap: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Bln`;
       }
       document.getElementById('btc').append(marketCap);
 

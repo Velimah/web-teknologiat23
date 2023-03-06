@@ -1,6 +1,6 @@
 'use strict';
 
-const restaurantBox = document.querySelector('.main');
+const restaurantBox = document.querySelector('#lunch-container');
 
 const renderMenuFazer = (finnish, menu) => {
   restaurantBox.innerHTML = '';
@@ -24,7 +24,7 @@ const renderMenuFazer = (finnish, menu) => {
   restaurantBox.appendChild(restaurantCard);
 
   const title = document.createElement('div');
-  title.setAttribute('class', 'restaurant-title');
+  title.setAttribute('class', 'restaurant-title-fazer');
 
   if (menu.RestaurantName === "Luova") {
     title.innerHTML = 'Food & Co Metropolia Arabia';
@@ -35,7 +35,7 @@ const renderMenuFazer = (finnish, menu) => {
 
   // appends date and shortens it to appropriate format
   const date = document.createElement('div');
-  date.setAttribute('class', 'date');
+  date.setAttribute('class', 'date-fazer');
 
   const dateString = day.toLocaleDateString(`${locales}`,
     {
@@ -49,7 +49,7 @@ const renderMenuFazer = (finnish, menu) => {
 
   // chooses the correct pricing info based on language
   const priceDescription = document.createElement('div');
-  priceDescription.setAttribute('class', 'price-description');
+  priceDescription.setAttribute('class', 'price-description-fazer');
   if (finnish === true) {
     priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
   } else {
@@ -75,11 +75,11 @@ const renderMenuFazer = (finnish, menu) => {
       for (const SetMenus of MenusForDays.SetMenus) {
 
         const courseNumber = document.createElement('div');
-        courseNumber.setAttribute('class', 'course-number');
+        courseNumber.setAttribute('class', 'course-number-fazer');
         restaurantCard.appendChild(courseNumber);
 
         const courseCategory = document.createElement('div');
-        courseCategory.setAttribute('class', 'course-category');
+        courseCategory.setAttribute('class', 'course-category-fazer');
 
         //chooses the correct naming for dish depending on language
         if (finnish === true) {
@@ -94,7 +94,7 @@ const renderMenuFazer = (finnish, menu) => {
           const componentCapital = component.charAt(0).toUpperCase() + component.slice(1);
 
           const courseName = document.createElement('div');
-          courseName.setAttribute('class', 'course-name');
+          courseName.setAttribute('class', 'course-name-fazer');
           courseName.innerHTML = componentCapital;
           courseNumber.appendChild(courseName);
 
@@ -102,7 +102,7 @@ const renderMenuFazer = (finnish, menu) => {
 
         // gets the price from price array saved from the finnish .json
         const price = document.createElement('div');
-        price.setAttribute('class', 'course-price');
+        price.setAttribute('class', 'course-price-fazer');
 
         // checks if price is missing from json
         if (SetMenus.Price !== null) {
