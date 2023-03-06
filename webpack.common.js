@@ -12,10 +12,11 @@ module.exports = {
   },
   plugins: [
     new WebpackPwaManifest({
-      name: 'Lunch Progressive Web App',
-      short_name: 'LunchPWA',
-      description: 'Describe your Progressive Web App here',
-      background_color: '#ffffff',
+      name: 'Metropolia information application',
+      short_name: 'Metropolia app',
+      description: 'Shows information about Metropolia campus lunch menus, bus stops, weather, bitcoin and metropolia news',
+      background_color: '#ececec',
+      theme_color: '#ff5000',
       crossorigin: 'use-credentials',
       icons: [
         {

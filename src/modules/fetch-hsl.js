@@ -4,62 +4,6 @@ const apiUrl =
   'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
 /**
- * https://digitransit.fi/en/developers/apis/1-routing-api/stops/#query-scheduled-departure-and-arrival-times-of-a-stop
- * @param {number} id - id number of the hsl stop
- * e.g. Karanristi stops: 2132208 (Leppävaara direcrion) & 2132207
- */
-
-
-const getQueryForNextRidesByStopId = (id) => {
-  return `{
-    stop(id: "HSL:${id}") {
-      name
-      lat
-      lon
-      stoptimesWithoutPatterns {
-        scheduledArrival
-        realtimeArrival
-        arrivalDelay
-        scheduledDeparture
-        realtimeDeparture
-        departureDelay
-        realtime
-        realtimeState
-        serviceDay
-        headsign
-        trip {
-          routeShortName
-          tripHeadsign
-        }
-      }
-    }
-  }`;
-};
-
-const getQueryForNearestStops = (lat, lon) => {
-  return `{
-  stopsByRadius(lat: ${lat}, lon: ${lon}, radius: 500, first: 4) {
-    edges {
-      node {
-        stop {
-          gtfsId
-          name
-          lat
-          lon
-        }
-        distance
-      }
-      cursor
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-  }
-}`;
-};
-
-/**
  * Converts HSL time to readable string format
  * @param {number} seconds
  * @returns time in string format
@@ -70,7 +14,7 @@ const convertTime = (seconds) => {
   return `${hours}:${mins < 10 ? '0' + mins : mins}`;
 };
 
-const convertTimeToMins = (seconds) => {
+const convertTimeToMinutes = (seconds) => {
   const mins = Math.floor(seconds % 3600 / 60);
 
   if (mins < 0) {
@@ -82,65 +26,89 @@ const convertTimeToMins = (seconds) => {
   }
 };
 
-const getNearestStops = async (lat, lon) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/graphql',
-    },
-    body: getQueryForNearestStops(lat, lon),
-  };
-
-  const routeData = await doFetch(apiUrl, false, options);
-
-  const routes = routeData.data.stopsByRadius.edges.map((edge) => {
-    return edge.node.stop.gtfsId;
-  });
-  const distance = routeData.data.stopsByRadius.edges.map((edge) => {
-    return edge.node.distance;
-  });
-
-  return {
-    routes,
-    distance,
-  };
+/**
+ * https://digitransit.fi/en/developers/apis/1-routing-api/stops/#query-scheduled-departure-and-arrival-times-of-a-stop
+ * e.g. Karanristi stops: 2132208 (Leppävaara direction) & 2132207
+ * @param lat
+ * @param lon
+ */
+const searchRadius = 1000;
+const busStopCount = 4;
+const numberOfDepartures = 5;
+const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
+  return `{
+  stopsByRadius(lat: ${lat}, lon: ${lon}, radius: ${searchRadius}, first: ${busStopCount}) {
+    edges {
+      node {
+       stop {
+      name
+      lat
+      lon
+      stoptimesWithoutPatterns (numberOfDepartures: ${numberOfDepartures}) {
+        scheduledArrival
+        realtimeArrival
+        arrivalDelay
+        headsign
+        trip {
+          routeShortName
+        }
+      }
+    }
+        distance
+      }
+    }
+  }
+}`;
 };
 
 /**
  *
- * @param {number} id - hsl stop id (HSL:<id>)
  * @returns stop route data
+ * @param lat
+ * @param lon
  */
-
-const getRoutesByStopId = async (id) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/graphql',
-    },
-    body: getQueryForNextRidesByStopId(id),
-  };
-
-  const routeData = await doFetch(apiUrl, false, options);
-
-  const coords = [routeData.data.stop.lon, routeData.data.stop.lat];
-  const stopName = routeData.data.stop.name;
-
-  const routes = routeData.data.stop.stoptimesWithoutPatterns.map((route) => {
-    return {
-      name: route.trip.routeShortName,
-      headsign: route.headsign,
-      arrivalDelay: convertTimeToMins(route.arrivalDelay),
-      scheduledArrival: convertTime(route.scheduledArrival),
-      realtimeArrival: convertTime(route.realtimeArrival),
+const getNearestStopsAndTimetables = async (lat, lon) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/graphql',
+      },
+      body: getQueryForNearestStopsAndTimetables(lat, lon),
     };
-  });
 
-  return {
-    coords,
-    stopName,
-    routes,
-  };
+    const routeData = await doFetch(apiUrl, false, options);
+
+    const distance = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.distance;
+    });
+    const coords = routeData.data.stopsByRadius.edges.map((edge) => {
+      return [edge.node.stop.lon, edge.node.stop.lat];
+    });
+    const stopName = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.stop.name;
+    });
+    const routes = routeData.data.stopsByRadius.edges.map((edge) => {
+      return edge.node.stop.stoptimesWithoutPatterns.map((route) => {
+        return {
+          name: route.trip.routeShortName,
+          headsign: route.headsign,
+          arrivalDelay: convertTimeToMinutes(route.arrivalDelay),
+          scheduledArrival: convertTime(route.scheduledArrival),
+          realtimeArrival: convertTime(route.realtimeArrival),
+        };
+      });
+    });
+
+    return {
+      coords,
+      distance,
+      stopName,
+      routes,
+    };
+  } catch (error) {
+    console.log('hsl data ei saatavilla');
+  }
 };
 
-export {getRoutesByStopId, getNearestStops};
+export {getNearestStopsAndTimetables};
