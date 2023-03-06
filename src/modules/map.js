@@ -1,20 +1,15 @@
-//map test
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxra2FtdGsiLCJhIjoiY2szZ2Z3ZGtzMDFkZTNpcDh2aGFndmg2dyJ9.CjPq5lceUKhfdWD3oqhjwg';
 
+//loads map
 const map1 = new mapboxgl.Map({
   container: 'map1', // container id
   style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
   center: [24, 60], // starting position [lng, lat]
-  zoom: 16, // starting zoom
+  zoom: 15, // starting zoom
 });
 
-map1.on('render', function () {
-  map1.resize();
-});
-map1.on('load', function () {
-  map1.resize();
-});
-
+//marker for current position
 const addCurrentPositionMarker = (latitude, longitude) => {
 
   map1.setCenter([longitude, latitude]);
@@ -24,6 +19,8 @@ const addCurrentPositionMarker = (latitude, longitude) => {
     scale: '1.2',
   }).setLngLat([longitude, latitude]).addTo(map1);
 };
+
+// markers for hsl stops
 const addStopMarker = (coords, i) => {
   let color;
   if (i === 0) {
@@ -45,10 +42,12 @@ const addStopMarker = (coords, i) => {
   }).setLngLat(coords).addTo(map1);
 };
 
+//resizes map
 const loadHSLMap = () => {
-  map1.on('render', function () {
+  map1.resize();
+  map1.on('load', function () {
     map1.resize();
   });
 };
 
-export {addStopMarker, addCurrentPositionMarker, loadHSLMap};
+export {addStopMarker, addCurrentPositionMarker, loadHSLMap, map1};

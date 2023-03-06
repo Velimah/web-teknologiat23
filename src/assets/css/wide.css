@@ -437,6 +437,7 @@ padding: 0;
  }
 
 #hsl-container {
+  visibility: visible;
   flex-direction: row;
   border: solid 1px var(--main-color-black);
   box-shadow: 2px 2px 10px -5px var(--main-color-black);

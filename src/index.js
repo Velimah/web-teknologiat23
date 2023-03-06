@@ -5,7 +5,7 @@ import {renderMenuFazer} from './modules/render-fazer';
 import {renderHSLData} from "./modules/render-hsl";
 import {darkTheme, lightTheme} from './modules/dark-mode';
 
-import {loadHSLMap} from './modules/map';
+import {loadHSLMap, map1} from './modules/map';
 import {
   getLunchMenus,
   fazerDataEnArabia,
@@ -35,6 +35,12 @@ const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const settingsButton = document.querySelector('html');
 
+
+// fix to resize map in fullscreen mode, works sometimes?
+document.addEventListener('webkitfullscreenchange', () => setTimeout(() => map1.resize(), 0));
+
+
+//toggles showing settings on clicking the webpage
 let visible;
 settingsButton.addEventListener('click', () => {
   if (visible) {
@@ -120,30 +126,35 @@ const renderLunchMenu = (menus) => {
   }
 };
 
-//carousel
+//carousel variables
 const containerFi = document.getElementById('carousel-fi');
 const containerEn = document.getElementById('carousel-en');
 const imagesFi = containerFi.querySelectorAll('img');
 const imagesEn = containerEn.querySelectorAll('img');
 let index = 0;
 
+//cycles the finnish version of slides
 const carouselFi = () => {
   imagesFi[index].classList.remove('active');
   index = (index + 1) % imagesFi.length;
   imagesFi[index].classList.add('active');
 };
+
+//cycles the english version of slides
 const carouselEn = () => {
   imagesEn[index].classList.remove('active');
   index = (index + 1) % imagesEn.length;
   imagesEn[index].classList.add('active');
 };
 
+//cycles the main information screens
 let index2 = 0;
 const carouselSignage = () => {
   if (index2 === 0) {
     document.getElementById('lunch-container').style.display = "none";
     document.getElementById('hsl-container').style.display = "flex";
     document.getElementById('carousel-container').style.display = "none";
+    loadHSLMap();
   } else if (index2 === 1) {
     document.getElementById('lunch-container').style.display = "grid";
     document.getElementById('hsl-container').style.display = "none";
@@ -158,15 +169,20 @@ const carouselSignage = () => {
   index2++;
 };
 
+//button listeners for each campus
 myyrmakiButton.addEventListener('click', () => {
+  //saves correct campus data to variables
   menu = sodexoDataMyyrmaki;
   lat = myyrmakiSettings.lat;
   lon = myyrmakiSettings.lon;
+  // changes display name and picture to correct campus
   document.getElementById('logo').innerHTML = 'Myyrmäki';
   document.getElementById('header-picture').setAttribute("src", "assets/Images/myyrmaen-kampus-ilmakuva.jpg");
+  //renders correct campus information
   renderMenuSodexo(finnish, menu);
   renderHSLData(myyrmakiSettings.lat, myyrmakiSettings.lon, finnish);
   getWeatherData(myyrmakiSettings.lat, myyrmakiSettings.lon, finnish);
+  //saves data to localstorage
   saveSettingsToLocalStorage();
 });
 
@@ -183,6 +199,7 @@ myllypuroButton.addEventListener('click', () => {
 });
 
 karamalmiButton.addEventListener('click', () => {
+  //chooses correct menu language based on settings
   if (finnish === true) {
     menu = fazerDataFiKaramalmi;
   } else {
@@ -214,14 +231,15 @@ arabiaButton.addEventListener('click', () => {
   saveSettingsToLocalStorage();
 });
 
+//gives correct campus information based on current location
 currentPositionButton.addEventListener('click', () => {
   currentPosition();
   renderLunchMenu(getNearestRestaurantMenu(finnish));
 });
 
-// changes language and saves boolean into local storage
-
+// changes language
 languageButton.addEventListener('click', () => {
+  //checks for correct menu when changing language as food&co has 2 menus
   if (finnish === true && menu.RestaurantName === "Luova") {
     menu = fazerDataFiArabia;
     finnish = false;
@@ -250,6 +268,7 @@ languageButton.addEventListener('click', () => {
     finnish = true;
     renderMenuSodexo(finnish, menu);
   }
+  //changes to correct slide carousel and button text based on language
   if (finnish === true) {
     document.getElementById('carousel-fi').style.display = 'block';
     document.getElementById('carousel-en').style.display = 'none';
@@ -259,7 +278,6 @@ languageButton.addEventListener('click', () => {
     } else {
       darkModeButton.innerHTML = 'Vaalea';
     }
-
   } else {
     document.getElementById('carousel-fi').style.display = 'none';
     document.getElementById('carousel-en').style.display = 'block';
@@ -270,6 +288,7 @@ languageButton.addEventListener('click', () => {
       darkModeButton.innerHTML = 'Light';
     }
   }
+  //renders data with new language and saves to localstorage
   renderHSLData(lat, lon, finnish);
   getWeatherData(lat, lon, finnish);
   getBitcoinData(finnish);
@@ -320,6 +339,7 @@ const getCurrentCoordinates = (position) => {
   saveSettingsToLocalStorage();
 };
 
+//gets current coordinates
 const currentPosition = () => {
   navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
 };
@@ -331,6 +351,7 @@ const init = () => {
   // loads localstorage settings
   loadSettingsFromLocalStorage();
 
+  //loads settings from server, gets position, gets lunchmenus and renders the nearest lunch menu
   getCampusSettings()
     .then(() => currentPosition())
     .then(() => getLunchMenus())
@@ -338,17 +359,18 @@ const init = () => {
       renderLunchMenu(getNearestRestaurantMenu(finnish));
     });
 
-  // loads HSL stop map
+  // resizes HSL map
   loadHSLMap();
 
   //fetches bitcoin data and renders it
   getBitcoinData(finnish);
 
-  // starts the info-carousel
+  // starts the carousels
   setInterval(carouselFi, intervalTimeCarouselSlide);
   setInterval(carouselEn, intervalTimeCarouselSlide);
   setInterval(carouselSignage, intervalTimeCarousel);
 
+  // refreshes weather data every minute
   setInterval(async () => {
     await getWeatherData(lat, lon, finnish);
   }, intervalTimeWeather);
@@ -356,14 +378,15 @@ const init = () => {
   // refreshes bitcoin data every minute
   setInterval(getBitcoinData, intervalTimeBTC);
 
-  // refreshes lunch menu data every hour
-  setInterval(getLunchMenus, intervalTimeFetchMenus);
-  setInterval(renderLunchMenu, intervalTimeFetchMenus);
-
   // refreshes HSL data every minute
   setInterval(async () => {
     await renderHSLData(lat, lon, finnish);
   }, intervalTimeBusData);
+
+  // refreshes lunch menu data every hour
+  setInterval(getLunchMenus, intervalTimeFetchMenus);
+  setInterval(renderLunchMenu, intervalTimeFetchMenus);
+
 
 };
 init();
