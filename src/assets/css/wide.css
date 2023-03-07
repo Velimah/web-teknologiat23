@@ -89,7 +89,6 @@ nav {
 }
 
 
-
 .nav-link {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.3rem;
@@ -310,7 +309,7 @@ button:hover {
 .timestamp {
   font-family: OpenSans-Regular, sans-serif;
   font-size: 1.2rem;
-  padding-bottom: 3px;
+  padding-bottom: 10px;
 }
 
 .volume {
@@ -477,14 +476,26 @@ button:hover {
   color: var(--main-color-black);
 }
 
-#cell-1btc, #cell-2btc, #cell-3btc  {
+#cell-1btc, #cell-2btc, #cell-3btc {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+#cell-1btc > *, #cell-2btc > *, #cell-3btc > * {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 3px;
 }
 
 #cell-1weather, #cell-2weather, #cell-3weather, #cell-4weather, #cell-5weather, #cell-6weather {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+#cell-1weather > *, #cell-2weather > *, #cell-3weather > *, #cell-4weather > *, #cell-5weather > *, #cell-6weather > * {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 3px;
 }
