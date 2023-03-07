@@ -308,26 +308,8 @@ button:hover {
 
 .timestamp {
   font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   padding-bottom: 10px;
-}
-
-.volume {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
-}
-
-.price {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
-}
-
-.market-cap {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
 }
 
 #weather {
