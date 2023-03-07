@@ -4,7 +4,6 @@ import {renderMenuSodexo} from './modules/render-sodexo';
 import {renderMenuFazer} from './modules/render-fazer';
 import {renderHSLData} from "./modules/render-hsl";
 import {darkTheme, lightTheme} from './modules/dark-mode';
-
 import {loadHSLMap, map1} from './modules/map';
 import {
   getLunchMenus,
@@ -35,10 +34,8 @@ const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const settingsButton = document.querySelector('html');
 
-
 // fix to resize map in fullscreen mode, works sometimes?
 document.addEventListener('webkitfullscreenchange', () => setTimeout(() => map1.resize(), 0));
-
 
 //toggles showing settings on clicking the webpage
 let visible;
@@ -66,8 +63,8 @@ const intervalTimeBusData = 60000;
 const intervalTimeBTC = 60000;
 const intervalTimeWeather = 60000;
 const intervalTimeFetchMenus = 3600000;
-const intervalTimeCarousel = 3000;
-const intervalTimeCarouselSlide = 10000;
+const intervalTimeCarousel = 15000;
+const intervalTimeCarouselSlide = 5000;
 
 // loads data from localstorage and chooses language and color theme
 const loadSettingsFromLocalStorage = () => {
@@ -164,7 +161,7 @@ const carouselSignage = () => {
     document.getElementById('hsl-container').style.display = "none";
     document.getElementById('carousel-container').style.display = "flex";
   } else {
-    index2=-1;
+    index2 = -1;
   }
   index2++;
 };
