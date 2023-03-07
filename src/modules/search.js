@@ -24,7 +24,7 @@ const search = (finnish, event) => {
       elem.style.padding = '0';
       elem.style.marginTop = '0';
       elem.style.marginBottom = '0';
-      elem.style.fontSize='0.9rem';
+      elem.style.fontSize = '0.9rem';
 
       //changes the course name appearance if it matches the search string, not case-sensitive
       if (elem.textContent.toLowerCase().includes(inputValue.toLowerCase())) {
@@ -34,7 +34,7 @@ const search = (finnish, event) => {
         elem.style.padding = '5px';
         elem.style.marginTop = '5px';
         elem.style.marginBottom = '5px';
-        elem.style.fontSize='1rem';
+        elem.style.fontSize = '1rem';
         i++;
       }
     }

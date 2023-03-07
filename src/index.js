@@ -1,5 +1,4 @@
 'use strict';
-
 import {renderMenuSodexo} from './modules/render-sodexo';
 import {renderMenuFazer} from './modules/render-fazer';
 import {renderHSLData} from "./modules/render-hsl";
@@ -35,7 +34,6 @@ const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById('search-input');
 
-
 //initialization of variables to save data from functions
 let finnish;
 let darkMode;
@@ -44,12 +42,11 @@ let lat;
 let lon;
 
 // interval timers
-const intervalTimeCarousel = 3000;
+const intervalTimeCarousel = 15000;
 const intervalTimeBusData = 60000;
 const intervalTimeBTC = 60000;
 const intervalTimeWeather = 60000;
 const intervalTimeFetchMenus = 3600000;
-
 
 // pwa
 if ('serviceWorker' in navigator) {
@@ -61,7 +58,6 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-
 
 // loads data from localstorage and chooses language and color theme
 const loadSettingsFromLocalStorage = () => {
@@ -112,7 +108,6 @@ const loadSettingsFromLocalStorage = () => {
   }
 };
 
-
 /**
  * chooses the correct menu renderer through object properties
  * @param menus take lunch menu .json
@@ -125,7 +120,6 @@ const renderLunchMenu = (menus) => {
     renderMenuSodexo(finnish, menus);
   }
 };
-
 
 /**
  * carousel for finnish and english slides
@@ -278,7 +272,6 @@ languageButton.addEventListener('click', () => {
   saveSettingsToLocalStorage();
 });
 
-
 // changes dark mode and saves boolean into local storage
 darkModeButton.addEventListener('click', () => {
 
@@ -314,7 +307,6 @@ const saveSettingsToLocalStorage = () => {
   settings.darkmode = darkMode;
   settings.lat = lat;
   settings.lon = lon;
-  settings.btcPrice = btcPrice;
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
@@ -336,7 +328,6 @@ const getCurrentCoordinates = (position) => {
 const currentPosition = () => {
   navigator.geolocation.getCurrentPosition(getCurrentCoordinates);
 };
-
 
 //starts the application
 const init = () => {

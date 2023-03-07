@@ -111,9 +111,9 @@ const renderMenuFazer = (finnish, menu) => {
 
         // checks if price is missing from json
         if (SetMenus.Price !== null) {
-        // splits the price string and adds spaces and euro sign
-        price.innerHTML = `${SetMenus.Price.substring(0, 4)} € / ${SetMenus.Price.substring(5, 9)} € / ${SetMenus.Price.substring(10, 14)} €`;
-        courseNumber.appendChild(price);
+          // splits the price string and adds spaces and euro sign
+          price.innerHTML = `${SetMenus.Price.substring(0, 4)} € / ${SetMenus.Price.substring(5, 9)} € / ${SetMenus.Price.substring(10, 14)} €`;
+          courseNumber.appendChild(price);
         } else if (finnish === true) {
           price.innerHTML = `Hinnat puuttuu`;
         } else {

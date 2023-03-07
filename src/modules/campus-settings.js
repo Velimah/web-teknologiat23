@@ -33,8 +33,8 @@ let campuses =
   ];
 
 let myyrmakiSettings = campuses[0];
-let karamalmiSettings= campuses[1];
-let myllypuroSettings= campuses[2];
+let karamalmiSettings = campuses[1];
+let myllypuroSettings = campuses[2];
 let arabiaSettings = campuses[3];
 
 /**
@@ -56,6 +56,5 @@ const getCampusSettings = async () => {
     setTimeout(() => getCampusSettings(), 5000);
   }
 };
-
 
 export {myyrmakiSettings, karamalmiSettings, myllypuroSettings, arabiaSettings, campuses, getCampusSettings};
