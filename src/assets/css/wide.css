@@ -77,9 +77,6 @@ nav {
   align-items: center;
   padding: 5px;
 }
-.location {
-  margin-left: -10px;
-}
 
 .nav-link {
   font-family: RobotoSlab-Regular, sans-serif;
@@ -171,7 +168,7 @@ nav {
   margin-right: -1px;
 }
 
-.main {
+.lunch-container {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
@@ -290,7 +287,7 @@ button:hover {
   justify-content: flex-end;
 }
 
-#container4 {
+#hsl-container {
   display: flex;
   flex-direction: row;
   border: solid 1px var(--main-color-black);
@@ -364,10 +361,11 @@ button:hover {
   height: 850px;
 
 }
-#container5 {
+#weather-btc-container {
   background-color: var(--main-color-white);
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   border: solid 1px var(--main-color-black);
   box-shadow: 2px 2px 10px -5px var(--main-color-black);
   margin: 10px;
@@ -376,8 +374,8 @@ button:hover {
 #btc {
   display: flex;
   flex-direction: column;
-  flex: 2;
-  padding: 10px;
+  padding: 30px;
+  width: 400px;
 }
 #btc-name {
   font-family: RobotoSlab-Regular, sans-serif;
@@ -387,28 +385,14 @@ button:hover {
 .timestamp {
   font-family: OpenSans-Regular, sans-serif;
   font-size: 1.2rem;
-  padding-bottom: 3px;
+  padding-bottom: 10px;
 }
-.volume {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
-}
-.price {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
-}
-.market-cap {
-  font-family: OpenSans-Regular, sans-serif;
-  font-size: 1.2rem;
-  padding-bottom: 3px;
-}
+
 #weather {
   padding: 10px;
-  flex: 3;
   display: flex;
   flex-direction: row;
+  width: 500px;
 }
 .location {
   font-family: RobotoSlab-Regular, sans-serif;
@@ -420,13 +404,12 @@ button:hover {
   height: 100px;
 }
 #weather-container1 {
-padding: 0;
+  padding: 20px;
+  width: fit-content;
 }
 #weather-container2 {
-  padding: 40px 20px 20px;
-}
-#weather-container3 {
-  padding: 40px 20px 20px;
+  padding: 20px;
+  width: 300px;
 }
 #weather-container2 > *{
   font-family: OpenSans-Regular, sans-serif;
@@ -439,7 +422,7 @@ padding: 0;
   padding-bottom: 3px;
 }
 
-#container6 {
+#carousel-container {
   display: flex;
   flex-direction: row;
   margin: 10px;
@@ -471,4 +454,28 @@ padding: 0;
 
 .active {
   display: block;
+}
+
+#cell-1btc, #cell-2btc, #cell-3btc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cell-1btc > *, #cell-2btc > *, #cell-3btc > * {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 3px;
+}
+
+#cell-1weather, #cell-2weather, #cell-3weather, #cell-4weather, #cell-5weather, #cell-6weather {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cell-1weather > *, #cell-2weather > *, #cell-3weather > *, #cell-4weather > *, #cell-5weather > *, #cell-6weather > * {
+  font-family: OpenSans-Regular, sans-serif;
+  font-size: 1.2rem;
+  padding-bottom: 3px;
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-const restaurantBox = document.querySelector('.main');
+const restaurantBox = document.querySelector('.lunch-container');
 
 const renderMenuSodexo = (finnish, menu) => {
   restaurantBox.innerHTML = '';
