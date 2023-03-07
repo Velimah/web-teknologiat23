@@ -15,13 +15,14 @@ const getWeatherData = async (lat, lon, finnish) => {
     const container1 = document.createElement('div');
     container1.setAttribute('id', 'weather-container1');
     document.getElementById('weather').appendChild(container1);
+
     const container2 = document.createElement('div');
     container2.setAttribute('id', 'weather-container2');
     document.getElementById('weather').appendChild(container2);
 
     const location = document.createElement('div');
     location.setAttribute('class', 'location');
-    location.innerHTML = `&nbsp&nbsp&nbsp${weatherData.name}`;
+    location.innerHTML = `${weatherData.name}`;
     document.getElementById('weather-container1').appendChild(location);
 
     const image = document.createElement('img');
@@ -30,59 +31,113 @@ const getWeatherData = async (lat, lon, finnish) => {
     image.setAttribute('alt', `${weatherData.weather[0].description}`);
     document.getElementById('weather-container1').appendChild(image);
 
+    const cellTemp = document.createElement('div');
+    cellTemp.setAttribute('id', 'cell-1weather');
+    document.getElementById('weather-container2').append(cellTemp);
+
+    const temperatureName = document.createElement('div');
+    temperatureName.setAttribute('class', 'temperature');
+    if (finnish === true) {
+      temperatureName.innerHTML = `Lämpötila`;
+    } else {
+      temperatureName.innerHTML = `Temperature`;
+    }
+    document.getElementById('cell-1weather').appendChild(temperatureName);
+
     const temperature = document.createElement('div');
     temperature.setAttribute('class', 'temperature');
+    temperature.innerHTML = `${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+    document.getElementById('cell-1weather').appendChild(temperature);
+
+    const cellHumidity = document.createElement('div');
+    cellHumidity.setAttribute('id', 'cell-2weather');
+    document.getElementById('weather-container2').append(cellHumidity);
+
+    const humidityName = document.createElement('div');
+    humidityName.setAttribute('class', 'humidity');
     if (finnish === true) {
-      temperature.innerHTML = `Lämpötila: ${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+      humidityName.innerHTML = `Ilmankosteus`;
     } else {
-      temperature.innerHTML = `Temperature: ${(weatherData.main.temp - 273.15).toFixed(2)} C`;
+      humidityName.innerHTML = `Humidity`;
     }
-    document.getElementById('weather-container2').appendChild(temperature);
+    document.getElementById('cell-2weather').appendChild(humidityName);
 
     const humidity = document.createElement('div');
     humidity.setAttribute('class', 'humidity');
+    humidity.innerHTML = `${weatherData.main.humidity} %`;
+    document.getElementById('cell-2weather').appendChild(humidity);
+
+    const cellClouds = document.createElement('div');
+    cellClouds.setAttribute('id', 'cell-3weather');
+    document.getElementById('weather-container2').append(cellClouds);
+
+    const cloudsName = document.createElement('div');
+    cloudsName.setAttribute('class', 'clouds');
     if (finnish === true) {
-      humidity.innerHTML = `Ilmankosteus: ${weatherData.main.humidity} %`;
+      cloudsName.innerHTML = `Pilvisyys`;
     } else {
-      humidity.innerHTML = `Humidity: ${weatherData.main.humidity} %`;
+      cloudsName.innerHTML = `Clouds`;
     }
-    document.getElementById('weather-container2').appendChild(humidity);
+    document.getElementById('cell-3weather').appendChild(cloudsName);
 
     const clouds = document.createElement('div');
     clouds.setAttribute('class', 'clouds');
+    clouds.innerHTML = `${weatherData.clouds.all} %`;
+    document.getElementById('cell-3weather').appendChild(clouds);
+
+    const cellWind = document.createElement('div');
+    cellWind.setAttribute('id', 'cell-4weather');
+    document.getElementById('weather-container2').append(cellWind);
+
+    const windName = document.createElement('div');
+    windName.setAttribute('class', 'wind');
     if (finnish === true) {
-      clouds.innerHTML = `Pilvisyys: ${weatherData.clouds.all} %`;
+      windName.innerHTML = `Tuuli`;
     } else {
-      clouds.innerHTML = `Clouds: ${weatherData.clouds.all} %`;
+      windName.innerHTML = `Wind`;
     }
-    document.getElementById('weather-container2').appendChild(clouds);
+    document.getElementById('cell-4weather').appendChild(windName);
 
     const wind = document.createElement('div');
     wind.setAttribute('class', 'wind');
+    wind.innerHTML = `${weatherData.wind.speed} m/s`;
+    document.getElementById('cell-4weather').appendChild(wind);
+
+    const cellPressure = document.createElement('div');
+    cellPressure.setAttribute('id', 'cell-5weather');
+    document.getElementById('weather-container2').append(cellPressure);
+
+    const pressureName = document.createElement('div');
+    pressureName.setAttribute('class', 'pressure');
     if (finnish === true) {
-      wind.innerHTML = `Tuuli: ${weatherData.wind.speed} m/s`;
+      pressureName.innerHTML = `Ilmanpaine`;
     } else {
-      wind.innerHTML = `Wind: ${weatherData.wind.speed} m/s`;
+      pressureName.innerHTML = `Pressure`;
     }
-    document.getElementById('weather-container2').appendChild(wind);
+    document.getElementById('cell-5weather').append(pressureName);
 
     const pressure = document.createElement('div');
     pressure.setAttribute('class', 'pressure');
+    pressure.innerHTML = `${weatherData.main.pressure} hPa`;
+    document.getElementById('cell-5weather').append(pressure);
+
+    const cellDay = document.createElement('div');
+    cellDay.setAttribute('id', 'cell-6weather');
+    document.getElementById('weather-container2').append(cellDay);
+
+    const dayLengthName = document.createElement('div');
+    dayLengthName.setAttribute('class', 'sunrise');
     if (finnish === true) {
-      pressure.innerHTML = `Ilmanpaine: ${weatherData.main.pressure} hPa`;
+      dayLengthName.innerHTML = `Päivän pituus`;
     } else {
-      pressure.innerHTML = `Pressure: ${weatherData.main.pressure} hPa`;
+      dayLengthName.innerHTML = `Day length`;
     }
-    document.getElementById('weather-container2').append(pressure);
+    document.getElementById('cell-6weather').appendChild(dayLengthName);
 
     const dayLength = document.createElement('div');
     dayLength.setAttribute('class', 'sunrise');
-    if (finnish === true) {
-      dayLength.innerHTML = `Päivän pituus: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
-    } else {
-      dayLength.innerHTML = `Day length: ${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
-    }
-    document.getElementById('weather-container2').appendChild(dayLength);
+    dayLength.innerHTML = `${Math.floor((weatherData.sys.sunset - weatherData.sys.sunrise) / 3600)}h ${Math.round(((weatherData.sys.sunset - weatherData.sys.sunrise) % 3600) / 60)}min `;
+    document.getElementById('cell-6weather').appendChild(dayLength);
 
   } catch (error) {
     console.log(error);

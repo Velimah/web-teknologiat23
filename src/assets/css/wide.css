@@ -341,8 +341,8 @@ button:hover {
 .location {
   font-family: RobotoSlab-Regular, sans-serif;
   font-size: 1.8rem;
-  padding-bottom: 5px;
-  margin-top: 35px;
+  height: 100px;
+  padding-top: 30px;
 }
 
 .weather-image {
@@ -351,9 +351,9 @@ button:hover {
 }
 
 #weather-container1 {
-  padding: 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 #weather-container2 > * {
@@ -475,4 +475,16 @@ button:hover {
   margin-top: 10px;
   margin-bottom: 5px;
   color: var(--main-color-black);
+}
+
+#cell-1btc, #cell-2btc, #cell-3btc  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cell-1weather, #cell-2weather, #cell-3weather, #cell-4weather, #cell-5weather, #cell-6weather {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

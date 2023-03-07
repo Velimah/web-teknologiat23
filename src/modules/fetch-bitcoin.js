@@ -36,45 +36,72 @@ const getBitcoinData = (finnish) => {
     })
     .then(function (response) {
 
-      document.getElementById('btc').innerHTML='';
+      document.getElementById('btc').innerHTML = '';
 
       const name = document.createElement('div');
       name.setAttribute('id', 'btc-name');
       name.innerHTML = `Bitcoin`;
       document.getElementById('btc').append(name);
 
-      const time = new Date(response.data.content[0].timestamp).toTimeString().substring(0,18);
+      const time = new Date(response.data.content[0].timestamp).toTimeString().substring(0, 18);
       const timestamp = document.createElement('div');
       timestamp.setAttribute('class', 'timestamp');
       timestamp.innerHTML = `${time}`;
       document.getElementById('btc').append(timestamp);
 
+      const cellPrice = document.createElement('div');
+      cellPrice.setAttribute('id', 'cell-1btc');
+      document.getElementById('btc').append(cellPrice);
+
+      const priceName = document.createElement('div');
+      priceName.setAttribute('class', 'price-name');
+      if (finnish === true) {
+        priceName.innerHTML = `Hinta`;
+      } else {
+        priceName.innerHTML = `Price`;
+      }
+      document.getElementById('cell-1btc').append(priceName);
+
       const price = document.createElement('div');
       price.setAttribute('class', 'price');
+      price.innerHTML = `$${Math.round(response.data.content[0].price)}`;
+      document.getElementById('cell-1btc').append(price);
+
+      const cellVolume = document.createElement('div');
+      cellVolume.setAttribute('id', 'cell-2btc');
+      document.getElementById('btc').append(cellVolume);
+
+      const volumeName = document.createElement('div');
+      volumeName.setAttribute('class', 'volume-name');
       if (finnish === true) {
-        price.innerHTML = `Hinta: $${Math.round(response.data.content[0].price)}`;
+        volumeName.innerHTML = `Volyymi`;
       } else {
-        price.innerHTML = `Price: $${Math.round(response.data.content[0].price)}`;
+        volumeName.innerHTML = `Volume`;
       }
-      document.getElementById('btc').append(price);
+      document.getElementById('cell-2btc').append(volumeName);
 
       const volume = document.createElement('div');
       volume.setAttribute('class', 'volume');
+      volume.innerHTML = `${Math.round(response.data.content[0].volume)}`;
+      document.getElementById('cell-2btc').append(volume);
+
+      const cellMarketcap = document.createElement('div');
+      cellMarketcap.setAttribute('id', 'cell-3btc');
+      document.getElementById('btc').append(cellMarketcap);
+
+      const marketcapName = document.createElement('div');
+      marketcapName.setAttribute('class', 'volume-name');
       if (finnish === true) {
-        volume.innerHTML = `Volyymi: ${Math.round(response.data.content[0].volume)}`;
+        marketcapName.innerHTML = `Markkina-arvo`;
       } else {
-        volume.innerHTML = `Volume: ${Math.round(response.data.content[0].volume)}`;
+        marketcapName.innerHTML = `Market Cap`;
       }
-      document.getElementById('btc').append(volume);
+      document.getElementById('cell-3btc').append(marketcapName);
 
       const marketCap = document.createElement('div');
-      marketCap.setAttribute('class', 'market-cap');
-      if (finnish === true) {
-        marketCap.innerHTML = `Markkina-arvo: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Mrd`;
-      } else {
-        marketCap.innerHTML = `Market Cap: $${Math.round(response.data.content[0].marketCap/1000/1000/1000)} Bln`;
-      }
-      document.getElementById('btc').append(marketCap);
+      marketCap.setAttribute('class', 'volume');
+      marketCap.innerHTML = `$${Math.round(response.data.content[0].marketCap / 1000 / 1000 / 1000)} bln`;
+      document.getElementById('cell-3btc').append(marketCap);
 
       btcPrice = response.data.content[0].price;
       saveSettingsToLocalStorage();
