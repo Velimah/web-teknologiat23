@@ -1,9 +1,6 @@
-import {saveSettingsToLocalStorage} from "../index";
-
 const axios = require("axios");
 let accessToken;
 let optionsFetchBTC;
-let btcPrice;
 
 const optionsToken = {
   method: 'POST',
@@ -16,6 +13,10 @@ const optionsToken = {
   data: '{"audience":"https://api.bravenewcoin.com","client_id":"oCdQoZoI96ERE9HY3sQ7JmbACfBf55RY","grant_type":"client_credentials"}'
 };
 
+/**
+ * fetches bitcoin access token, then fetches bitcoin data and renders it.
+ * @param finnish
+ */
 const getBitcoinData = (finnish) => {
   axios.request(optionsToken)
     .then(function (response) {
@@ -103,8 +104,6 @@ const getBitcoinData = (finnish) => {
       marketCap.innerHTML = `$${Math.round(response.data.content[0].marketCap / 1000 / 1000 / 1000)} bln`;
       document.getElementById('cell-3btc').append(marketCap);
 
-      btcPrice = response.data.content[0].price;
-      saveSettingsToLocalStorage();
     })
     .catch(function (error) {
       console.log(error);
@@ -112,4 +111,4 @@ const getBitcoinData = (finnish) => {
     });
 };
 
-export {getBitcoinData, btcPrice};
+export {getBitcoinData};

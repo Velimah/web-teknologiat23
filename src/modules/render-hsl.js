@@ -1,6 +1,13 @@
 import {getNearestStopsAndTimetables} from "./fetch-hsl";
 import {addCurrentPositionMarker, addStopMarker} from "./map";
 
+/**
+ * renders HSL information
+ * @param latitude coordinate
+ * @param longitude coordinate
+ * @param finnish language boolean
+ * @returns {Promise<void>}
+ */
 const renderHSLData = async (latitude, longitude, finnish) => {
   try {
     const stops = await getNearestStopsAndTimetables(latitude, longitude);
@@ -17,9 +24,12 @@ const renderHSLData = async (latitude, longitude, finnish) => {
     }
     dataBox.append(marker);
 
+    //loops the bus stops
     for (let i = 0; i < stops.stopName.length; i++) {
       const lineContainer = document.createElement('div');
       lineContainer.setAttribute('class', 'line-container');
+
+      //colors the container for each stop
       if (i === 0) {
         lineContainer.style.borderColor = '#ff5000';
         lineContainer.style.backgroundColor = 'rgba(255,80,0,0.5)';
@@ -48,6 +58,8 @@ const renderHSLData = async (latitude, longitude, finnish) => {
       lineContainer.appendChild(stopName);
 
       const stopBus = stops.routes[i];
+
+      //loops the timetables for each stop
       for (let i = 0; i < stopBus.length; i++) {
 
         const container = document.createElement('div');

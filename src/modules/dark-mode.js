@@ -1,3 +1,6 @@
+/**
+ * changes colors and metropolia logo depending on light/dark mode
+ */
 const darkTheme = () => {
   document.documentElement.style.setProperty('--main-color-white', '#000000');
   document.documentElement.style.setProperty('--main-color-black', '#cecece');

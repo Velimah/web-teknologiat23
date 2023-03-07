@@ -1,6 +1,7 @@
 //map test
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxra2FtdGsiLCJhIjoiY2szZ2Z3ZGtzMDFkZTNpcDh2aGFndmg2dyJ9.CjPq5lceUKhfdWD3oqhjwg';
 
+//renders map with settings
 const map1 = new mapboxgl.Map({
   container: 'map1', // container id
   style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
@@ -8,6 +9,11 @@ const map1 = new mapboxgl.Map({
   zoom: 16, // starting zoom
 });
 
+/**
+ * adds marker to current coordinates in HSL map
+ * @param latitude coordinate
+ * @param longitude coordinate
+ */
 const addCurrentPositionMarker = (latitude, longitude) => {
   map1.setCenter([longitude, latitude]);
 
@@ -16,6 +22,12 @@ const addCurrentPositionMarker = (latitude, longitude) => {
     scale: '1.2',
   }).setLngLat([longitude, latitude]).addTo(map1);
 };
+
+/**
+ * adds bus stop markers to HSL map with different colors
+ * @param coords [lat,lon] coordinates
+ * @param i index number for each stop
+ */
 const addStopMarker = (coords, i) => {
   let color;
   if (i === 0) {
@@ -37,6 +49,9 @@ const addStopMarker = (coords, i) => {
   }).setLngLat(coords).addTo(map1);
 };
 
+/**
+ * resizes map to fit container
+ */
 const loadHSLMap = () => {
   map1.on('load', function () {
     map1.resize();

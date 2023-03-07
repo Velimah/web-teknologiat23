@@ -14,6 +14,11 @@ const convertTime = (seconds) => {
   return `${hours}:${mins < 10 ? '0' + mins : mins}`;
 };
 
+/**
+ *
+ * @param seconds
+ * @returns {`, ${number} min etuajassa`|`, ${number} min myöhässä`|string}
+ */
 const convertTimeToMinutes = (seconds) => {
   const mins = Math.floor(seconds % 3600 / 60);
 
@@ -29,8 +34,8 @@ const convertTimeToMinutes = (seconds) => {
 /**
  * https://digitransit.fi/en/developers/apis/1-routing-api/stops/#query-scheduled-departure-and-arrival-times-of-a-stop
  * e.g. Karanristi stops: 2132208 (Leppävaara direction) & 2132207
- * @param lat
- * @param lon
+ * @param {number} lat longitude coordinate
+ * @param {number} lon latitude coordinate
  */
 const searchRadius = 1000;
 const busStopCount = 4;
@@ -64,8 +69,8 @@ const getQueryForNearestStopsAndTimetables = (lat, lon,) => {
 /**
  *
  * @returns stop route data
- * @param lat
- * @param lon
+ * @param {number} lat longitude coordinate
+ * @param {number} lon latitude coordinate
  */
 const getNearestStopsAndTimetables = async (lat, lon) => {
   try {

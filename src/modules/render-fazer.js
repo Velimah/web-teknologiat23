@@ -2,6 +2,11 @@
 
 const restaurantBox = document.querySelector('.lunch-container');
 
+/**
+ * renders fazer menu with correct language
+ * @param finnish language boolean
+ * @param menu lunch menu .json
+ */
 const renderMenuFazer = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 

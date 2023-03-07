@@ -1,6 +1,13 @@
 "use strict";
 import {weatherAPIKey} from "./api-keys";
 
+/**
+ * fetches weather data with coordinates and renders it with correct language
+ * @param lat latitude coordinate
+ * @param lon longitude coordinate
+ * @param finnish language boolean
+ * @returns {Promise<void>}
+ */
 const getWeatherData = async (lat, lon, finnish) => {
   try {
     const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + weatherAPIKey + '');

@@ -36,6 +36,11 @@ let myyrmakiSettings = campuses[0];
 let karamalmiSettings= campuses[1];
 let myllypuroSettings= campuses[2];
 let arabiaSettings = campuses[3];
+
+/**
+ * fetches campus setting .json from metropolia server and replaces the template settings.
+ * @returns {Promise<void>}
+ */
 const getCampusSettings = async () => {
   try {
     campuses = await doFetch(

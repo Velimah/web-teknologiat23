@@ -2,6 +2,11 @@
 
 const restaurantBox = document.querySelector('.lunch-container');
 
+/**
+ * renders sodexo menu with correct language
+ * @param finnish language boolean
+ * @param menu lunch menu .json
+ */
 const renderMenuSodexo = (finnish, menu) => {
   restaurantBox.innerHTML = '';
 

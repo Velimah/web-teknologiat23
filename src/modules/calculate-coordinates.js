@@ -14,6 +14,15 @@ import {
   sodexoDataMyyrmaki
 } from "./fetch-lunchmenu";
 
+
+/**
+ * Calculates distance between 2 coordinates with Haversine formula
+ * @param lat1
+ * @param lon1
+ * @param lat2
+ * @param lon2
+ * @returns {number}
+ */
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   const earthRadius = 6371; // Radius of the earth in km
   const dLat = deg2rad(lat2 - lat1);  // deg2rad below
@@ -36,6 +45,11 @@ let nearestRestaurant;
 let nearestCoordinate = null;
 let smallestDistance = Infinity;
 
+/**
+ * takes current lat, lon and compares them to campus coordinates and returns the nearest campus object
+ * @param lat
+ * @param lon
+ */
 const calculateNearestCampus = (lat, lon) => {
   for (const coord of campuses) {
     const distance = getDistanceFromLatLonInKm(
@@ -50,6 +64,12 @@ const calculateNearestCampus = (lat, lon) => {
   nearestRestaurant = nearestCoordinate;
 };
 
+/**
+ * compares the nearest campus object id to campus id's nad return the correct menu
+ * changes the webpage header name and picture to corresponging campus
+ * @param finnish language boolean
+ * @returns {*} returns lunch menu .json
+ */
 const getNearestRestaurantMenu = (finnish) => {
   if (nearestRestaurant.id === karamalmiSettings.id) {
     document.getElementById('logo').innerHTML = 'Karamalmi';

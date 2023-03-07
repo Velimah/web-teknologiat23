@@ -1,3 +1,9 @@
+/**
+ * search function, tracks for enter keypress
+ * takes the input on enter keypress and searches lunchmenu for matches and colors them
+ * @param finnish language boolean
+ * @param event keypress listener
+ */
 const search = (finnish, event) => {
   //check for 'enter' press to start search
   if (event.key === "Enter") {
@@ -20,7 +26,7 @@ const search = (finnish, event) => {
       elem.style.marginBottom = '0';
       elem.style.fontSize='0.9rem';
 
-      //changes the course name appearance if it matches the search string
+      //changes the course name appearance if it matches the search string, not case-sensitive
       if (elem.textContent.toLowerCase().includes(inputValue.toLowerCase())) {
         elem.style.backgroundColor = 'var(--main-color-red)';
         elem.style.color = '#FFFFFF';

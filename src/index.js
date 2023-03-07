@@ -23,7 +23,7 @@ import {
   arabiaSettings,
   getCampusSettings
 } from "./modules/campus-settings";
-import {getBitcoinData, btcPrice} from "./modules/fetch-bitcoin";
+import {getBitcoinData} from "./modules/fetch-bitcoin";
 import {getWeatherData} from "./modules/fetch-weather";
 
 const myyrmakiButton = document.getElementById('restaurant-sodexo');
@@ -34,7 +34,6 @@ const currentPositionButton = document.getElementById('current-position-button')
 const languageButton = document.getElementById('language-button');
 const darkModeButton = document.getElementById('darkmode-button');
 const searchInput = document.getElementById('search-input');
-const background = document.querySelector('.header-picture-area');
 
 
 //initialization of variables to save data from functions
@@ -63,6 +62,7 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+
 // loads data from localstorage and chooses language and color theme
 const loadSettingsFromLocalStorage = () => {
   let parsedData;
@@ -84,26 +84,26 @@ const loadSettingsFromLocalStorage = () => {
   // chooses button texts based on localstorage settings
   if (finnish === true) {
     languageButton.innerHTML = 'Suomi';
-    document.getElementById('carousel-fi').style.display='block';
-    document.getElementById('carousel-en').style.display='none';
+    document.getElementById('carousel-fi').style.display = 'block';
+    document.getElementById('carousel-en').style.display = 'none';
     searchInput.placeholder = "Etsi ruoka-annosta";
   } else {
     languageButton.innerHTML = 'English';
-    document.getElementById('carousel-fi').style.display='none';
-    document.getElementById('carousel-en').style.display='block';
+    document.getElementById('carousel-fi').style.display = 'none';
+    document.getElementById('carousel-en').style.display = 'block';
     searchInput.placeholder = "Search for a dish";
   }
 
   // chooses theme based on localstorage settings
   if (darkMode === true) {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Dark';
     }
     darkTheme();
   } else {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Vaalea';
     } else {
       darkModeButton.innerHTML = 'Light';
@@ -112,7 +112,11 @@ const loadSettingsFromLocalStorage = () => {
   }
 };
 
-//chooses the correct menu renderer through object properties
+
+/**
+ * chooses the correct menu renderer through object properties
+ * @param menus take lunch menu .json
+ */
 const renderLunchMenu = (menus) => {
   menu = menus;
   if ('RestaurantName' in menus) {
@@ -122,13 +126,15 @@ const renderLunchMenu = (menus) => {
   }
 };
 
-//carousel
+
+/**
+ * carousel for finnish and english slides
+ */
 const containerFi = document.getElementById('carousel-fi');
 const containerEn = document.getElementById('carousel-en');
 const imagesFi = containerFi.querySelectorAll('img');
 const imagesEn = containerEn.querySelectorAll('img');
 let index = 0;
-
 const carouselFi = () => {
   imagesFi[index].classList.remove('active');
   index = (index + 1) % imagesFi.length;
@@ -140,6 +146,12 @@ const carouselEn = () => {
   imagesEn[index].classList.add('active');
 };
 
+/**
+ * buttons for all campuses
+ * saves campus information to menu, lat, lon
+ * changes website header name and picture
+ * renders lunch menu, hsl data and weather with campus coordinates
+ */
 myyrmakiButton.addEventListener('click', () => {
   menu = sodexoDataMyyrmaki;
   lat = myyrmakiSettings.lat;
@@ -196,14 +208,19 @@ arabiaButton.addEventListener('click', () => {
   saveSettingsToLocalStorage();
 });
 
+/**
+ * check the current coordinates and renders all data according to coordinates
+ */
 currentPositionButton.addEventListener('click', () => {
   currentPosition();
   renderLunchMenu(getNearestRestaurantMenu(finnish));
 });
 
-// changes language and saves boolean into local storage
-
+/**
+ * changes language
+ */
 languageButton.addEventListener('click', () => {
+  //chooses correct menu based on language and campus
   if (finnish === true && menu.RestaurantName === "Luova") {
     menu = fazerDataFiArabia;
     finnish = false;
@@ -232,28 +249,29 @@ languageButton.addEventListener('click', () => {
     finnish = true;
     renderMenuSodexo(finnish, menu);
   }
-  if (finnish===true ){
-    document.getElementById('carousel-fi').style.display='block';
-    document.getElementById('carousel-en').style.display='none';
+  //changes campus slides, buttons, and placeholder text to correct language
+  if (finnish === true) {
+    document.getElementById('carousel-fi').style.display = 'block';
+    document.getElementById('carousel-en').style.display = 'none';
     searchInput.placeholder = "Etsi ruoka-annosta";
     languageButton.innerHTML = 'Suomi';
-    if (darkMode===true) {
+    if (darkMode === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Vaalea';
     }
-
   } else {
-    document.getElementById('carousel-fi').style.display='none';
-    document.getElementById('carousel-en').style.display='block';
+    document.getElementById('carousel-fi').style.display = 'none';
+    document.getElementById('carousel-en').style.display = 'block';
     searchInput.placeholder = "Search for a dish";
     languageButton.innerHTML = 'English';
-    if (darkMode===true) {
+    if (darkMode === true) {
       darkModeButton.innerHTML = 'Dark';
     } else {
       darkModeButton.innerHTML = 'Light';
     }
   }
+  // renders all data with correct language and saves darkmode and language to localstorage
   renderHSLData(lat, lon, finnish);
   getWeatherData(lat, lon, finnish);
   getBitcoinData(finnish);
@@ -265,7 +283,7 @@ languageButton.addEventListener('click', () => {
 darkModeButton.addEventListener('click', () => {
 
   if (darkMode === true) {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Vaalea';
     } else {
       darkModeButton.innerHTML = 'Light';
@@ -273,7 +291,7 @@ darkModeButton.addEventListener('click', () => {
     lightTheme();
     darkMode = false;
   } else {
-    if (finnish===true) {
+    if (finnish === true) {
       darkModeButton.innerHTML = 'Tumma';
     } else {
       darkModeButton.innerHTML = 'Dark';
@@ -300,6 +318,12 @@ const saveSettingsToLocalStorage = () => {
   localStorage.setItem('settings', JSON.stringify(settings));
 };
 
+/**
+ * gets the current coordinates and saves them to lat and lon
+ * renders data with current coordinates
+ * saves lat and lon to localstorage
+ * @param position takes position coordinates from navigator.geolocation
+ */
 const getCurrentCoordinates = (position) => {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
@@ -320,6 +344,7 @@ const init = () => {
   // loads localstorage settings
   loadSettingsFromLocalStorage();
 
+  //loads settings from server, gets position, gets lunch menus and renders the nearest lunch menu
   getCampusSettings()
     .then(() => currentPosition())
     .then(() => getLunchMenus())
@@ -337,6 +362,7 @@ const init = () => {
   setInterval(carouselFi, intervalTimeCarousel);
   setInterval(carouselEn, intervalTimeCarousel);
 
+  // refreshed weather data every minute
   setInterval(async () => {
     await getWeatherData(lat, lon, finnish);
   }, intervalTimeWeather);
@@ -355,5 +381,3 @@ const init = () => {
 
 };
 init();
-
-export {saveSettingsToLocalStorage};

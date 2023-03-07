@@ -8,6 +8,11 @@ let fazerDataEnKaramalmi;
 let fazerDataFiArabia;
 let fazerDataEnArabia;
 
+
+/**
+ * fetches all lunch menus. done in different functions to be able to re-fetch each menu individually with catch.
+ * @returns {Promise<void>}
+ */
 const getLunchMenus = async () => {
   await getSodexoMyllypuroMenu();
   await getSodexoMyyrmakiMenu();
