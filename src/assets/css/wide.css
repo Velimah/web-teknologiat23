@@ -306,7 +306,6 @@ button:hover {
   width: 400px;
   height: 200px;
   justify-content: center;
-  border: solid 1px var(--main-color-red);
   padding: 10px;
 }
 .stop-name {
@@ -438,6 +437,7 @@ button:hover {
   display: none;
   max-width: 100%;
   max-height: 100%;
+  border-radius: 5px;
 }
 
 .active {
