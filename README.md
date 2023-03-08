@@ -1,6 +1,7 @@
-# WTMP Starter 2023 q3
+# WTMP Project 2023 q3
 
-Simple boilerplate for [Webpack](https://webpack.js.org/guides/getting-started) powered web development exercises.
+Metropolia information application
+Author: Veli-Matti Heino
 
 ES6+ without any babeling/transpilers/polyfills. Only for [modern browsers](https://kangax.github.io/compat-table/es6/).
 
