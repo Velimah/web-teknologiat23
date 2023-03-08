@@ -48,9 +48,9 @@ const renderMenuSodexo = (finnish, menu) => {
   const priceDescription = document.createElement('div');
   priceDescription.setAttribute('class', 'price-description');
   if (finnish === true) {
-    priceDescription.innerHTML = `Hinnat: Opiskelijat / Henkilökunta / Muut`;
+    priceDescription.innerHTML = `Hinnat: Opiskelijat / Avoin AMK opiskelijat / Muut`;
   } else {
-    priceDescription.innerHTML = `Prices: Students / Staff / Other`;
+    priceDescription.innerHTML = `Prices: Students / Open UAS students / Other`;
   }
   restaurantCard.appendChild(priceDescription);
 

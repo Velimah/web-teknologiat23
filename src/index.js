@@ -359,7 +359,9 @@ const init = () => {
   }, intervalTimeWeather);
 
   // refreshes bitcoin data every minute
-  setInterval(getBitcoinData, intervalTimeBTC);
+  setInterval(async () => {
+    await getBitcoinData(finnish);
+  }, intervalTimeBTC);
 
   // refreshes lunch menu data every hour
   setInterval(getLunchMenus, intervalTimeFetchMenus);
