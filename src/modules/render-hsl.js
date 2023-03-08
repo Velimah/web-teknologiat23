@@ -1,5 +1,5 @@
 import {getNearestStopsAndTimetables} from "./fetch-hsl";
-import {addCurrentPositionMarker, addStopMarker} from "./map";
+import {addCurrentPositionMarker, addStopMarker, newMap} from "./map";
 
 const renderHSLData = async (latitude, longitude, finnish) => {
   try {
@@ -16,6 +16,9 @@ const renderHSLData = async (latitude, longitude, finnish) => {
       marker.innerHTML = 'You are Here';
     }
     dataBox.append(marker);
+
+    newMap();
+    addCurrentPositionMarker(latitude, longitude);
 
     for (let i = 0; i < stops.stopName.length; i++) {
       const lineContainer = document.createElement('div');
@@ -71,7 +74,6 @@ const renderHSLData = async (latitude, longitude, finnish) => {
       }
       dataBox.appendChild(lineContainer);
 
-      addCurrentPositionMarker(latitude, longitude);
       addStopMarker(stops.coords[i], i);
     }
   } catch (error) {

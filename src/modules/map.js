@@ -2,12 +2,25 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWxra2FtdGsiLCJhIjoiY2szZ2Z3ZGtzMDFkZTNpcDh2aGFndmg2dyJ9.CjPq5lceUKhfdWD3oqhjwg';
 
 //loads map
-const map1 = new mapboxgl.Map({
+let map1 = new mapboxgl.Map({
   container: 'map1', // container id
   style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
   center: [24, 60], // starting position [lng, lat]
   zoom: 16, // starting zoom
 });
+
+/**
+ * loads a fresh map to remove old markers
+ */
+const newMap = () => {
+  //renders map with settings
+  map1 = new mapboxgl.Map({
+    container: 'map1', // container id
+    style: 'mapbox://styles/mapbox/streets-v12', // stylesheet location
+    center: [24, 60], // starting position [lng, lat]
+    zoom: 16, // starting zoom
+  });
+};
 
 //marker for current position
 const addCurrentPositionMarker = (latitude, longitude) => {
@@ -50,4 +63,4 @@ const loadHSLMap = () => {
   });
 };
 
-export {addStopMarker, addCurrentPositionMarker, loadHSLMap, map1};
+export {addStopMarker, addCurrentPositionMarker, loadHSLMap, map1, newMap};

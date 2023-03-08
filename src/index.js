@@ -373,7 +373,9 @@ const init = () => {
   }, intervalTimeWeather);
 
   // refreshes bitcoin data every minute
-  setInterval(getBitcoinData, intervalTimeBTC);
+  setInterval(async () => {
+    await getBitcoinData(finnish);
+  }, intervalTimeBTC);
 
   // refreshes HSL data every minute
   setInterval(async () => {
