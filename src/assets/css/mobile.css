@@ -85,8 +85,7 @@ nav{
 .youre-here {
   height: 30px;
   font-size: 0.9rem;
-  padding: 5px;
-  padding-left: 10px;
+  padding: 5px 5px 5px 10px;
 }
 .line-container {
   display: flex;
@@ -116,4 +115,8 @@ nav{
   font-family: OpenSans-Regular, sans-serif;
   font-size: 1rem;
   padding-bottom: 3px;
+}
+
+.restaurant-card {
+  padding: 10px;
 }
