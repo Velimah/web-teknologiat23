@@ -1,6 +1,7 @@
 # WTMP Project 2023 q3
 
 Metropolia information application
+
 Author: Veli-Matti Heino
 
 ES6+ without any babeling/transpilers/polyfills. Only for [modern browsers](https://kangax.github.io/compat-table/es6/).
