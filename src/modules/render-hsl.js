@@ -1,5 +1,5 @@
 import {getNearestStopsAndTimetables} from "./fetch-hsl";
-import {addCurrentPositionMarker, addStopMarker} from "./map";
+import {addCurrentPositionMarker, addStopMarker, newMap} from "./map";
 
 /**
  * renders HSL information
@@ -23,6 +23,9 @@ const renderHSLData = async (latitude, longitude, finnish) => {
       marker.innerHTML = 'You are Here';
     }
     dataBox.append(marker);
+
+    newMap();
+    addCurrentPositionMarker(latitude, longitude);
 
     //loops the bus stops
     for (let i = 0; i < stops.stopName.length; i++) {
@@ -83,7 +86,6 @@ const renderHSLData = async (latitude, longitude, finnish) => {
       }
       dataBox.appendChild(lineContainer);
 
-      addCurrentPositionMarker(latitude, longitude);
       addStopMarker(stops.coords[i], i);
     }
   } catch (error) {
