@@ -19,7 +19,7 @@ module.exports = {
       },
     ]}),
     new HtmlWebpackPlugin({
-      title: 'Sodexon ja FoodAndCon lounasravintolat',
+      title: 'Metropolia infosovellus',
       meta: {
         viewport: 'width=device-width, initial-scale=1.0'
       },
