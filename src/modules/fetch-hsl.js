@@ -1,7 +1,7 @@
 import {doFetch} from './network';
 
 const apiUrl =
-  'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
+  'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql?digitransit-subscription-key=ce5a6f383c4e408c957d77d4dde5b0f5';
 
 /**
  * Converts HSL time to readable string format
